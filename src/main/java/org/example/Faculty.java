@@ -7,6 +7,8 @@ public class Faculty {
     private Teacher dean;
     private String phoneNumber;
     private String emailAddress;
+    private Department[] departments=new Department[10];
+    private int numberOfDepartments;
 
     public Faculty(int id, String fullName, String shortName, Teacher dean, String phoneNumber, String emailAddress) {
         this.id = id;
@@ -15,5 +17,12 @@ public class Faculty {
         this.dean = dean;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
+    }
+    public void addDepartment(Department department){
+        if(numberOfDepartments>=departments.length){
+            throw new ArrayIndexOutOfBoundsException("Too many departments");
+        }
+        departments[numberOfDepartments]=department;
+        numberOfDepartments++;
     }
 }
