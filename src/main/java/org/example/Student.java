@@ -1,6 +1,6 @@
 package org.example;
 
-class Student extends Person{
+public class Student extends Person {
     private String studentId;
     private int course;
     private String group;
@@ -16,6 +16,20 @@ class Student extends Person{
         this.entryYear = entryYear;
         this.studyForm = studyForm;
         this.status = status;
+    }
+
+    public void changeCourse(int newCourse) {
+        if (newCourse < 1 || newCourse > 6) {
+            throw new IllegalArgumentException("Course must be between 1 and 6");
+        }
+        this.course = newCourse;
+    }
+
+    public void changeGroup(String newGroup) {
+        if (newGroup == null || newGroup.isEmpty()) {
+            throw new IllegalArgumentException("Group must not be empty");
+        }
+        this.group = newGroup;
     }
 
 }

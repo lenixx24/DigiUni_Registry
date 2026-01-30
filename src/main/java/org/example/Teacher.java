@@ -1,6 +1,6 @@
 package org.example;
 
-class Teacher extends Person{
+public class Teacher extends Person{
     private String job;
     private String degree;
     private String academicStatus;
