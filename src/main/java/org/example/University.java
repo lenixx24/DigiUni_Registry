@@ -20,4 +20,13 @@ public class University {
         faculties[numberOfFaculties]=faculty;
         numberOfFaculties++;
     }
+
+    public int getNumberOfFaculties() {
+        return numberOfFaculties;
+    }
+
+    @Override
+    public String toString() {
+        return fullName+" ("+shortName+"), "+city+" city, "+address;
+    }
 }

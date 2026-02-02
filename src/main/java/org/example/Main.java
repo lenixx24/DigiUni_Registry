@@ -6,4 +6,7 @@ public class Main {
     University Naukma= new University("National University of Kyiv-Mohyla Academy",
             "NaUKMA", "Kyiv", "Hryhoriya Skovorody St, 2");
 
+    public static void main(String[] args) {
+        Menu.startMenu();
+    }
 }
