@@ -89,4 +89,26 @@ public class Repository {
         }
     }
 
+//------------------------------------GETTERS
+    public Student[] getStudents() {
+    Student[] result = new Student[studentCount];
+    for (int i = 0; i < studentCount; i++) result[i] = students[i];
+    return result;
+    }
+    public Teacher[] getTeachers() {
+        Teacher[] result = new Teacher[teacherCount];
+        for (int i = 0; i < teacherCount; i++) result[i] = teachers[i];
+        return result;
+    }
+    public Department[] getDepartments() {
+        Department[] result = new Department[departmentCount];
+        for (int i = 0; i < departmentCount; i++) result[i] = departments[i];
+        return result;
+    }
+    public Faculty[] getFaculties() {
+        Faculty[] result = new Faculty[facultyCount];
+        for (int i = 0; i < facultyCount; i++) result[i] = faculties[i];
+        return result;
+    }
+
 }
