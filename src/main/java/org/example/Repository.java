@@ -1,28 +1,30 @@
 package org.example;
 
+import java.util.Optional;
+
 public class Repository {
 
-    private Student[] students = new Student[300];
-    private int studentCount = 0;
+    private static Student[] students = new Student[300];
+    private static int studentCount = 0;
 
-    private Teacher[] teachers = new Teacher[100];
-    private int teacherCount = 0;
+    private static Teacher[] teachers = new Teacher[100];
+    private static int teacherCount = 0;
 
-    private Department[] departments = new Department[50];
-    private int departmentCount = 0;
+    private static Department[] departments = new Department[50];
+    private static int departmentCount = 0;
 
-    private Faculty[] faculties = new Faculty[10];
-    private int facultyCount = 0;
+    private static Faculty[] faculties = new Faculty[10];
+    private static int facultyCount = 0;
 
 //------------------------------------ADD/REMOVE STUDENT
 
-    public void addStudent(Student student) {
+    public static void addStudent(Student student) {
         if (studentCount >= students.length)
             throw new ArrayIndexOutOfBoundsException("Too many students");
         students[studentCount++] = student;
     }
 
-    private void removeStudent(Student student) {
+    public static void removeStudent(Student student) {
         for (int i = 0; i < studentCount; i++) {
             if (students[i] == student) {
                 students[i] = students[studentCount - 1];
@@ -35,13 +37,13 @@ public class Repository {
 
 //------------------------------------ADD/REMOVE TEACHER
 
-    public void addTeacher(Teacher teacher) {
+    public static void addTeacher(Teacher teacher) {
         if (teacherCount >= teachers.length)
             throw new ArrayIndexOutOfBoundsException("Too many teachers");
         teachers[teacherCount++] = teacher;
     }
 
-    public void removeTeacher(Teacher teacher) {
+    public static void removeTeacher(Teacher teacher) {
         for (int i = 0; i < teacherCount; i++) {
             if (teachers[i] == teacher) {
                 teachers[i] = teachers[teacherCount - 1];
@@ -54,12 +56,12 @@ public class Repository {
 
 //------------------------------------ADD/REMOVE DEPARTMENT
 
-    public void addDepartment(Department department) {
+    public static void addDepartment(Department department) {
         if (departmentCount >= departments.length)
             throw new ArrayIndexOutOfBoundsException("Too many faculties");
         departments[departmentCount++] = department;
     }
-    public void removeDepartment(Department department) {
+    public static void removeDepartment(Department department) {
         for (int i = 0; i < departmentCount; i++) {
             if (departments[i] == department) {
                 departments[i] = departments[departmentCount - 1];
@@ -72,13 +74,13 @@ public class Repository {
 
 //------------------------------------ADD/REMOVE FACULTY
 
-    public void addFaculty(Faculty faculty) {
+    public static void addFaculty(Faculty faculty) {
         if (facultyCount >= faculties.length)
             throw new ArrayIndexOutOfBoundsException("Too many faculties");
         faculties[facultyCount++] = faculty;
     }
 
-    public void removeFaculty(Faculty faculty) {
+    public static void removeFaculty(Faculty faculty) {
         for (int i = 0; i < facultyCount; i++) {
             if (faculties[i] == faculty) {
                 faculties[i] = faculties[facultyCount - 1];
@@ -90,25 +92,39 @@ public class Repository {
     }
 
 //------------------------------------GETTERS
-    public Student[] getStudents() {
+    public static Student[] getStudents() {
     Student[] result = new Student[studentCount];
     for (int i = 0; i < studentCount; i++) result[i] = students[i];
     return result;
     }
-    public Teacher[] getTeachers() {
+    public static Teacher[] getTeachers() {
         Teacher[] result = new Teacher[teacherCount];
         for (int i = 0; i < teacherCount; i++) result[i] = teachers[i];
         return result;
     }
-    public Department[] getDepartments() {
+    public static Department[] getDepartments() {
         Department[] result = new Department[departmentCount];
         for (int i = 0; i < departmentCount; i++) result[i] = departments[i];
         return result;
     }
-    public Faculty[] getFaculties() {
+    public static Faculty[] getFaculties() {
         Faculty[] result = new Faculty[facultyCount];
         for (int i = 0; i < facultyCount; i++) result[i] = faculties[i];
         return result;
     }
+    public static Optional<Faculty> findFacultyById(int id){
 
+        for(Faculty fac: faculties){
+            if(fac==null) return Optional.empty();
+            if (fac.getID()==id){
+                return Optional.of(fac);
+            }
+        }
+        return Optional.empty();
+    }
+   /* public static Optional<Department> findDepartmentById(int id){}
+    public static Optional<Student> findStudentById(int id){}
+    public static Optional<Teacher> findTeacherById(int id){}
+
+    */
 }

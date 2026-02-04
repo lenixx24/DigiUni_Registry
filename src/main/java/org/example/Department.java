@@ -32,7 +32,28 @@ public class Department {
         this.students[numberOfStudents]=student;
         numberOfStudents++;
     }
-
+    public void removeStudent(Student student){
+        for(int i=0; i<numberOfStudents; i++){
+            if (students[i].equals(student)) {
+                for(int j=i; j<numberOfStudents-1; j++)
+                    students[j]=students[j+1];
+                students[numberOfStudents-1]=null;
+                numberOfStudents--;
+                return;
+            }
+        }
+    }
+    public void removeTeacher(Teacher teacher){
+        for(int i=0; i<numberOfTeachers; i++){
+            if (teachers[i].equals(teacher)) {
+                for(int j=i; j<numberOfTeachers-1; j++)
+                    teachers[j]=teachers[j+1];
+                teachers[numberOfTeachers-1]=null;
+                numberOfTeachers--;
+                return;
+            }
+        }
+    }
     public int getNumberOfStudents() {
         return numberOfStudents;
     }
@@ -40,6 +61,8 @@ public class Department {
     public int getNumberOfTeachers() {
         return numberOfTeachers;
     }
+
+    public int getId() { return id; }
 
     @Override
     public String toString() {

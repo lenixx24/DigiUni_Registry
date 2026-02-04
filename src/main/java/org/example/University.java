@@ -20,7 +20,17 @@ public class University {
         faculties[numberOfFaculties]=faculty;
         numberOfFaculties++;
     }
-
+    public void removeFaculty(Faculty faculty){
+            for(int i=0; i<numberOfFaculties; i++){
+                    if (faculties[i].equals(faculty)) {
+                        for(int j=i; j<numberOfFaculties-1; j++)
+                            faculties[j]=faculties[j+1];
+                        faculties[numberOfFaculties-1]=null;
+                        numberOfFaculties--;
+                        return;
+                    }
+            }
+    }
     public int getNumberOfFaculties() {
         return numberOfFaculties;
     }

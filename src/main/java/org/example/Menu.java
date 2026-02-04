@@ -10,29 +10,85 @@ public class Menu {
         System.out.println("1. Create ");
         System.out.println("2. Search ");
         System.out.println("3. Update ");
-        System.out.println("4. Delete ");
+        System.out.println("4. \u001B[31mRemove\u001B[0m");
         System.out.println("5. Exit ");
         userChoice= checkedUserChoice(1, 5);
     switch(userChoice){
         case 1: createMenu(); break;
         case 2: searchMenu(); break;
         case 3: updateMenu(); break;
-        case 4: deleteMenu(); break;
+        case 4: removeMenu(); break;
         case 5: default: System.out.println("Goodbye! "); System.exit(0);
     }
     }
-    private static void deleteMenu() {
-        printMenu("Delete");
+    private static void removeMenu() {
+        printMenu("\u001B[31mRemove\u001B[0m");
         userChoice= checkedUserChoice(1, 5);
+        scanner=new Scanner(System.in);
         switch(userChoice){
-            case 1:  break;
-            case 2:  break;
-            case 3:  break;
-            case 4:  break;
+            case 1:
+                System.out.println("Enter faculty id: ");
+                Faculty facultyForRemove=null;
+                try{
+                    facultyForRemove=Repository.findFacultyById(scanner.nextInt()).orElseThrow(
+                            ()-> new IllegalArgumentException("Can not find faculty")
+                    );
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println("Can not find faculty");
+                    removeMenu();
+                    scanner.close();
+                }
+                Repository.removeFaculty(facultyForRemove);
+            break;
+           /* case 2:
+                System.out.println("Enter department id: ");
+                Department departmentForRemove=null;
+                try{
+                    departmentForRemove=Repository.findDepartmentById(scanner.nextInt()).orElseThrow(
+                            ()-> new IllegalArgumentException("Can not find department")
+                    );
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println("Can not find department");
+                    removeMenu();
+                    scanner.close();
+                }
+                Repository.removeDepartment(departmentForRemove);
+                break;
+            case 3:
+                System.out.println("Enter student id: ");
+                Student studentForRemove=null;
+                try{
+                    studentForRemove=Repository.findStudentById(scanner.nextInt()).orElseThrow(
+                            ()-> new IllegalArgumentException("Can not find student")
+                    );
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println("Can not find student");
+                    removeMenu();
+                    scanner.close();
+                }
+                Repository.removeStudent(studentForRemove);
+                break;
+            case 4:
+                System.out.println("Enter teacher id: ");
+                Teacher teacherForRemove=null;
+                try{
+                    teacherForRemove=Repository.findStudentById(scanner.nextInt()).orElseThrow(
+                            ()-> new IllegalArgumentException("Can not find teacher")
+                    );
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println("Can not find teacher");
+                    removeMenu();
+                    scanner.close();
+                }
+                Repository.removeTeacher(teacherForRemove);
+                break;*/
             case 5: default: startMenu();
         }
     }
-
     private static void updateMenu() {
         printMenu("Update");
     }
