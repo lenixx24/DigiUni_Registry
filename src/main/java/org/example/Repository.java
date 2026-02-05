@@ -112,6 +112,8 @@ public class Repository {
         for (int i = 0; i < facultyCount; i++) result[i] = faculties[i];
         return result;
     }
+
+//-------------------------------------FIND-BY-ID METHODS
     public static Optional<Faculty> findFacultyById(int id){
 
         for(Faculty fac: faculties){
@@ -122,9 +124,33 @@ public class Repository {
         }
         return Optional.empty();
     }
-   /* public static Optional<Department> findDepartmentById(int id){}
-    public static Optional<Student> findStudentById(int id){}
-    public static Optional<Teacher> findTeacherById(int id){}
+    public static Optional<Department> findDepartmentById(int id){
+        for(Department dep: departments){
+            if(dep==null) return Optional.empty();
+            if (dep.getId()==id){
+                return Optional.of(dep);
+            }
+        }
+        return Optional.empty();
+    }
+    public static Optional<Student> findStudentById(int id){
+        for(Student stud: students){
+            if(stud==null) return Optional.empty();
+            if (stud.getId()==id){
+                return Optional.of(stud);
+            }
+        }
+        return Optional.empty();
+    }
+    public static Optional<Teacher> findTeacherById(int id){
+            for(Teacher teach: teachers){
+                if(teach==null) return Optional.empty();
+                if (teach.getId()==id){
+                    return Optional.of(teach);
+                }
+            }
+            return Optional.empty();
+    }
 
-    */
+
 }

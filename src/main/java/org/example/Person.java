@@ -19,6 +19,10 @@ public class Person {
         this.phone = phone;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return lastName + " " + firstName + " " + middleName;
