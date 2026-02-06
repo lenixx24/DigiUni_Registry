@@ -40,6 +40,9 @@ public class Menu {
                     scanner.close();
                 }
                 Repository.removeFaculty(facultyForRemove);
+                if (facultyForRemove != null) {
+                    System.out.println("Faculty removed successfully");
+                }
             break;
             case 2:
                 System.out.println("Enter department id: ");
@@ -55,6 +58,9 @@ public class Menu {
                     scanner.close();
                 }
                 Repository.removeDepartment(departmentForRemove);
+                    if (departmentForRemove != null) {
+                        System.out.println("Department removed successfully");
+                    }
                 break;
             case 3:
                 System.out.println("Enter student id: ");
@@ -70,6 +76,9 @@ public class Menu {
                     scanner.close();
                 }
                 Repository.removeStudent(studentForRemove);
+                if (studentForRemove != null) {
+                System.out.println("Student removed successfully");
+                 }
                 break;
             case 4:
                 System.out.println("Enter teacher id: ");
@@ -85,6 +94,9 @@ public class Menu {
                     scanner.close();
                 }
                 Repository.removeTeacher(teacherForRemove);
+                if (teacherForRemove != null) {
+                    System.out.println("Teacher removed successfully");
+                }
                 break;
             case 5: default: startMenu();
         }
@@ -117,10 +129,59 @@ public class Menu {
                 Repository.addFaculty(newFaculty);
                 System.out.println(newFaculty.getShortName()+" created successfully");
                 break;
-            case 2: break;
-            case 3: break;
-            case 4: break;
-            case 5: default:
+            case 2:
+                    if(Repository.getFaculties().length<1) {
+                        System.out.println("You can't create Department without faculties");
+                        createMenu();
+                    }
+                    Department newDepartment = new Department(
+                            Validator.getCorrectDepartmentID("ID"),
+                            Validator.getCorrectString("name"),
+                            Validator.getCorrectFaculty("faculty ID"),
+                            Validator.getCorrectTeacher(" head's ID"),
+                            Validator.getCorrectString("office"));
+                    Repository.addDepartment(newDepartment);
+                    System.out.println(newDepartment.getName()+" created successfully");
+                    break;
+            case 3:
+                Student newStudent = new Student(
+                        Validator.getCorrectInt("ID"),
+                        Validator.getCorrectString("last name"),
+                        Validator.getCorrectString("first name"),
+                        Validator.getCorrectString("middle name"),
+                        Validator.getCorrectString("birth date"),
+                        Validator.getCorrectEmail("email address"),
+                        Validator.getCorrectPhoneNumber("phone number"),
+                        Validator.getCorrectString("student ID"),
+                        Validator.getCorrectInt("course"),
+                        Validator.getCorrectString("group"),
+                        Validator.getCorrectInt("entry year"),
+                        Validator.getCorrectString("stude form"),
+                        Validator.getCorrectString("status")
+                       );
+                Repository.addStudent(newStudent);
+                System.out.println(newStudent.getLastName()+" "+newStudent.getFirstName()+" "+ newStudent.getMiddleName() +" created successfully");
+                break;
+            case 4:
+                Teacher newTeacher = new Teacher(
+                        Validator.getCorrectInt("ID"),
+                        Validator.getCorrectString("last name"),
+                        Validator.getCorrectString("first name"),
+                        Validator.getCorrectString("middle name"),
+                        Validator.getCorrectString("birth date"),
+                        Validator.getCorrectEmail("email address"),
+                        Validator.getCorrectPhoneNumber("phone number"),
+                        Validator.getCorrectString("job"),
+                        Validator.getCorrectString("academic degree"),
+                        Validator.getCorrectString("academic status"),
+                        Validator.getCorrectString("hire date"),
+                        Validator.getCorrectInt("workload")
+                );
+                Repository.addTeacher(newTeacher);
+                System.out.println(newTeacher.getLastName()+" "+newTeacher.getFirstName()+" "+newTeacher.getMiddleName() +" created successfully");
+
+                break;
+            case 5: default: startMenu();
         }
         createMenu();
     }

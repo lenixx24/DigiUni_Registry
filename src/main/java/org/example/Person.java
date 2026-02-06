@@ -22,6 +22,15 @@ public class Person {
     public int getId() {
         return id;
     }
+    public String getLastName() {
+        return lastName;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getMiddleName() {
+        return middleName;
+    }
 
     @Override
     public String toString() {
