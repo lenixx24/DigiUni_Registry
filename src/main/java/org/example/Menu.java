@@ -108,6 +108,33 @@ public class Menu {
 
     private static void searchMenu() {
         printMenu("\u001B[34mSearch\u001B[0m");
+            userChoice = checkedUserChoice(1, 5);
+            scanner = new Scanner(System.in);
+            switch(userChoice) {
+                case 1:
+                    System.out.print("Enter faculty ID: ");
+                    Repository.findFacultyById(scanner.nextInt())
+                            .ifPresentOrElse(System.out::println, () -> System.out.println("Faculty not found"));
+                    break;
+                case 2:
+                    System.out.print("Enter department ID: ");
+                    Repository.findDepartmentById(scanner.nextInt())
+                            .ifPresentOrElse(System.out::println, () -> System.out.println("Department not found"));
+                    break;
+                case 3:
+                    System.out.print("Enter student ID: ");
+                    Repository.findStudentById(scanner.nextInt())
+                            .ifPresentOrElse(System.out::println, () -> System.out.println("Student not found"));
+                    break;
+                case 4:
+                    System.out.print("Enter teacher ID: ");
+                    Repository.findTeacherById(scanner.nextInt())
+                            .ifPresentOrElse(System.out::println, () -> System.out.println("Teacher not found"));
+                    break;
+                case 5: startMenu(); return;
+            }
+            searchMenu();
+
     }
 
     private static void createMenu() {
