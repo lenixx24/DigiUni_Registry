@@ -7,9 +7,9 @@ public class Menu {
     private static int userChoice;
     public static void startMenu(){
         System.out.println("Welcome to DigiUni! ");
-        System.out.println("1. Create ");
-        System.out.println("2. Search ");
-        System.out.println("3. Update ");
+        System.out.println("1. \u001B[32mCreate\u001B[0m ");
+        System.out.println("2. \u001B[34mSearch\u001B[0m ");
+        System.out.println("3. \u001B[33mUpdate\u001B[0m ");
         System.out.println("4. \u001B[31mRemove\u001B[0m");
         System.out.println("5. Exit ");
         userChoice= checkedUserChoice(1, 5);
@@ -41,7 +41,7 @@ public class Menu {
                 }
                 Repository.removeFaculty(facultyForRemove);
             break;
-           /* case 2:
+            case 2:
                 System.out.println("Enter department id: ");
                 Department departmentForRemove=null;
                 try{
@@ -75,7 +75,7 @@ public class Menu {
                 System.out.println("Enter teacher id: ");
                 Teacher teacherForRemove=null;
                 try{
-                    teacherForRemove=Repository.findStudentById(scanner.nextInt()).orElseThrow(
+                    teacherForRemove=Repository.findTeacherById(scanner.nextInt()).orElseThrow(
                             ()-> new IllegalArgumentException("Can not find teacher")
                     );
                 }
@@ -85,23 +85,48 @@ public class Menu {
                     scanner.close();
                 }
                 Repository.removeTeacher(teacherForRemove);
-                break;*/
+                break;
             case 5: default: startMenu();
         }
+        removeMenu();
     }
     private static void updateMenu() {
-        printMenu("Update");
+        printMenu("\u001B[33mUpdate\u001B[0m");
     }
 
     private static void searchMenu() {
-        printMenu("Search");
+        printMenu("\u001B[34mSearch\u001B[0m");
     }
 
     private static void createMenu() {
-        printMenu("Create");
+        printMenu("\u001B[32mCreate\u001B[0m");
+        userChoice= checkedUserChoice(1, 5);
+        switch(userChoice){
+            case 1:
+                if(Repository.getStudents().length<1||Repository.getTeachers().length<1) {
+                    System.out.println("You can't create Faculty without teachers or students");
+                    createMenu();
+                }
+                Faculty newFaculty = new Faculty(Repository.Naukma,
+                        Validator.getCorrectFacultyID("ID"),
+                        Validator.getCorrectString("full name"),
+                        Validator.getCorrectString("short name"),
+                        Validator.getCorrectTeacher(" dean's ID"),
+                        Validator.getCorrectPhoneNumber("phone number"),
+                        Validator.getCorrectEmail("email address"));
+                Repository.addFaculty(newFaculty);
+                System.out.println(newFaculty.getShortName()+" created successfully");
+                break;
+            case 2: break;
+            case 3: break;
+            case 4: break;
+            case 5: default:
+        }
+        createMenu();
     }
+
     private static void printMenu(String actionName){
-        System.out.println(actionName+" menu");
+        System.out.println(""+actionName+" menu");
         System.out.println("1. "+actionName+" faculty");
         System.out.println("2. "+actionName+" department");
         System.out.println("3. "+actionName+" student");

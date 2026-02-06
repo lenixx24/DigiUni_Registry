@@ -3,7 +3,8 @@ package org.example;
 import java.util.Optional;
 
 public class Repository {
-
+    public static University Naukma= new University("National University of Kyiv-Mohyla Academy",
+            "NaUKMA", "Kyiv", "Hryhoriya Skovorody St, 2");
     private static Student[] students = new Student[300];
     private static int studentCount = 0;
 

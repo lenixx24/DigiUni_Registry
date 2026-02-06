@@ -1,0 +1,66 @@
+package org.example;
+
+import java.util.Scanner;
+
+public class Validator {
+    private static Scanner sc=new Scanner(System.in);
+    public static String getCorrectString(String txt){
+        String res;
+        while(true){
+            System.out.println("Enter "+txt+": ");
+           res= sc.nextLine();
+           if(res!=null&&!res.equals("")) return res;
+        }
+
+
+    }
+    public static int getCorrectFacultyID(String txt) {
+        int res;
+        while(true){
+            System.out.println("Enter "+txt+": ");
+            res= sc.nextInt();
+            if(res<=0) System.out.println("ID must be positive int");
+            else if(Repository.findFacultyById(res).isPresent()) System.out.println("Faculty with this ID already exists");
+            else return res;
+         }
+    }
+    public static Teacher getCorrectTeacher(String txt) {
+        int id;
+        while(true){
+            System.out.println("Enter "+txt+": ");
+            id= sc.nextInt();
+            if(id<=0) System.out.println("ID must be positive int");
+            else if(Repository.findTeacherById(id).isEmpty()) System.out.println("No teacher with this ID");
+            else return Repository.findTeacherById(id).get();
+        }
+    }
+
+    public static String getCorrectPhoneNumber(String txt) {
+        String  res;
+        while(true){
+            System.out.println("Enter "+txt+": ");
+            res=sc.nextLine();
+            if(isPhoneNumber(res)) return res;
+            else System.out.println("Phone number must contain only numbers and +");
+        }
+    }
+
+    private static boolean isPhoneNumber(String str) {
+        if(str==null|| str.length()<10||str.length()>13) return false;
+        if(str.charAt(0)!='+'||!Character.isDigit(str.charAt(0))) return false;
+        for(int i=1; i<str.length(); i++){
+            if(!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    public static String getCorrectEmail(String txt) {
+        String res;
+        while (true){
+            System.out.println("Enter "+txt+": ");
+            res=sc.nextLine();
+            if(res.contains("@")) return res;
+            else System.out.println("Email must contain @");
+        }
+    }
+}
