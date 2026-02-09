@@ -6,19 +6,22 @@ public class Menu {
     private static Scanner scanner;
     private static int userChoice;
     public static void startMenu(){
-        System.out.println("Welcome to DigiUni! ");
+        System.out.println("\n \u001B[1;97mWelcome to DigiUni! \u001B[0m");
+
         System.out.println("1. \u001B[32mCreate\u001B[0m ");
         System.out.println("2. \u001B[34mSearch\u001B[0m ");
         System.out.println("3. \u001B[33mUpdate\u001B[0m ");
         System.out.println("4. \u001B[31mRemove\u001B[0m");
-        System.out.println("5. Exit ");
-        userChoice= checkedUserChoice(1, 5);
+        System.out.println("5. \u001B[35mReport\u001B[0m");
+        System.out.println("6. Exit ");
+        userChoice= checkedUserChoice(1, 6);
     switch(userChoice){
         case 1: createMenu(); break;
         case 2: searchMenu(); break;
         case 3: updateMenu(); break;
         case 4: removeMenu(); break;
-        case 5: default: System.out.println("Goodbye! "); System.exit(0);
+        case 5: reportMenu(); break;
+        case 6: default: System.out.println("Goodbye! "); System.exit(0);
     }
     }
     private static void removeMenu() {
@@ -131,11 +134,79 @@ public class Menu {
                     Repository.findTeacherById(scanner.nextInt())
                             .ifPresentOrElse(System.out::println, () -> System.out.println("Teacher not found"));
                     break;
-                case 5: startMenu(); return;
+                case 5: default: startMenu();
             }
             searchMenu();
 
     }
+
+    private static void reportMenu() {
+        printMenu("\u001B[35mReport\u001B[0m");
+        userChoice= checkedUserChoice(1, 5);
+        scanner=new Scanner(System.in);
+
+        switch(userChoice){
+            case 1: {
+                System.out.println("\nFaculties:\n");
+                int index = 1;
+                boolean found = false;
+                for (Faculty f: Repository.getFaculties()) {
+                    if (f!= null) {
+                        System.out.println(index++ + ". " + f);
+                        found = true;
+                    }
+                }
+                if (!found) System.out.println("No faculties found");
+                break;
+            }
+
+            case 2 : {
+                System.out.println("\nDepartments:\n");
+                boolean found = false;
+                for (Department d: Repository.getDepartments()) {
+                    if (d!= null) {
+                        System.out.println( d);
+                        found = true;
+                    }
+                }
+                if (!found) System.out.println("No departments found");
+                break;
+            }
+
+            case 3 : {
+                System.out.println("\nStudents:\n");
+                int index = 1;
+                boolean found = false;
+                for (Student s: Repository.getStudents()) {
+                    if (s!= null) {
+                        System.out.println(index++ + ". " + s);
+                        found = true;
+                    }
+                }
+                if (!found) System.out.println("No students found");
+                break;
+            }
+
+            case 4 : {
+                System.out.println("\nTeachers:\n");
+                int index = 1;
+                boolean found = false;
+                for (Teacher t: Repository.getTeachers()) {
+                    if (t!= null) {
+                        System.out.println(index++ + ". " + t);
+                        found = true;
+                    }
+                }
+                if (!found) System.out.println("No teachers found");
+                break;
+            }
+
+           case 5: default: startMenu();
+        }
+
+        reportMenu();
+    }
+
 
     private static void createMenu() {
         printMenu("\u001B[32mCreate\u001B[0m");
@@ -183,7 +254,7 @@ public class Menu {
                         Validator.getCorrectInt("course"),
                         Validator.getCorrectString("group"),
                         Validator.getCorrectInt("entry year"),
-                        Validator.getCorrectString("stude form"),
+                        Validator.getCorrectString("study form"),
                         Validator.getCorrectString("status")
                        );
                 Repository.addStudent(newStudent);
@@ -222,7 +293,7 @@ public class Menu {
         System.out.println("5. Back");
     }
     private static int checkedUserChoice(int min, int max){
-        System.out.print("Enter number("+min+" - "+max+"):");
+        System.out.print("\nEnter number("+min+" - "+max+"):");
         int res=-1;
             while(true) {
                 try{

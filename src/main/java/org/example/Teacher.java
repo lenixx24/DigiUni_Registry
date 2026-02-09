@@ -16,5 +16,10 @@ public class Teacher extends Person{
         this.workload = workload;
     }
 
+    @Override
+    public String toString() {
+        return super.toString()+", Job: "+job+", Degree: "+degree+", Academic status: "+academicStatus+", Hired on: "+hireDate+", Workload: "+workload;
+    }
+
 
 }

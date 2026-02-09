@@ -32,4 +32,9 @@ public class Student extends Person {
         this.group = newGroup;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + ", StudentId: " + studentId + ", Course: " + course + ", Group: " + group + ", Entry year: " + entryYear + ", Study form: " + studyForm + ", Status: " + status;
+    }
+
 }
