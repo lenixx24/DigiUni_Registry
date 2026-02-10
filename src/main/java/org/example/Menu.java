@@ -107,37 +107,51 @@ public class Menu {
     }
     private static void updateMenu() {
         printMenu("\u001B[33mUpdate\u001B[0m");
+        userChoice= checkedUserChoice(1, 5);
+        scanner=new Scanner(System.in);
+        switch(userChoice){
+            case 1:
+                System.out.println("Enter faculty id: ");
+                break;
+
+            case 2:
+                System.out.println("Enter department id: ");
+                break;
+            case 3:
+                System.out.println("Enter student id: ");
+                break;
+            case 4:
+                System.out.println("Enter teacher id: ");
+                break;
+            case 5: default: startMenu();
+        }
+        updateMenu();
     }
 
     private static void searchMenu() {
         printMenu("\u001B[34mSearch\u001B[0m");
-            userChoice = checkedUserChoice(1, 5);
-            scanner = new Scanner(System.in);
-            switch(userChoice) {
-                case 1:
-                    System.out.print("Enter faculty ID: ");
-                    Repository.findFacultyById(scanner.nextInt())
-                            .ifPresentOrElse(System.out::println, () -> System.out.println("Faculty not found"));
-                    break;
-                case 2:
-                    System.out.print("Enter department ID: ");
-                    Repository.findDepartmentById(scanner.nextInt())
-                            .ifPresentOrElse(System.out::println, () -> System.out.println("Department not found"));
-                    break;
-                case 3:
-                    System.out.print("Enter student ID: ");
-                    Repository.findStudentById(scanner.nextInt())
-                            .ifPresentOrElse(System.out::println, () -> System.out.println("Student not found"));
-                    break;
-                case 4:
-                    System.out.print("Enter teacher ID: ");
-                    Repository.findTeacherById(scanner.nextInt())
-                            .ifPresentOrElse(System.out::println, () -> System.out.println("Teacher not found"));
-                    break;
-                case 5: default: startMenu();
-            }
-            searchMenu();
-
+        userChoice = checkedUserChoice(1, 5);
+        scanner = new Scanner(System.in);
+        switch(userChoice) {
+            case 1:
+                System.out.print("Enter faculty ID: ");
+                Repository.findFacultyById(scanner.nextInt())
+                        .ifPresentOrElse(System.out::println, () -> System.out.println("Faculty not found"));
+                break;
+            case 2:
+                System.out.print("Enter department ID: ");
+                Repository.findDepartmentById(scanner.nextInt())
+                        .ifPresentOrElse(System.out::println, () -> System.out.println("Department not found"));
+                break;
+            case 3:
+                searchStudent();
+                break;
+            case 4:
+                searchTeacher();
+                break;
+            case 5: default: startMenu();
+        }
+        searchMenu();
     }
 
     private static void reportMenu() {
@@ -307,5 +321,55 @@ public class Menu {
                 }
             }
         return res;
+    }
+
+    private static void searchStudent(){
+        System.out.println("\u001B[34mSearch student by:\u001B[0m");
+        scanner=new Scanner(System.in);
+        System.out.println("1. ID");
+        System.out.println("2. Full name");
+        System.out.println("3. Back");
+        int choice = checkedUserChoice(1, 3);
+        switch(choice) {
+            case 1:
+                System.out.print("Enter student ID: ");
+                Repository.findStudentById(scanner.nextInt())
+                        .ifPresentOrElse(System.out::println, () -> System.out.println("Student not found"));
+                break;
+            case 2:
+                System.out.print("Enter full name: ");
+                scanner.nextLine();
+                String name = scanner.nextLine();
+                Repository.findStudentByFullName(name)
+                        .ifPresentOrElse(System.out::println, () -> System.out.println("Student not found"));
+                break;
+            case 3: default: searchMenu();
+        }
+        searchStudent();
+    }
+
+    private static void searchTeacher(){
+        System.out.println("\u001B[34mSearch teacher by:\u001B[0m");
+        scanner=new Scanner(System.in);
+        System.out.println("1. ID");
+        System.out.println("2. Full name");
+        System.out.println("3. Back");
+        int choice = checkedUserChoice(1, 3);
+        switch(choice) {
+            case 1:
+                System.out.print("Enter teacher ID: ");
+                Repository.findTeacherById(scanner.nextInt())
+                        .ifPresentOrElse(System.out::println, () -> System.out.println("Teacher not found"));
+                break;
+            case 2:
+                System.out.print("Enter full name: ");
+                scanner.nextLine();
+                String name = scanner.nextLine();
+                Repository.findTeacherByFullName(name)
+                        .ifPresentOrElse(System.out::println, () -> System.out.println("Teacher not found"));
+                break;
+            case 3: default: searchMenu();
+        }
+        searchTeacher();
     }
 }

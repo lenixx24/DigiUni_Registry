@@ -153,5 +153,25 @@ public class Repository {
             return Optional.empty();
     }
 
+    public static Optional<Student> findStudentByFullName(String name){
+        for(Student stud: students){
+            if(stud == null) return Optional.empty();
+            if (stud.getFullName().equals(name)){
+                return Optional.of(stud);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<Teacher> findTeacherByFullName(String name){
+        for(Teacher teach: teachers){
+            if(teach == null) return Optional.empty();
+            if (teach.getFullName().equals(name)){
+                return Optional.of(teach);
+            }
+        }
+        return Optional.empty();
+    }
+
 
 }

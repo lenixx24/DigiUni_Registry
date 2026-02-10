@@ -37,4 +37,7 @@ public class Person {
         return lastName + " " + firstName + " " + middleName;
     }
 
+     public String getFullName() {
+        return lastName + " " + firstName + " " + middleName;
+    }
 }
