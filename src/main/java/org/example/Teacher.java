@@ -16,6 +16,31 @@ public class Teacher extends Person{
         this.workload = workload;
     }
 
+    public void changeJob(String newJob){
+        if(newJob==null||newJob.isEmpty()){
+            throw new IllegalArgumentException("Job must not be empty");
+        }
+        this.job=newJob;
+    }
+    public void changeDegree(String newDegree){
+        if(newDegree==null||newDegree.isEmpty()){
+            throw new IllegalArgumentException("Degree must not be empty");
+        }
+        this.degree=newDegree;
+    }
+    public void changeAcademicStatus(String newAcademicStatus){
+        if(newAcademicStatus==null||newAcademicStatus.isEmpty()){
+            throw new IllegalArgumentException("Academic status must not be empty");
+        }
+        this.academicStatus=newAcademicStatus;
+    }
+    public void changeWorkload(double newWorkload){
+        if(newWorkload<=0||Double.isNaN(newWorkload)){
+            throw new IllegalArgumentException("Workload must be positive");
+        }
+        this.workload=newWorkload;
+    }
+
     @Override
     public String toString() {
         return super.toString()+", Job: "+job+", Degree: "+degree+", Academic status: "+academicStatus+", Hired on: "+hireDate+", Workload: "+workload;

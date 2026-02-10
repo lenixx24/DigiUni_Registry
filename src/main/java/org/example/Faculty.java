@@ -48,6 +48,25 @@ public class Faculty {
     public String getShortName(){
         return shortName;
     }
+
+    public void changeDean(Teacher newDean){
+        if(newDean==null){
+            throw new IllegalArgumentException("Dean must not be null");
+        }
+        this.dean=newDean;
+    }
+    public void changePhoneNumber(String newPhoneNumber){
+        if(newPhoneNumber==null||newPhoneNumber.isEmpty()){
+            throw new IllegalArgumentException("Phone number must not be empty");
+        }
+        this.phoneNumber=newPhoneNumber;
+    }
+    public void changeEmailAddress(String newEmailAddress){
+        if(newEmailAddress==null||newEmailAddress.isEmpty()){
+            throw new IllegalArgumentException("Email address must not be empty");
+        }
+        this.emailAddress=newEmailAddress;
+    }
     @Override
     public String toString() {
         return fullName+" ("+shortName+"), Dean: "+dean+", Contacts: "+phoneNumber+", "

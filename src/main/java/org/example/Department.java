@@ -65,6 +65,27 @@ public class Department {
     public int getId() { return id; }
     public String getName() { return name; }
 
+    public void changeFaculty(Faculty newFaculty){
+        if(newFaculty==null){
+            throw new IllegalArgumentException("Faculty must not be null");
+        }
+        faculty.removeDepartment(this);
+        this.faculty=newFaculty;
+        faculty.addDepartment(this);
+    }
+    public void changeHead(Teacher newHead){
+        if(newHead==null){
+            throw new IllegalArgumentException("Head must not be null");
+        }
+        this.head=newHead;
+    }
+    public void changeOffice(String newOffice){
+        if(newOffice==null||newOffice.isEmpty()){
+            throw new IllegalArgumentException("Office must not be empty");
+        }
+        this.office=newOffice;
+    }
+
     @Override
     public String toString() {
         return id+": "+name+" ("+ faculty.getShortName()+"), Head: "+head+

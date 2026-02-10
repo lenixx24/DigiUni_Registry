@@ -1,5 +1,5 @@
 package org.example;
-
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validator {
@@ -36,6 +36,7 @@ public class Validator {
         while(true){
             System.out.println("Enter "+txt+": ");
             res= sc.nextInt();
+            sc.nextLine();
             if(res<=0) System.out.println("ID must be positive int");
             else if(Repository.findFacultyById(res).isPresent()) System.out.println("Faculty with this ID already exists");
             else return res;
@@ -62,14 +63,27 @@ public class Validator {
             else return Repository.findFacultyById(id).get();
         }
     }
+
     public static Teacher getCorrectTeacher(String txt) {
         int id;
-        while(true){
-            System.out.println("Enter "+txt+": ");
-            id= sc.nextInt();
-            if(id<=0) System.out.println("ID must be positive int");
-            else if(Repository.findTeacherById(id).isEmpty()) System.out.println("No teacher with this ID");
-            else return Repository.findTeacherById(id).get();
+        while (true) {
+            System.out.println("Enter " + txt + ": ");
+            try {
+                id = sc.nextInt();
+                sc.nextLine();
+                if (id <= 0) Repository.findTeacherByFullName(getCorrectString(txt))
+                        .orElseThrow(() -> new IllegalArgumentException("No teacher with this ID"));
+                else Repository.findTeacherById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("No teacher with this ID"));
+                return Repository.findTeacherById(id).get();
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a number");
+                sc.nextLine();
+            }
+            catch (IllegalArgumentException e){
+                System.out.println("No teacher with this ID");
+                sc.nextLine();
+            }
         }
     }
 

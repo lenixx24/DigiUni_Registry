@@ -31,6 +31,24 @@ public class Student extends Person {
         }
         this.group = newGroup;
     }
+    public void changeStatus(String newStatus) {
+        if (newStatus == null || newStatus.isEmpty()) {
+            throw new IllegalArgumentException("Status must not be empty");
+        }
+        this.status = newStatus;
+    }
+    public void changeStudyForm(String newStudyForm) {
+        if (newStudyForm == null || newStudyForm.isEmpty()) {
+            throw new IllegalArgumentException("Study form must not be empty");
+        }
+        this.studyForm = newStudyForm;
+    }
+    public String changeStudentId(String newStudentId) {
+        if (newStudentId == null || newStudentId.isEmpty()) {
+            throw new IllegalArgumentException("Student ID must not be empty");
+        }
+        return this.studentId = newStudentId;
+    }
 
     @Override
     public String toString() {
