@@ -398,7 +398,7 @@ public class Menu {
         userChoice= checkedUserChoice(1, 5);
         switch(userChoice){
             case 1:
-                if(Repository.getStudents().length<1||Repository.getTeachers().length<1) {
+                if(Repository.getStudents().isEmpty() || Repository.getTeachers().isEmpty()) {
                     System.out.println("You can't create Faculty without teachers or students");
                     createMenu();
                 }
@@ -413,7 +413,7 @@ public class Menu {
                 System.out.println(newFaculty.getShortName()+" created successfully");
                 break;
             case 2:
-                    if(Repository.getFaculties().length<1) {
+                    if(Repository.getFaculties().isEmpty()) {
                         System.out.println("You can't create Department without faculties");
                         createMenu();
                     }
@@ -470,7 +470,7 @@ public class Menu {
     }
 
     private static void printMenu(String actionName){
-        System.out.println(""+actionName+" menu");
+        System.out.println(actionName+" menu");
         System.out.println("1. "+actionName+" faculty");
         System.out.println("2. "+actionName+" department");
         System.out.println("3. "+actionName+" student");
@@ -479,7 +479,7 @@ public class Menu {
     }
     private static int checkedUserChoice(int min, int max){
         System.out.print("\nEnter number("+min+" - "+max+"):");
-        int res=-1;
+        int res;
             while(true) {
                 try{
                     scanner=new Scanner(System.in);

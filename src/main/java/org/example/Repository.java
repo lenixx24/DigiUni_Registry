@@ -1,116 +1,90 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Repository {
     public static University Naukma= new University("National University of Kyiv-Mohyla Academy",
             "NaUKMA", "Kyiv", "Hryhoriya Skovorody St, 2");
-    private static Student[] students = new Student[300];
+    private static List<Student> students = new ArrayList<>(300);
     private static int studentCount = 0;
 
-    private static Teacher[] teachers = new Teacher[100];
+    private static List<Teacher> teachers = new ArrayList<>(100);
     private static int teacherCount = 0;
 
-    private static Department[] departments = new Department[50];
+    private static List<Department> departments = new ArrayList<>(50);
     private static int departmentCount = 0;
 
-    private static Faculty[] faculties = new Faculty[10];
+    private static List<Faculty> faculties = new ArrayList<>(10);
     private static int facultyCount = 0;
 
 //------------------------------------ADD/REMOVE STUDENT
 
     public static void addStudent(Student student) {
-        if (studentCount >= students.length)
-            throw new ArrayIndexOutOfBoundsException("Too many students");
-        students[studentCount++] = student;
+        students.add(student);
+        studentCount++;
     }
 
     public static void removeStudent(Student student) {
-        for (int i = 0; i < studentCount; i++) {
-            if (students[i] == student) {
-                students[i] = students[studentCount - 1];
-                students[studentCount - 1] = null;
-                studentCount--;
-                return;
-            }
-        }
+        students.remove(student);
+        studentCount--;
     }
 
 //------------------------------------ADD/REMOVE TEACHER
 
     public static void addTeacher(Teacher teacher) {
-        if (teacherCount >= teachers.length)
-            throw new ArrayIndexOutOfBoundsException("Too many teachers");
-        teachers[teacherCount++] = teacher;
+        teachers.add(teacher);
+        teacherCount++;
     }
 
     public static void removeTeacher(Teacher teacher) {
-        for (int i = 0; i < teacherCount; i++) {
-            if (teachers[i] == teacher) {
-                teachers[i] = teachers[teacherCount - 1];
-                teachers[teacherCount - 1] = null;
-                teacherCount--;
-                return;
-            }
-        }
+        teachers.remove(teacher);
+        teacherCount--;
     }
 
 //------------------------------------ADD/REMOVE DEPARTMENT
 
     public static void addDepartment(Department department) {
-        if (departmentCount >= departments.length)
-            throw new ArrayIndexOutOfBoundsException("Too many faculties");
-        departments[departmentCount++] = department;
+        departments.add(department);
+        departmentCount++;
     }
     public static void removeDepartment(Department department) {
-        for (int i = 0; i < departmentCount; i++) {
-            if (departments[i] == department) {
-                departments[i] = departments[departmentCount - 1];
-                departments[departmentCount - 1] = null;
-                departmentCount--;
-                return;
-            }
-        }
+        departments.remove(department);
+        departmentCount--;
     }
 
 //------------------------------------ADD/REMOVE FACULTY
 
     public static void addFaculty(Faculty faculty) {
-        if (facultyCount >= faculties.length)
-            throw new ArrayIndexOutOfBoundsException("Too many faculties");
-        faculties[facultyCount++] = faculty;
+        faculties.add(faculty);
+        facultyCount++;
     }
 
     public static void removeFaculty(Faculty faculty) {
-        for (int i = 0; i < facultyCount; i++) {
-            if (faculties[i] == faculty) {
-                faculties[i] = faculties[facultyCount - 1];
-                faculties[facultyCount - 1] = null;
-                facultyCount--;
-                return;
-            }
-        }
+       faculties.remove(faculty);
+       facultyCount--;
     }
 
 //------------------------------------GETTERS
-    public static Student[] getStudents() {
-    Student[] result = new Student[studentCount];
-    for (int i = 0; i < studentCount; i++) result[i] = students[i];
+    public static List<Student> getStudents() {
+    List<Student> result = new ArrayList<>(studentCount);
+    for (int i = 0; i < studentCount; i++) result.add(students.get(i));
     return result;
     }
-    public static Teacher[] getTeachers() {
-        Teacher[] result = new Teacher[teacherCount];
-        for (int i = 0; i < teacherCount; i++) result[i] = teachers[i];
+    public static List<Teacher> getTeachers() {
+        List<Teacher> result = new ArrayList<>(teacherCount);
+        for (int i = 0; i < teacherCount; i++) result.add(teachers.get(i));
         return result;
     }
-    public static Department[] getDepartments() {
-        Department[] result = new Department[departmentCount];
-        for (int i = 0; i < departmentCount; i++) result[i] = departments[i];
+    public static List<Department> getDepartments() {
+        List<Department> result = new ArrayList<>(departmentCount);
+        for (int i = 0; i < departmentCount; i++) result.add(departments.get(i));
         return result;
     }
-    public static Faculty[] getFaculties() {
-        Faculty[] result = new Faculty[facultyCount];
-        for (int i = 0; i < facultyCount; i++) result[i] = faculties[i];
+    public static List<Faculty> getFaculties() {
+        List<Faculty>  result = new ArrayList<>(facultyCount);
+        for (int i = 0; i < facultyCount; i++) result.add(faculties.get(i));
         return result;
     }
 

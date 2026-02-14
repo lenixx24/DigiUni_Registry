@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Faculty {
     public final University university;
     private final int id;
@@ -8,7 +11,7 @@ public class Faculty {
     private Teacher dean;
     private String phoneNumber;
     private String emailAddress;
-    private Department[] departments=new Department[10];
+    private List<Department> departments=new ArrayList<>();
     private int numberOfDepartments;
 
     public Faculty(University university, int id, String fullName, String shortName, Teacher dean, String phoneNumber, String emailAddress) {
@@ -22,22 +25,13 @@ public class Faculty {
         university.addFaculty(this);
     }
     public void addDepartment(Department department){
-        if(numberOfDepartments>=departments.length){
-            throw new ArrayIndexOutOfBoundsException("Too many departments");
-        }
-        departments[numberOfDepartments]=department;
+        departments.add(department);
         numberOfDepartments++;
     }
     public void removeDepartment(Department department){
-        for(int i=0; i<numberOfDepartments; i++){
-            if (departments[i].equals(department)) {
-                for(int j=i; j<numberOfDepartments-1; j++)
-                    departments[j]=departments[j+1];
-                departments[numberOfDepartments-1]=null;
-                numberOfDepartments--;
-                return;
-            }
-        }
+       departments.remove(department);
+       Repository.removeDepartment(department);
+       numberOfDepartments--;
     }
     public int getNumberOfDepartments() {
         return numberOfDepartments;
@@ -69,7 +63,7 @@ public class Faculty {
     }
     @Override
     public String toString() {
-        return fullName+" ("+shortName+"), Dean: "+dean+", Contacts: "+phoneNumber+", "
+        return "ID: "+id+", "+fullName+" ("+shortName+"), \nDean: "+dean.getFullName()+", Contacts: "+phoneNumber+", "
                 +emailAddress;
     }
 }

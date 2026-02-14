@@ -34,7 +34,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return lastName + " " + firstName + " " + middleName;
+        return "ID: "+id+", "+lastName + " " + firstName + " " + middleName;
     }
 
      public String getFullName() {
