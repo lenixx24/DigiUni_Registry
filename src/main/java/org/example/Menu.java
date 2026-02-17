@@ -34,22 +34,7 @@ public class Menu {
                 consoleService = new FacultyService();
                 break;
             case 2:
-                System.out.println("Enter department id: ");
-                Department departmentForRemove=null;
-                try{
-                    departmentForRemove=Repository.findDepartmentById(scanner.nextInt()).orElseThrow(
-                            ()-> new IllegalArgumentException("Can not find department")
-                    );
-                }
-                catch (IllegalArgumentException e){
-                    System.out.println("Can not find department");
-                    removeMenu();
-                    scanner.close();
-                }
-                Repository.removeDepartment(departmentForRemove);
-                    if (departmentForRemove != null) {
-                        System.out.println("Department removed successfully");
-                    }
+                consoleService = new DepartmentService();
                 break;
             case 3:
                 System.out.println("Enter student id: ");
@@ -89,7 +74,7 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
-        //consoleService.removeMenu();
+        consoleService.removeMenu();
         removeMenu();
     }
     private static void updateMenu() {
@@ -99,11 +84,10 @@ public class Menu {
         switch(userChoice){
             case 1:
                 consoleService = new FacultyService();
-                consoleService.updateMenu();
                 break;
 
             case 2:
-                updateDepartment();
+                consoleService = new DepartmentService();
                 break;
             case 3:
                 updateStudent();
@@ -113,64 +97,8 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
-        //consoleService.updateMenu();
+        consoleService.updateMenu();
         updateMenu();
-    }
-    private static void updateFaculty() {
-        System.out.print("Enter faculty ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
-        Repository.findFacultyById(id).ifPresentOrElse(
-                faculty -> {
-                    System.out.println("\nFaculty found:");
-                    System.out.println(faculty);
-                    System.out.println("\nUpdate faculty:");
-                    System.out.println("1. Dean");
-                    System.out.println("2. Phone number");
-                    System.out.println("3. Email address");
-                    System.out.println("4. Back");
-
-                    int choice = checkedUserChoice(1, 4);
-                    switch (choice) {
-                        case 1: faculty.changeDean(Validator.getCorrectTeacher("teacher ID"));break;
-                        case 2 : faculty.changePhoneNumber(Validator.getCorrectPhoneNumber("phone number"));break;
-                        case 3 : faculty.changeEmailAddress(Validator.getCorrectEmail("email address"));break;
-                        case 4 : default: updateMenu();
-                    }
-                    System.out.println("Faculty updated successfully");
-                    System.out.println(faculty);
-                },
-                () -> System.out.println("Faculty not found")
-        );
-    }
-    private static void updateDepartment() {
-        System.out.print("Enter department ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
-        Repository.findDepartmentById(id).ifPresentOrElse(
-                department -> {
-                    System.out.println("\nDepartment found:");
-                    System.out.println(department);
-                    System.out.println("\nUpdate department:");
-                    System.out.println("1. Faculty");
-                    System.out.println("2. Head");
-                    System.out.println("3. Office");
-                    System.out.println("4. Back");
-
-                    int choice = checkedUserChoice(1, 4);
-                    switch (choice) {
-                        case 1: department.changeFaculty(Validator.getCorrectFaculty("faculty ID"));break;
-                        case 2 : department.changeHead(Validator.getCorrectTeacher("teacher ID")); break;
-                        case 3 : department.changeOffice(Validator.getCorrectString("office")); break;
-                        case 4 : default: updateMenu();
-                    }
-                    System.out.println("Department updated successfully");
-                    System.out.println(department);
-                },
-                () -> System.out.println("Department not found")
-        );
     }
 
     private static void updateStudent() {
@@ -245,12 +173,9 @@ public class Menu {
         switch(userChoice) {
             case 1:
                 consoleService=new FacultyService();
-                consoleService.searchMenu();
                 break;
             case 2:
-                System.out.print("Enter department ID: ");
-                Repository.findDepartmentById(scanner.nextInt())
-                        .ifPresentOrElse(System.out::println, () -> System.out.println("Department not found"));
+                consoleService=new DepartmentService();
                 break;
             case 3:
                 searchStudent();
@@ -260,7 +185,7 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
-       // consoleService.searchMenu();
+        consoleService.searchMenu();
         searchMenu();
     }
 
@@ -322,18 +247,9 @@ public class Menu {
         switch(userChoice){
             case 1:
                 consoleService = new FacultyService();
-                consoleService.reportMenu();
                 break;
             case 2 : {
-                System.out.println("\nDepartments:\n");
-                boolean found = false;
-                for (Department d: Repository.getDepartments()) {
-                    if (d!= null) {
-                        System.out.println( d);
-                        found = true;
-                    }
-                }
-                if (!found) System.out.println("No departments found");
+                consoleService = new DepartmentService();
                 break;
             }
 
@@ -367,7 +283,7 @@ public class Menu {
 
            case 5: default: startMenu();
         }
-       // consoleService.reportMenu();
+       consoleService.reportMenu();
         reportMenu();
     }
 
@@ -378,21 +294,11 @@ public class Menu {
         switch(userChoice){
             case 1:
                 consoleService = new FacultyService();
-               consoleService.createMenu();
+              //  consoleService.createMenu();
                 break;
             case 2:
-                    if(Repository.getFaculties().isEmpty()) {
-                        System.out.println("You can't create Department without faculties");
-                        createMenu();
-                    }
-                    Department newDepartment = new Department(
-                            Validator.getCorrectDepartmentID("ID"),
-                            Validator.getCorrectString("name"),
-                            Validator.getCorrectFaculty("faculty ID"),
-                            Validator.getCorrectTeacher(" head's ID"),
-                            Validator.getCorrectString("office"));
-                    Repository.addDepartment(newDepartment);
-                    System.out.println(newDepartment.getName()+" created successfully");
+                    consoleService= new DepartmentService();
+                //  consoleService.createMenu();
                     break;
             case 3:
                 Student newStudent = new Student(
@@ -434,7 +340,7 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
-        //consoleService.createMenu();
+        consoleService.createMenu();
         createMenu();
     }
 

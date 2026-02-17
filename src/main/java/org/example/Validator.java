@@ -108,6 +108,7 @@ public class Validator {
 
     public static String getCorrectEmail(String txt) {
         String res;
+        sc=new Scanner(System.in);
         while (true){
             System.out.println("Enter "+txt+": ");
             res=sc.nextLine();

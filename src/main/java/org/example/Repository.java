@@ -27,6 +27,7 @@ public class Repository {
     }
 
     public static void removeStudent(Student student) {
+        if(student==null) return;
         students.remove(student);
         studentCount--;
     }
@@ -39,6 +40,7 @@ public class Repository {
     }
 
     public static void removeTeacher(Teacher teacher) {
+        if(teacher==null) return;
         teachers.remove(teacher);
         teacherCount--;
     }
@@ -50,6 +52,7 @@ public class Repository {
         departmentCount++;
     }
     public static void removeDepartment(Department department) {
+        if(department==null) return;
         departments.remove(department);
         departmentCount--;
     }
@@ -62,6 +65,7 @@ public class Repository {
     }
 
     public static void removeFaculty(Faculty faculty) {
+        if(faculty==null) return;
        faculties.remove(faculty);
        facultyCount--;
     }

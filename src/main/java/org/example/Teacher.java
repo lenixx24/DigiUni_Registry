@@ -16,6 +16,8 @@ public class Teacher extends Person{
         this.workload = workload;
     }
 
+
+
     public void changeJob(String newJob){
         if(newJob==null||newJob.isEmpty()){
             throw new IllegalArgumentException("Job must not be empty");

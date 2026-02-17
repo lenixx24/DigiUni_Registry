@@ -10,7 +10,7 @@ public class FacultyService implements ConsoleService{
                 Validator.getCorrectFacultyID("ID"),
                 Validator.getCorrectString("full name"),
                 Validator.getCorrectString("short name"),
-                Validator.getCorrectTeacher(" dean's ID"),
+              //  Validator.getCorrectTeacher(" dean's ID"),
                 Validator.getCorrectPhoneNumber("phone number"),
                 Validator.getCorrectEmail("email address"));
         Repository.addFaculty(newFaculty);
@@ -38,7 +38,7 @@ public class FacultyService implements ConsoleService{
                         case 1: faculty.changeDean(Validator.getCorrectTeacher("teacher ID"));break;
                         case 2 : faculty.changePhoneNumber(Validator.getCorrectPhoneNumber("phone number"));break;
                         case 3 : faculty.changeEmailAddress(Validator.getCorrectEmail("email address"));break;
-                        case 4 : default: //updateMenu();
+                        case 4 : default: return;
                     }
                     System.out.println("Faculty updated successfully");
                     System.out.println(faculty);

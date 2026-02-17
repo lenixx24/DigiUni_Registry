@@ -21,6 +21,13 @@ public class Department {
         this.office = office;
         faculty.addDepartment(this);
     }
+    public Department(int id, String name, Faculty faculty, String office) {
+        this.id = id;
+        this.name = name;
+        this.faculty = faculty;
+        this.office = office;
+        faculty.addDepartment(this);
+    }
     public void addTeacher(Teacher teacher){
         this.teachers.add(teacher);
         numberOfTeachers++;
@@ -73,6 +80,7 @@ public class Department {
 
     @Override
     public String toString() {
+        if(head==null) return "ID: "+id+", "+name+" ("+ faculty.getShortName()+"),\n Head: -, Office: "+office;
         return "ID: "+id+", "+name+" ("+ faculty.getShortName()+"),\n Head: "+head.getFullName()+
                 ", Office: "+office;
     }

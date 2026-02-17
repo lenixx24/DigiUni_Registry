@@ -72,6 +72,8 @@ public class Faculty {
     }
     @Override
     public String toString() {
+        if(dean==null) return "ID: "+id+", "+fullName+" ("+shortName+"), \nDean: -, Contacts: "+phoneNumber+", "
+                +emailAddress;
         return "ID: "+id+", "+fullName+" ("+shortName+"), \nDean: "+dean.getFullName()+", Contacts: "+phoneNumber+", "
                 +emailAddress;
     }
