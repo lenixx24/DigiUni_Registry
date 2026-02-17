@@ -24,6 +24,15 @@ public class Faculty {
         this.emailAddress = emailAddress;
         university.addFaculty(this);
     }
+    public Faculty(University university, int id, String fullName, String shortName, String phoneNumber, String emailAddress) {
+        this.university=university;
+        this.id = id;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        university.addFaculty(this);
+    }
     public void addDepartment(Department department){
         departments.add(department);
         numberOfDepartments++;

@@ -115,4 +115,20 @@ public class Validator {
             else System.out.println("Email must contain @");
         }
     }
+    public static int checkedUserChoice(int min, int max){
+        System.out.print("\nEnter number("+min+" - "+max+"):");
+        int res;
+        while(true) {
+            try{
+                sc=new Scanner(System.in);
+                res= sc.nextInt();
+                if(res>=min&&res<=max) break;
+                else System.out.println("Enter correct number");
+            }
+            catch(InputMismatchException e){
+                System.out.println("Enter number");
+            }
+        }
+        return res;
+    }
 }

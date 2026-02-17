@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Menu {
     private static Scanner scanner;
     private static int userChoice;
+    private static ConsoleService consoleService;
     public static void startMenu(){
         System.out.println("\n \u001B[1;97mWelcome to DigiUni! \u001B[0m");
 
@@ -30,23 +31,8 @@ public class Menu {
         scanner=new Scanner(System.in);
         switch(userChoice){
             case 1:
-                System.out.println("Enter faculty id: ");
-                Faculty facultyForRemove=null;
-                try{
-                    facultyForRemove=Repository.findFacultyById(scanner.nextInt()).orElseThrow(
-                            ()-> new IllegalArgumentException("Can not find faculty")
-                    );
-                }
-                catch (IllegalArgumentException e){
-                    System.out.println("Can not find faculty");
-                    removeMenu();
-                    scanner.close();
-                }
-                Repository.removeFaculty(facultyForRemove);
-                if (facultyForRemove != null) {
-                    System.out.println("Faculty removed successfully");
-                }
-            break;
+                consoleService = new FacultyService();
+                break;
             case 2:
                 System.out.println("Enter department id: ");
                 Department departmentForRemove=null;
@@ -103,6 +89,7 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
+        //consoleService.removeMenu();
         removeMenu();
     }
     private static void updateMenu() {
@@ -111,7 +98,8 @@ public class Menu {
         scanner=new Scanner(System.in);
         switch(userChoice){
             case 1:
-                updateFaculty();
+                consoleService = new FacultyService();
+                consoleService.updateMenu();
                 break;
 
             case 2:
@@ -125,6 +113,7 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
+        //consoleService.updateMenu();
         updateMenu();
     }
     private static void updateFaculty() {
@@ -255,9 +244,8 @@ public class Menu {
         scanner = new Scanner(System.in);
         switch(userChoice) {
             case 1:
-                System.out.print("Enter faculty ID: ");
-                Repository.findFacultyById(scanner.nextInt())
-                        .ifPresentOrElse(System.out::println, () -> System.out.println("Faculty not found"));
+                consoleService=new FacultyService();
+                consoleService.searchMenu();
                 break;
             case 2:
                 System.out.print("Enter department ID: ");
@@ -272,6 +260,7 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
+       // consoleService.searchMenu();
         searchMenu();
     }
 
@@ -331,20 +320,10 @@ public class Menu {
         scanner=new Scanner(System.in);
 
         switch(userChoice){
-            case 1: {
-                System.out.println("\nFaculties:\n");
-                int index = 1;
-                boolean found = false;
-                for (Faculty f: Repository.getFaculties()) {
-                    if (f!= null) {
-                        System.out.println(index++ + ". " + f);
-                        found = true;
-                    }
-                }
-                if (!found) System.out.println("No faculties found");
+            case 1:
+                consoleService = new FacultyService();
+                consoleService.reportMenu();
                 break;
-            }
-
             case 2 : {
                 System.out.println("\nDepartments:\n");
                 boolean found = false;
@@ -388,7 +367,7 @@ public class Menu {
 
            case 5: default: startMenu();
         }
-
+       // consoleService.reportMenu();
         reportMenu();
     }
 
@@ -398,19 +377,8 @@ public class Menu {
         userChoice= checkedUserChoice(1, 5);
         switch(userChoice){
             case 1:
-                if(Repository.getStudents().isEmpty() || Repository.getTeachers().isEmpty()) {
-                    System.out.println("You can't create Faculty without teachers or students");
-                    createMenu();
-                }
-                Faculty newFaculty = new Faculty(Repository.Naukma,
-                        Validator.getCorrectFacultyID("ID"),
-                        Validator.getCorrectString("full name"),
-                        Validator.getCorrectString("short name"),
-                        Validator.getCorrectTeacher(" dean's ID"),
-                        Validator.getCorrectPhoneNumber("phone number"),
-                        Validator.getCorrectEmail("email address"));
-                Repository.addFaculty(newFaculty);
-                System.out.println(newFaculty.getShortName()+" created successfully");
+                consoleService = new FacultyService();
+               consoleService.createMenu();
                 break;
             case 2:
                     if(Repository.getFaculties().isEmpty()) {
@@ -466,6 +434,7 @@ public class Menu {
                 break;
             case 5: default: startMenu();
         }
+        //consoleService.createMenu();
         createMenu();
     }
 
