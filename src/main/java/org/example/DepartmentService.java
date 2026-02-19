@@ -8,7 +8,7 @@ public class DepartmentService implements ConsoleService{
     public void createMenu() {
         if(Repository.getFaculties().isEmpty()) {
             System.out.println("You can't create Department without faculties");
-            createMenu();
+            return;
         }
         Department newDepartment = new Department(
                 Validator.getCorrectDepartmentID("ID"),
