@@ -7,7 +7,7 @@ public class TeacherService implements ConsoleService{
     @Override
     public void createMenu() {
         Teacher newTeacher = new Teacher(
-                Validator.getCorrectInt("ID"),
+                Validator.getCorrectTeacherID("ID"),
                 Validator.getCorrectString("last name"),
                 Validator.getCorrectString("first name"),
                 Validator.getCorrectString("middle name"),
@@ -99,7 +99,7 @@ public class TeacherService implements ConsoleService{
                 Repository.findTeacherByFullName(name)
                         .ifPresentOrElse(System.out::println, () -> System.out.println("Teacher not found"));
                 break;
-            case 3: default: searchMenu();
+            case 3: default: break;
         }
 
     }

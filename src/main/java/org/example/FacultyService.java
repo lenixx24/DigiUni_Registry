@@ -2,27 +2,31 @@ package org.example;
 
 import java.util.Scanner;
 
-public class FacultyService implements ConsoleService{
+public class FacultyService implements ConsoleService {
     private Scanner scanner;
+
     @Override
     public void createMenu() {
         Faculty newFaculty = new Faculty(Repository.Naukma,
                 Validator.getCorrectFacultyID("ID"),
                 Validator.getCorrectString("full name"),
                 Validator.getCorrectString("short name"),
-              //  Validator.getCorrectTeacher(" dean's ID"),
+                //  Validator.getCorrectTeacher(" dean's ID"),
                 Validator.getCorrectPhoneNumber("phone number"),
                 Validator.getCorrectEmail("email address"));
         Repository.addFaculty(newFaculty);
-        System.out.println(newFaculty.getShortName()+" created successfully");
+        Repository.Naukma.addFaculty(newFaculty);
+        System.out.println(newFaculty.getShortName() + " created successfully");
     }
+
     @Override
     public void updateMenu() {
-        scanner = new Scanner(System.in);
-        System.out.print("Enter faculty ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
+        if(Repository.getFaculties().isEmpty()) {
+            System.out.println("You have no faculties for update");
+            return;
+        }
+        reportAll();
+        int id = Validator.getCorrectInt("faculty ID");
         Repository.findFacultyById(id).ifPresentOrElse(
                 faculty -> {
                     System.out.println("\nFaculty found:");
@@ -35,10 +39,22 @@ public class FacultyService implements ConsoleService{
 
                     int choice = Validator.checkedUserChoice(1, 4);
                     switch (choice) {
-                        case 1: faculty.changeDean(Validator.getCorrectTeacher("teacher ID"));break;
-                        case 2 : faculty.changePhoneNumber(Validator.getCorrectPhoneNumber("phone number"));break;
-                        case 3 : faculty.changeEmailAddress(Validator.getCorrectEmail("email address"));break;
-                        case 4 : default: return;
+                        case 1:
+                            if(Repository.getTeachers().isEmpty()) {
+                                System.out.println("No teachers found");
+                                break;
+                            }
+                            faculty.changeDean(Validator.getCorrectTeacher("teacher ID"));
+                            break;
+                        case 2:
+                            faculty.changePhoneNumber(Validator.getCorrectPhoneNumber("phone number"));
+                            break;
+                        case 3:
+                            faculty.changeEmailAddress(Validator.getCorrectEmail("email address"));
+                            break;
+                        case 4:
+                        default:
+                            return;
                     }
                     System.out.println("Faculty updated successfully");
                     System.out.println(faculty);
@@ -46,17 +62,22 @@ public class FacultyService implements ConsoleService{
                 () -> System.out.println("Faculty not found")
         );
     }
+
     @Override
     public void removeMenu() {
+        if(Repository.getFaculties().isEmpty()) {
+            System.out.println("You have no faculties for remove");
+            return;
+        }
+        reportAll();
         scanner = new Scanner(System.in);
         System.out.println("Enter faculty id: ");
-        Faculty facultyForRemove=null;
-        try{
-            facultyForRemove=Repository.findFacultyById(scanner.nextInt()).orElseThrow(
-                    ()-> new IllegalArgumentException("Can not find faculty")
+        Faculty facultyForRemove = null;
+        try {
+            facultyForRemove = Repository.findFacultyById(scanner.nextInt()).orElseThrow(
+                    () -> new IllegalArgumentException("Can not find faculty")
             );
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Can not find faculty");
             removeMenu();
             scanner.close();
@@ -66,24 +87,50 @@ public class FacultyService implements ConsoleService{
             System.out.println("Faculty removed successfully");
         }
     }
+
     @Override
     public void searchMenu() {
+        if(Repository.getFaculties().isEmpty()) {
+            System.out.println("You have no faculties");
+            return;
+        }
+        System.out.println("\u001B[34mSearch faculty by:\u001B[0m");
         scanner = new Scanner(System.in);
-        System.out.print("Enter faculty ID: ");
-        Repository.findFacultyById(scanner.nextInt())
-                .ifPresentOrElse(System.out::println, () -> System.out.println("Faculty not found"));
+        System.out.println("1. ID");
+        System.out.println("2. Short name");
+        System.out.println("3. Back");
+        int choice = Validator.checkedUserChoice(1, 3);
+        switch (choice) {
+            case 1:
+                Repository.findFacultyById(Validator.getCorrectInt("faculty ID")).ifPresentOrElse(
+                        System.out::println, () -> System.out.println("Faculty not found"));
+                break;
+            case 2:
+                Repository.findFacultyByShortName(Validator.getCorrectString("faculty short name")).ifPresentOrElse(
+                        System.out::println, () -> System.out.println("Faculty not found"));
+                break;
+            case 3:
+            default:
+                break;
+        }
+
     }
+
     @Override
     public void reportMenu() {
+        if(Repository.getFaculties().isEmpty()){
+            System.out.println("No faculties found");
+            return;
+        }
+        reportAll();
+    }
+
+    private void reportAll() {
         System.out.println("\nFaculties:\n");
         int index = 1;
-        boolean found = false;
-        for (Faculty f: Repository.getFaculties()) {
-            if (f!= null) {
-                System.out.println(index++ + ". " + f);
-                found = true;
-            }
+        for (Faculty f : Repository.getFaculties()) {
+            if (f != null)  System.out.println(index++ + ". " + f);
+
         }
-        if (!found) System.out.println("No faculties found");
     }
 }

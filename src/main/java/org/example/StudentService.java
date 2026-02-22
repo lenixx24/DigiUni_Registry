@@ -7,7 +7,7 @@ public class StudentService implements ConsoleService{
     @Override
     public void createMenu() {
         Student newStudent = new Student(
-                Validator.getCorrectInt("ID"),
+                Validator.getCorrectStudentID("ID"),
                 Validator.getCorrectString("last name"),
                 Validator.getCorrectString("first name"),
                 Validator.getCorrectString("middle name"),
@@ -102,7 +102,7 @@ public class StudentService implements ConsoleService{
                 Repository.findStudentByFullName(name)
                         .ifPresentOrElse(System.out::println, () -> System.out.println("Student not found"));
                 break;
-            case 3: default: searchMenu();
+            case 3: default: break;
         }
 
     }

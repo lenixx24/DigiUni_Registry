@@ -34,32 +34,40 @@ public class Validator {
     public static int getCorrectFacultyID(String txt) {
         int res;
         while(true){
-            System.out.println("Enter "+txt+": ");
-            res= sc.nextInt();
-            sc.nextLine();
-            if(res<=0) System.out.println("ID must be positive int");
-            else if(Repository.findFacultyById(res).isPresent()) System.out.println("Faculty with this ID already exists");
+            res= Validator.getCorrectInt(txt);
+             if(Repository.findFacultyById(res).isPresent()) System.out.println("Faculty with this ID already exists");
             else return res;
          }
     }
     public static int getCorrectDepartmentID(String txt) {
         int res;
         while(true){
-            System.out.println("Enter "+txt+": ");
-            res= sc.nextInt();
-            if(res<=0) System.out.println("ID must be positive int");
-            else if(Repository.findDepartmentById(res).isPresent()) System.out.println("Department with this ID already exists");
+            res= Validator.getCorrectInt(txt);
+            if(Repository.findDepartmentById(res).isPresent()) System.out.println("Department with this ID already exists");
             else return res;
         }
     }
-
+    public static int getCorrectTeacherID(String txt) {
+        int res;
+        while(true){
+            res= Validator.getCorrectInt(txt);
+             if(Repository.findTeacherById(res).isPresent()) System.out.println("Teacher with this ID already exists");
+            else return res;
+        }
+    }
+    public static int getCorrectStudentID(String txt) {
+        int res;
+        while(true){
+            res= Validator.getCorrectInt(txt);
+             if(Repository.findStudentById(res).isPresent()) System.out.println("Student with this ID already exists");
+            else return res;
+        }
+    }
     public static Faculty getCorrectFaculty(String txt) {
         int id;
         while(true){
-            System.out.println("Enter "+txt+": ");
-            id= sc.nextInt();
-            if(id<=0) System.out.println("ID must be positive int");
-            else if(Repository.findFacultyById(id).isEmpty()) System.out.println("No faculty with this ID");
+            id=Validator.getCorrectInt(txt);
+             if(Repository.findFacultyById(id).isEmpty()) System.out.println("No faculty with this ID");
             else return Repository.findFacultyById(id).get();
         }
     }

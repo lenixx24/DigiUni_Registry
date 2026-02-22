@@ -19,7 +19,6 @@ public class Department {
         this.faculty = faculty;
         this.head = head;
         this.office = office;
-        faculty.addDepartment(this);
     }
     public Department(int id, String name, Faculty faculty, String office) {
         this.id = id;
@@ -83,5 +82,9 @@ public class Department {
         if(head==null) return "ID: "+id+", "+name+" ("+ faculty.getShortName()+"),\n Head: -, Office: "+office;
         return "ID: "+id+", "+name+" ("+ faculty.getShortName()+"),\n Head: "+head.getFullName()+
                 ", Office: "+office;
+    }
+
+    public Faculty getFaculty() {
+        return this.faculty;
     }
 }

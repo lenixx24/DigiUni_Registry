@@ -152,4 +152,23 @@ public class Repository {
     }
 
 
+    public static Optional<Faculty> findFacultyByShortName(String name) {
+        for(Faculty faculty: faculties){
+            if(faculty == null) return Optional.empty();
+            if (faculty.getShortName().equals(name)){
+                return Optional.of(faculty);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<Department> findDeparmentByName(String name) {
+        for(Department department: departments){
+            if(department == null) return Optional.empty();
+            if (department.getName().equals(name)){
+                return Optional.of(department);
+            }
+        }
+        return Optional.empty();
+    }
 }

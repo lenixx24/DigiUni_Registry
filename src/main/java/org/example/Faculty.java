@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Faculty {
-    public final University university;
+    private final University university;
     private final int id;
     private final String fullName;
     private final String shortName;
@@ -22,7 +22,6 @@ public class Faculty {
         this.dean = dean;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        university.addFaculty(this);
     }
     public Faculty(University university, int id, String fullName, String shortName, String phoneNumber, String emailAddress) {
         this.university=university;
@@ -31,7 +30,6 @@ public class Faculty {
         this.shortName = shortName;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        university.addFaculty(this);
     }
     public void addDepartment(Department department){
         departments.add(department);
