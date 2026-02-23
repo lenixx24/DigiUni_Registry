@@ -1,10 +1,12 @@
 package org.example;
+import org.apache.logging.log4j.*;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validator {
     private static Scanner sc=new Scanner(System.in);
-
+    private static final Logger log = LogManager.getLogger(Validator.class);
     public static String getCorrectString(String txt){
         String res;
         while(true){
@@ -17,6 +19,7 @@ public class Validator {
     }
     public static int getCorrectInt(String txt) {
         int res;
+        sc = new Scanner(System.in);
         while(true){
             System.out.println("Enter "+txt+": ");
             try{
@@ -24,8 +27,8 @@ public class Validator {
                 sc.nextLine();
                 return res;
             }
-            catch (Exception e){
-                System.out.println("Input must be an integer");
+            catch (InputMismatchException e){
+                log.warn("Input must be an integer");
                 sc.nextLine();
             }
         }
@@ -35,7 +38,7 @@ public class Validator {
         int res;
         while(true){
             res= Validator.getCorrectInt(txt);
-             if(Repository.findFacultyById(res).isPresent()) System.out.println("Faculty with this ID already exists");
+             if(Repository.findFacultyById(res).isPresent()) log.warn("Faculty with ID {} already exists", res);
             else return res;
          }
     }
@@ -43,7 +46,7 @@ public class Validator {
         int res;
         while(true){
             res= Validator.getCorrectInt(txt);
-            if(Repository.findDepartmentById(res).isPresent()) System.out.println("Department with this ID already exists");
+            if(Repository.findDepartmentById(res).isPresent()) log.warn("Department with ID {} already exists", res);
             else return res;
         }
     }
@@ -51,7 +54,7 @@ public class Validator {
         int res;
         while(true){
             res= Validator.getCorrectInt(txt);
-             if(Repository.findTeacherById(res).isPresent()) System.out.println("Teacher with this ID already exists");
+             if(Repository.findTeacherById(res).isPresent()) log.warn("Teacher with ID {} already exists", res);
             else return res;
         }
     }
@@ -59,7 +62,7 @@ public class Validator {
         int res;
         while(true){
             res= Validator.getCorrectInt(txt);
-             if(Repository.findStudentById(res).isPresent()) System.out.println("Student with this ID already exists");
+             if(Repository.findStudentById(res).isPresent()) log.warn("Student with ID {} already exists", res);
             else return res;
         }
     }
@@ -67,31 +70,17 @@ public class Validator {
         int id;
         while(true){
             id=Validator.getCorrectInt(txt);
-             if(Repository.findFacultyById(id).isEmpty()) System.out.println("No faculty with this ID");
+             if(Repository.findFacultyById(id).isEmpty()) log.warn("No faculty with ID {}", id);
             else return Repository.findFacultyById(id).get();
         }
     }
 
     public static Teacher getCorrectTeacher(String txt) {
         int id;
-        while (true) {
-            System.out.println("Enter " + txt + ": ");
-            try {
-                id = sc.nextInt();
-                sc.nextLine();
-                if (id <= 0) Repository.findTeacherByFullName(getCorrectString(txt))
-                        .orElseThrow(() -> new IllegalArgumentException("No teacher with this ID"));
-                else Repository.findTeacherById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("No teacher with this ID"));
-                return Repository.findTeacherById(id).get();
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a number");
-                sc.nextLine();
-            }
-            catch (IllegalArgumentException e){
-                System.out.println("No teacher with this ID");
-                sc.nextLine();
-            }
+        while(true){
+            id=Validator.getCorrectInt(txt);
+            if(Repository.findFacultyById(id).isEmpty()) log.warn("No teacher with ID {}", id);
+            else return Repository.findTeacherById(id).get();
         }
     }
 
@@ -101,7 +90,7 @@ public class Validator {
             System.out.println("Enter "+txt+": ");
             res=sc.nextLine();
             if(isPhoneNumber(res)) return res;
-            else System.out.println("Phone number must contain only numbers and +");
+            else log.warn("{} is not a phone number. Number must be in format +xxxxxxxxxxxx", res);
         }
     }
 
@@ -121,7 +110,7 @@ public class Validator {
             System.out.println("Enter "+txt+": ");
             res=sc.nextLine();
             if(res.contains("@")) return res;
-            else System.out.println("Email must contain @");
+            else log.warn("Email must contain @");
         }
     }
     public static int checkedUserChoice(int min, int max){
@@ -132,10 +121,10 @@ public class Validator {
                 sc=new Scanner(System.in);
                 res= sc.nextInt();
                 if(res>=min&&res<=max) break;
-                else System.out.println("Enter correct number");
+                else log.warn("Enter number {}-{}: ", min, max);
             }
             catch(InputMismatchException e){
-                System.out.println("Enter number");
+                log.warn("Input must be an integer");
             }
         }
         return res;

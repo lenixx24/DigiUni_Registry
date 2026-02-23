@@ -1,9 +1,12 @@
 package org.example;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Scanner;
 
 public class StudentService implements ConsoleService{
     private Scanner scanner;
-
+    private static final Logger log = LogManager.getLogger(StudentService.class);
     @Override
     public void createMenu() {
         Student newStudent = new Student(
@@ -22,7 +25,7 @@ public class StudentService implements ConsoleService{
                 Validator.getCorrectString("status")
         );
         Repository.addStudent(newStudent);
-        System.out.println(newStudent.getLastName()+" "+newStudent.getFirstName()+" "+ newStudent.getMiddleName() +" created successfully");
+        log.info("{} created successfully", newStudent.getFullName());
     }
 
     @Override
@@ -52,31 +55,31 @@ public class StudentService implements ConsoleService{
                         case 5 : student.changeStatus(Validator.getCorrectString("status")); break;
                         case 6 : default: updateMenu();
                     }
-                    System.out.println("Student updated successfully");
+                    log.info("Student with ID {} updated successfully", id);
                     System.out.println(student);
                 },
-                () -> System.out.println("Student not found")
+                () -> log.warn("No student with ID {}", id)
         );
 
     }
 
     @Override
     public void removeMenu() {
-        System.out.println("Enter student id: ");
         Student studentForRemove=null;
+        int id=0;
         try{
-            studentForRemove=Repository.findStudentById(scanner.nextInt()).orElseThrow(
+            id=Validator.getCorrectInt("student id");
+            studentForRemove=Repository.findStudentById(id).orElseThrow(
                     ()-> new IllegalArgumentException("Can not find student")
             );
         }
         catch (IllegalArgumentException e){
-            System.out.println("Can not find student");
+            log.warn("No student with ID {}", id);
             removeMenu();
-            scanner.close();
         }
-        Repository.removeStudent(studentForRemove);
         if (studentForRemove != null) {
-            System.out.println("Student removed successfully");
+            Repository.removeStudent(studentForRemove);
+            log.info("Student with ID {} removed successfully",  id);
         }
 
     }
@@ -91,16 +94,14 @@ public class StudentService implements ConsoleService{
         int choice = Validator.checkedUserChoice(1, 3);
         switch(choice) {
             case 1:
-                System.out.print("Enter student ID: ");
-                Repository.findStudentById(scanner.nextInt())
-                        .ifPresentOrElse(System.out::println, () -> System.out.println("Student not found"));
+                int id = Validator.getCorrectInt("student ID");
+                Repository.findStudentById(id)
+                        .ifPresentOrElse(System.out::println, () -> log.warn("No student with ID {}", id));
                 break;
             case 2:
-                System.out.print("Enter full name: ");
-                scanner.nextLine();
-                String name = scanner.nextLine();
+                String name = Validator.getCorrectString("full name");
                 Repository.findStudentByFullName(name)
-                        .ifPresentOrElse(System.out::println, () -> System.out.println("Student not found"));
+                        .ifPresentOrElse(System.out::println, () -> log.warn("No student with name {}", name));
                 break;
             case 3: default: break;
         }
@@ -118,7 +119,7 @@ public class StudentService implements ConsoleService{
                 found = true;
             }
         }
-        if (!found) System.out.println("No students found");
+        if (!found) log.info("No students found");
 
     }
 }

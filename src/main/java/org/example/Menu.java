@@ -1,4 +1,7 @@
 package org.example;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -6,6 +9,7 @@ public class Menu {
     private static Scanner scanner;
     private static int userChoice;
     private static ConsoleService consoleService;
+    private static final Logger log = LogManager.getLogger(Menu.class);
     public static void startMenu(){
         System.out.println("\n \u001B[1;97mWelcome to DigiUni! \u001B[0m");
 
@@ -124,11 +128,9 @@ public class Menu {
         switch(userChoice){
             case 1:
                 consoleService = new FacultyService();
-              //  consoleService.createMenu();
                 break;
             case 2:
                     consoleService= new DepartmentService();
-                //  consoleService.createMenu();
                     break;
             case 3:
                consoleService = new StudentService();
@@ -153,17 +155,17 @@ public class Menu {
     private static int checkedUserChoice(int min, int max){
         System.out.print("\nEnter number("+min+" - "+max+"):");
         int res;
-            while(true) {
-                try{
-                    scanner=new Scanner(System.in);
-                    res= scanner.nextInt();
-                    if(res>=min&&res<=max) break;
-                    else System.out.println("Enter correct number");
-                }
-                catch(InputMismatchException e){
-                    System.out.println("Enter number");
-                }
+        while(true) {
+            try{
+                scanner=new Scanner(System.in);
+                res= scanner.nextInt();
+                if(res>=min&&res<=max) break;
+                else log.warn("Enter number {}-{}: ", min, max);
             }
+            catch(InputMismatchException e){
+                log.warn("Input must be an integer");
+            }
+        }
         return res;
     }
 

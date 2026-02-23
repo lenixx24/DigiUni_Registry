@@ -1,29 +1,31 @@
 package org.example;
 
-import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class DepartmentService implements ConsoleService{
- private Scanner scanner;
+
+    private static final Logger log = LogManager.getLogger(DepartmentService.class);
     @Override
     public void createMenu() {
         if(Repository.getFaculties().isEmpty()) {
-            System.out.println("You can't create Department without faculties");
+            log.info("You can't create Department without faculties");
             return;
         }
         Department newDepartment = new Department(
                 Validator.getCorrectDepartmentID("ID"),
                 Validator.getCorrectString("name"),
                 Validator.getCorrectFaculty("faculty ID"),
-            //    Validator.getCorrectTeacher(" head's ID"),
                 Validator.getCorrectString("office"));
         Repository.addDepartment(newDepartment);
         newDepartment.getFaculty().addDepartment(newDepartment);
-        System.out.println(newDepartment.getName()+" created successfully");
+        log.info("{} created successfully", newDepartment.getName());
     }
     @Override
     public void updateMenu() {
         if(Repository.getDepartments().isEmpty()) {
-            System.out.println("No departments found");
+            log.info("No departments found");
             return;
         }
         reportAll();
@@ -42,62 +44,64 @@ public class DepartmentService implements ConsoleService{
                     switch (choice) {
                         case 1: department.changeFaculty(Validator.getCorrectFaculty("faculty ID"));break;
                         case 2 : if(Repository.getTeachers().isEmpty()) {
-                            System.out.println("No teachers found");
+                            log.warn("No teachers found");
                             return;
                         }
                             department.changeHead(Validator.getCorrectTeacher("teacher ID")); break;
                         case 3 : department.changeOffice(Validator.getCorrectString("office")); break;
                         case 4 : default: return;
                     }
-                    System.out.println("Department updated successfully");
+                   log.info("Department with ID {} updated successfully", id);
                     System.out.println(department);
                 },
-                () -> System.out.println("Department not found")
+                () -> log.warn("No department with ID {}", id)
         );
     }
     @Override
     public void removeMenu() {
         if(Repository.getDepartments().isEmpty()){
-            System.out.println("No departments found");
+            log.info("No departments found");
             return;
         }
         reportAll();
         Department departmentForRemove=null;
+        int id=0;
         try{
-            departmentForRemove=Repository.findDepartmentById(Validator.getCorrectInt("department ID")).orElseThrow(
+            id =Validator.getCorrectInt("department ID");
+            departmentForRemove=Repository.findDepartmentById(id).orElseThrow(
                     ()-> new IllegalArgumentException("Can not find department")
             );
         }
         catch (IllegalArgumentException e){
-            System.out.println("Can not find department");
+            log.warn("No department with ID {}", id);
             removeMenu();
-            scanner.close();
         }
         if (departmentForRemove != null) {
             Repository.removeDepartment(departmentForRemove);
-            System.out.println("Department removed successfully");
+            log.info("Department with ID {} removed successfully", id);
         }
     }
     @Override
     public void searchMenu() {
         if(Repository.getDepartments().isEmpty()){
-            System.out.println("You have no departments");
+            log.info("You have no departments");
             return;
         }
         System.out.println("\u001B[34mSearch department by:\u001B[0m");
-        scanner = new Scanner(System.in);
         System.out.println("1. ID");
         System.out.println("2. Name");
         System.out.println("3. Back");
         int choice = Validator.checkedUserChoice(1, 3);
         switch (choice) {
             case 1:
-                Repository.findDepartmentById(Validator.getCorrectInt("department ID")).ifPresentOrElse(
-                        System.out::println, () -> System.out.println("Department not found"));
+                int id=Validator.getCorrectInt("department ID");
+                Repository.findDepartmentById(id).ifPresentOrElse(
+                        System.out::println, () -> log.warn("No department with ID {}", id));
                 break;
             case 2:
-                Repository.findDeparmentByName(Validator.getCorrectString("department name")).ifPresentOrElse(
-                        System.out::println, () -> System.out.println("Department not found"));
+                String name =Validator.getCorrectString("department name");
+                Repository.findDeparmentByName(name).ifPresentOrElse(
+                        System.out::println, () -> log.warn("No department with name {}", name));
                 break;
             case 3:
             default:
@@ -108,7 +112,7 @@ public class DepartmentService implements ConsoleService{
     @Override
     public void reportMenu() {
         if(Repository.getDepartments().isEmpty()) {
-            System.out.println("No departments found");
+            log.info("No departments found");
             return;
         }
         reportAll();
