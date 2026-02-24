@@ -14,7 +14,7 @@ public class TeacherService implements ConsoleService{
                 Validator.getCorrectString("last name"),
                 Validator.getCorrectString("first name"),
                 Validator.getCorrectString("middle name"),
-                Validator.getCorrectString("birth date"),
+                Validator.getCorrectDate("birth date"),
                 Validator.getCorrectEmail("email address"),
                 Validator.getCorrectPhoneNumber("phone number"),
                 Validator.getCorrectString("job"),
@@ -24,11 +24,19 @@ public class TeacherService implements ConsoleService{
                 Validator.getCorrectInt("workload")
         );
         Repository.addTeacher(newTeacher);
-        log.info("{} created successfully", newTeacher.getFullName());
+        newTeacher.getAge();
+        log.info("Teacher {} created, Age: {} years",
+                newTeacher.getFullName(), newTeacher.getAge());
     }
+
 
     @Override
     public void updateMenu() {
+        if(Repository.getTeachers().isEmpty()) {
+            System.out.println("You have no teachers for update");
+            return;
+        }
+        reportAll();
         int id = Validator.getCorrectInt("teacher ID");
 
         Repository.findTeacherById(id).ifPresentOrElse(
@@ -48,7 +56,7 @@ public class TeacherService implements ConsoleService{
                         case 2 : teacher.changeDegree(Validator.getCorrectString("degree")); break;
                         case 3 : teacher.changeAcademicStatus(Validator.getCorrectString("academic status")); break;
                         case 4 : teacher.changeWorkload(Validator.getCorrectInt("workload")); break;
-                        case 5 : default: updateMenu();
+                        case 5 : default: return;
                     }
                     log.info("Teacher with ID {} updated successfully", id);
                     System.out.println(teacher);
@@ -60,6 +68,12 @@ public class TeacherService implements ConsoleService{
 
     @Override
     public void removeMenu() {
+        if(Repository.getTeachers().isEmpty()) {
+            System.out.println("You have no teachers for remove");
+            return;
+        }
+        reportAll();
+        scanner = new Scanner(System.in);
         Teacher teacherForRemove=null;
         int id=Validator.getCorrectInt("teacher ID");
         try{
@@ -114,6 +128,15 @@ public class TeacherService implements ConsoleService{
         }
         if (!found) log.info("No teachers found");
 
+    }
+
+    private void reportAll() {
+        System.out.println("\nTeachers:\n");
+        int index = 1;
+        for (Teacher t : Repository.getTeachers()) {
+            if (t != null)  System.out.println(index++ + ". " + t);
+
+        }
     }
 
 

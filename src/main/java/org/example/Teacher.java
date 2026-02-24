@@ -1,4 +1,5 @@
 package org.example;
+import java.time.LocalDate;
 
 public class Teacher extends Person{
     private String job;
@@ -7,7 +8,7 @@ public class Teacher extends Person{
     private final String hireDate;
     private double workload;
 
-    public Teacher(int id, String lastName, String firstName, String middleName, String birthDate, String email, String phone, String job, String degree, String academicStatus, String hireDate, double workload) {
+    public Teacher(int id, String lastName, String firstName, String middleName, LocalDate birthDate, String email, String phone, String job, String degree, String academicStatus, String hireDate, double workload) {
         super(id, lastName, firstName, middleName, birthDate, email, phone);
         this.job = job;
         this.degree = degree;

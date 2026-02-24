@@ -14,7 +14,7 @@ public class StudentService implements ConsoleService{
                 Validator.getCorrectString("last name"),
                 Validator.getCorrectString("first name"),
                 Validator.getCorrectString("middle name"),
-                Validator.getCorrectString("birth date"),
+                Validator.getCorrectDate("birth date"),
                 Validator.getCorrectEmail("email address"),
                 Validator.getCorrectPhoneNumber("phone number"),
                 Validator.getCorrectString("student ID"),
@@ -25,14 +25,19 @@ public class StudentService implements ConsoleService{
                 Validator.getCorrectString("status")
         );
         Repository.addStudent(newStudent);
-        log.info("{} created successfully", newStudent.getFullName());
+        newStudent.getAge();
+        log.info("Student {} created, Age: {} years",
+                newStudent.getFullName(), newStudent.getAge());
     }
 
     @Override
     public void updateMenu() {
-        System.out.print("Enter student ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        if(Repository.getStudents().isEmpty()) {
+            System.out.println("You have no students for update");
+            return;
+        }
+        reportAll();
+        int id = Validator.getCorrectInt("student ID");
 
         Repository.findStudentById(id).ifPresentOrElse(
                 student -> {
@@ -53,7 +58,7 @@ public class StudentService implements ConsoleService{
                         case 3 : student.changeGroup(Validator.getCorrectString("group")); break;
                         case 4 : student.changeStudyForm(Validator.getCorrectString("study form")); break;
                         case 5 : student.changeStatus(Validator.getCorrectString("status")); break;
-                        case 6 : default: updateMenu();
+                        case 6 : default: return;
                     }
                     log.info("Student with ID {} updated successfully", id);
                     System.out.println(student);
@@ -65,6 +70,12 @@ public class StudentService implements ConsoleService{
 
     @Override
     public void removeMenu() {
+        if(Repository.getStudents().isEmpty()) {
+            System.out.println("You have no students for remove");
+            return;
+        }
+        reportAll();
+        scanner = new Scanner(System.in);
         Student studentForRemove=null;
         int id=0;
         try{
@@ -121,5 +132,13 @@ public class StudentService implements ConsoleService{
         }
         if (!found) log.info("No students found");
 
+    }
+    private void reportAll() {
+        System.out.println("\nStudents:\n");
+        int index = 1;
+        for (Student s : Repository.getStudents()) {
+            if (s != null)  System.out.println(index++ + ". " + s);
+
+        }
     }
 }

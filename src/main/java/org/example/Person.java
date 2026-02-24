@@ -1,15 +1,17 @@
 package org.example;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class Person {
     private final int id;
     private final String lastName;
     private final String firstName;
     private final String middleName;
-    private final String birthDate;
+    private final LocalDate birthDate;
     private String email;
     private String phone;
 
-    public Person(int id, String lastName, String firstName, String middleName, String birthDate, String email, String phone) {
+    public Person(int id, String lastName, String firstName, String middleName, LocalDate birthDate, String email, String phone) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -32,9 +34,14 @@ public class Person {
         return middleName;
     }
 
+    public int getAge() {
+        if (birthDate == null) return 0;
+        return Period.between(birthDate, LocalDate.now()).getYears();
+    }
+
     @Override
     public String toString() {
-        return "ID: "+id+", "+lastName + " " + firstName + " " + middleName;
+        return "ID: "+id+", "+lastName + " " + firstName + " " + middleName + ", Age: "+getAge();
     }
 
      public String getFullName() {

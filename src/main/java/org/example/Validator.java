@@ -1,12 +1,38 @@
 package org.example;
 import org.apache.logging.log4j.*;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validator {
     private static Scanner sc=new Scanner(System.in);
     private static final Logger log = LogManager.getLogger(Validator.class);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    public static LocalDate getCorrectDate(String txt) {
+        while (true) {
+            System.out.println("Type " + txt + " (format dd.MM.yyyy): ");
+            String input = sc.nextLine();
+
+            if (input == null || input.isEmpty()) {
+                System.out.println("Input cannot be empty");
+            } else {
+                try {
+                    LocalDate date = LocalDate.parse(input, formatter);
+                    LocalDate oldEnough = LocalDate.now().minusYears(10);
+                    if (date.isAfter(oldEnough)) {
+                        System.out.println("The person must be older");
+                    } else {
+                        return date;
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Type format day.month.year (ex: 15.05.2000)");
+                }
+            }
+        }}
+
     public static String getCorrectString(String txt){
         String res;
         while(true){
@@ -118,13 +144,14 @@ public class Validator {
         int res;
         while(true) {
             try{
-                sc=new Scanner(System.in);
                 res= sc.nextInt();
+                sc.nextLine();
                 if(res>=min&&res<=max) break;
                 else log.warn("Enter number {}-{}: ", min, max);
             }
             catch(InputMismatchException e){
                 log.warn("Input must be an integer");
+                sc.nextLine();
             }
         }
         return res;
