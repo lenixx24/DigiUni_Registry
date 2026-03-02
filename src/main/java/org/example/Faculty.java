@@ -43,6 +43,12 @@ public class Faculty {
     public int getNumberOfDepartments() {
         return numberOfDepartments;
     }
+    public Teacher getDean() {
+        return dean;
+    }
+    public List<Department> getDepartments() {
+        return departments;
+    }
     public int getID() {
         return id;
     }
@@ -70,9 +76,21 @@ public class Faculty {
     }
     @Override
     public String toString() {
-        if(dean==null) return "ID: "+id+", "+fullName+" ("+shortName+"), \nDean: -, Contacts: "+phoneNumber+", "
-                +emailAddress;
-        return "ID: "+id+", "+fullName+" ("+shortName+"), \nDean: "+dean.getFullName()+", Contacts: "+phoneNumber+", "
-                +emailAddress;
+        String toStart;
+        if(dean==null) {
+            toStart ="ID: "+id+", "+fullName+" ("+shortName+"), \nDean: -, Contacts: "+phoneNumber+", "
+                    +emailAddress;
+        }else{
+            toStart ="ID: "+id+", "+fullName+" ("+shortName+"), \nDean: "+dean.getFullName()+", Contacts: "+phoneNumber+", "
+                    +emailAddress;
+        }
+
+        String dep;
+        if (departments.isEmpty()) {
+            dep = "none";
+        } else {
+            dep = departments.toString();
+        }
+        return toStart + ", \nDepartments: " + dep;
     }
 }

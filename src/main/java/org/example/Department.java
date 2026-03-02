@@ -1,7 +1,9 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Department {
     private final int id;
@@ -9,9 +11,9 @@ public class Department {
     private Faculty faculty;
     private Teacher head;
     private String office;
-    private List<Teacher> teachers =new ArrayList<>();
+    private Set<Teacher> teachers =new HashSet<>();
     private int numberOfTeachers;
-    private List<Student> students =new ArrayList<>();
+    private Set<Student> students = new HashSet<>();
     private int numberOfStudents;
     public Department(int id, String name, Faculty faculty, Teacher head, String office) {
         this.id = id;
@@ -28,22 +30,26 @@ public class Department {
         faculty.addDepartment(this);
     }
     public void addTeacher(Teacher teacher){
-        this.teachers.add(teacher);
-        numberOfTeachers++;
+        if (teachers.add(teacher)) {
+            numberOfTeachers++;
+        }
     }
     public void addStudent(Student student){
-        this.students.add(student);
-        numberOfStudents++;
+        if (students.add(student)) {
+            numberOfStudents++;
+        }
     }
     public void removeStudent(Student student){
-        Repository.removeStudent(student);
-        students.remove(student);
-        numberOfStudents--;
+        if (students.remove(student)) {
+            Repository.removeStudent(student);
+            numberOfStudents--;
+        }
     }
     public void removeTeacher(Teacher teacher){
-       Repository.removeTeacher(teacher);
-       teachers.remove(teacher);
-       numberOfTeachers--;
+        if (teachers.remove(teacher)) {
+            Repository.removeTeacher(teacher);
+            numberOfTeachers--;
+        }
     }
     public int getNumberOfStudents() {
         return numberOfStudents;

@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    private static LocalDate LocalDate(String date) {
+    public static LocalDate LocalDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return LocalDate.parse(date, formatter);
     }

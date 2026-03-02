@@ -25,6 +25,9 @@ public class Teacher extends Person{
         }
         this.job=newJob;
     }
+    public String getJob() {
+        return job;
+    }
     public void changeDegree(String newDegree){
         if(newDegree==null||newDegree.isEmpty()){
             throw new IllegalArgumentException("Degree must not be empty");

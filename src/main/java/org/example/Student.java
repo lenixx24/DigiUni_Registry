@@ -25,6 +25,9 @@ public class Student extends Person {
         }
         this.course = newCourse;
     }
+    public int getCourse() {
+        return course;
+    }
 
     public void changeGroup(String newGroup) {
         if (newGroup == null || newGroup.isEmpty()) {
