@@ -111,6 +111,6 @@ public class Main {
         s5.setDepartment(d2);
         s6.setDepartment(d3);
 
-        Menu.startMenu();
+        Menu.authorizationMenu();
     }
 }

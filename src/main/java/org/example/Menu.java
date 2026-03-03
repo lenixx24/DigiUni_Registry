@@ -10,8 +10,21 @@ public class Menu {
     private static int userChoice;
     private static ConsoleService consoleService;
     private static final Logger log = LogManager.getLogger(Menu.class);
-    public static void startMenu(){
+    private static User user;
+    public static void authorizationMenu(){
         System.out.println("\n \u001B[1;97mWelcome to DigiUni! \u001B[0m");
+        System.out.println("1. \u001B[32mLog in\u001B[0m ");
+        System.out.println("2. Exit ");
+        userChoice = checkedUserChoice(1,2);
+        UserService userService= new UserService();
+        switch (userChoice){
+            case 1: userService.logIn(); break;
+            case 2: default: System.out.println("Goodbye! "); System.exit(0);
+        }
+        startMenu();
+    }
+    public static void startMenu(){
+
 
         System.out.println("1. \u001B[32mCreate\u001B[0m ");
         System.out.println("2. \u001B[34mSearch\u001B[0m ");
@@ -168,6 +181,8 @@ public class Menu {
         }
         return res;
     }
-
+    public static void setUser(User user){
+        Menu.user=user;
+    }
 
 }
