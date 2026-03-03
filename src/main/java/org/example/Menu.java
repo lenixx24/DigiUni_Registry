@@ -23,26 +23,55 @@ public class Menu {
         }
         startMenu();
     }
-    public static void startMenu(){
-
-
+    public static void startMenu() {
+        while(true){
         System.out.println("1. \u001B[32mCreate\u001B[0m ");
         System.out.println("2. \u001B[34mSearch\u001B[0m ");
         System.out.println("3. \u001B[33mUpdate\u001B[0m ");
         System.out.println("4. \u001B[31mRemove\u001B[0m");
         System.out.println("5. \u001B[35mReport\u001B[0m");
-        System.out.println("6. Exit ");
-        userChoice= checkedUserChoice(1, 6);
-    switch(userChoice){
-        case 1: createMenu(); break;
-        case 2: searchMenu(); break;
-        case 3: updateMenu(); break;
-        case 4: removeMenu(); break;
-        case 5: reportMenu(); break;
-        case 6: default: System.out.println("Goodbye! "); System.exit(0);
+        System.out.println("6. \u001B[36mManage users\u001B[0m");
+        System.out.println("7. Exit ");
+        userChoice = checkedUserChoice(1, 7);
+        switch (userChoice) {
+            case 1:
+                createMenu();
+                break;
+            case 2:
+                searchMenu();
+                break;
+            case 3:
+                updateMenu();
+                break;
+            case 4:
+                removeMenu();
+                break;
+            case 5:
+                reportMenu();
+                break;
+            case 6:
+                manageUsersMenu();
+                break;
+            default:
+                System.out.println("Goodbye! ");
+                System.exit(0);
+        }
     }
     }
+
+    private static void manageUsersMenu() {
+        if(!user.canManageUsers()){
+            log.warn("User {} with role {} can not manage users", user.getUserName(), user.getRole());
+            return;
+        }
+
+    }
+
     private static void removeMenu() {
+        if(!user.canEditRegistryUnits()){
+            log.warn("User {} with role {} can not remove", user.getUserName(), user.getRole());
+            return;
+        }
         printMenu("\u001B[31mRemove\u001B[0m");
         userChoice= checkedUserChoice(1, 5);
         scanner=new Scanner(System.in);
@@ -59,12 +88,16 @@ public class Menu {
             case 4:
                 consoleService = new TeacherService();
                 break;
-            case 5: default: startMenu();
+            case 5: default: return;
         }
         consoleService.removeMenu();
         removeMenu();
     }
     private static void updateMenu() {
+        if(!user.canEditRegistryUnits()){
+            log.warn("User {} with role {} can not update", user.getUserName(), user.getRole());
+            return;
+        }
         printMenu("\u001B[33mUpdate\u001B[0m");
         userChoice= checkedUserChoice(1, 5);
         scanner=new Scanner(System.in);
@@ -82,7 +115,7 @@ public class Menu {
             case 4:
                 consoleService = new TeacherService();
                 break;
-            case 5: default: startMenu();
+            case 5: default: return;
         }
         consoleService.updateMenu();
         updateMenu();
@@ -105,7 +138,7 @@ public class Menu {
             case 4:
                 consoleService=new TeacherService();
                 break;
-            case 5: default: startMenu();
+            case 5: default: return;
         }
         consoleService.searchMenu();
         searchMenu();
@@ -128,7 +161,7 @@ public class Menu {
             case 4 :
                consoleService = new TeacherService();
                 break;
-           case 5: default: startMenu();
+           case 5: default: return;
         }
        consoleService.reportMenu();
         reportMenu();
@@ -136,6 +169,10 @@ public class Menu {
 
 
     private static void createMenu() {
+        if(!user.canEditRegistryUnits()){
+            log.warn("User {} with role {} can not create", user.getUserName(), user.getRole());
+            return;
+        }
         printMenu("\u001B[32mCreate\u001B[0m");
         userChoice= checkedUserChoice(1, 5);
         switch(userChoice){
@@ -151,7 +188,7 @@ public class Menu {
             case 4:
                consoleService = new TeacherService();
                 break;
-            case 5: default: startMenu();
+            case 5: default: return;
         }
         consoleService.createMenu();
         createMenu();

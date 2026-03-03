@@ -110,7 +110,6 @@ public class Main {
         s4.setDepartment(d2);
         s5.setDepartment(d2);
         s6.setDepartment(d3);
-
         Menu.authorizationMenu();
     }
 }

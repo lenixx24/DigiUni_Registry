@@ -26,7 +26,10 @@ public class UserService {
                 return;
             }
             else {
-                if(i==0) log.warn("To much tries! Access is blocked");
+                if(i==0) {
+                    log.warn("To much tries! Access is blocked");
+                    System.exit(0);
+                }
                 else log.warn("Incorrect password. {} tries left", i);
             }
         }
