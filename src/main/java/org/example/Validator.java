@@ -219,4 +219,27 @@ public class Validator {
         }
         return res;
     }
+
+    public static Role getCorrectRole(String txt) {
+        String res;
+        sc=new Scanner(System.in);
+        while (true){
+            System.out.println("Enter "+txt+": ");
+            res=sc.nextLine();
+            if(res.equalsIgnoreCase("USER")) return Role.USER;
+            else if(res.equalsIgnoreCase("MANAGER")) return Role.MANAGER;
+            else if(res.equalsIgnoreCase("ADMIN")) return Role.ADMIN;
+            else if(res.equalsIgnoreCase("blocked")) return Role.BLOCKED;
+            else log.warn("No role {} found", res.toUpperCase());
+        }
+    }
+
+    public static String getCorrectLogin(String txt) {
+        String res;
+        while(true){
+            res= Validator.getCorrectString(txt);
+            if(Repository.findUserByLogin(res).isPresent()) log.warn("User with this login already exists");
+            else return res;
+        }
+    }
 }

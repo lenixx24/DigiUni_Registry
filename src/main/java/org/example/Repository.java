@@ -18,7 +18,13 @@ public class Repository {
 
     private static List<Faculty> faculties = new ArrayList<>(10);
     private static int facultyCount = 0;
-
+    private static List<User> users = new ArrayList<>(5);
+    private static int userCount=0;
+ static{
+     Repository.addUser(new User("User","user123", "12345",  Role.USER));
+     Repository.addUser(new User("Manager","manager", "m@n@ger",  Role.MANAGER));
+     Repository.addUser(new User("Admin","admin", "@dm1n",  Role.ADMIN));
+ }
 //------------------------------------ADD/REMOVE STUDENT
 
     public static void addStudent(Student student) {
@@ -96,6 +102,11 @@ public class Repository {
     public static List<Faculty> getFaculties() {
         List<Faculty>  result = new ArrayList<>(facultyCount);
         for (int i = 0; i < facultyCount; i++) result.add(faculties.get(i));
+        return result;
+    }
+    public static List<User> getUsers() {
+        List<User>  result = new ArrayList<>(userCount);
+        for (int i = 0; i < userCount; i++) result.add(users.get(i));
         return result;
     }
 
@@ -187,7 +198,25 @@ public class Repository {
         }
         return Optional.empty();
     }
-
+    //------------------------------------USER METHODS
+   public static Optional<User> findUserByLogin(String login){
+       for(User user: users){
+           if(user == null) return Optional.empty();
+           if (user.hasLogin(login)){
+               return Optional.of(user);
+           }
+       }
+       return Optional.empty();
+   }
+   public static void addUser(User user){
+        users.add(user);
+        userCount++;
+   }
+    public static void removeUser(User user){
+        if(user == null) return;
+        if(users.remove(user))
+          userCount--;
+    }
     private static List<Group> groups = new ArrayList<>();
 
     public static void addGroup(Group group) {
