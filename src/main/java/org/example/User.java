@@ -5,9 +5,10 @@ public class User{
     private Password password;
     private String userName;
     private Role role;
-    private boolean canEditRegistryUnits;
+    private boolean canViewAndSearch;
+    private boolean canEditRegistryEntities;
     private boolean canManageUsers;
-    public User (String login, String password, String userName, Role role){
+    public User (String userName, String login, String password, Role role){
         this.login=login;
         this.password=new Password(password);
         this.userName=userName;
@@ -24,16 +25,24 @@ public class User{
     private void setAbilities(){
         switch(this.role){
             case USER -> {
-                canEditRegistryUnits=false;
+                canViewAndSearch =true;
+                canEditRegistryEntities =false;
                 canManageUsers=false;
             }
             case MANAGER -> {
-                canEditRegistryUnits=true;
+                canViewAndSearch =true;
+                canEditRegistryEntities =true;
                 canManageUsers=false;
             }
             case ADMIN ->{
                 canManageUsers=true;
-                canEditRegistryUnits=true;
+                canEditRegistryEntities =true;
+                canViewAndSearch =true;
+            }
+            case BLOCKED -> {
+                canEditRegistryEntities =false;
+                canManageUsers=false;
+                canViewAndSearch =false;
             }
         }
     }
@@ -44,13 +53,19 @@ public class User{
     public Role getRole() {
         return role;
     }
-
-    public boolean canEditRegistryUnits() {
-        return canEditRegistryUnits;
+   public void setRole(Role role){
+        this.role=role;
+   }
+    public boolean canEditRegistryEntities() {
+        return canEditRegistryEntities;
     }
 
     public boolean canManageUsers() {
         return canManageUsers;
+    }
+
+    public boolean canViewAndSearch() {
+        return canViewAndSearch;
     }
 
     public boolean hasPassword(String password){
@@ -61,6 +76,21 @@ public class User{
     public boolean hasLogin(String login) {
         if(this.login.equals(login)) return true;
         else return false;
+    }
+
+    @Override
+    public String toString() {
+        return role+" "+userName+", login: "+login;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof User)) return false;
+        User cmpUser = (User) obj;
+        if(!userName.equals(cmpUser.getUserName())) return false;
+        if(!cmpUser.hasLogin(login)) return false;
+        return true;
+
     }
 }
 class Password {

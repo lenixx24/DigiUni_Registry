@@ -21,9 +21,9 @@ public class Repository {
     private static List<User> users = new ArrayList<>(5);
     private static int userCount=0;
  static{
-     Repository.addUser(new User("user123", "12345", "User", Role.USER));
-     Repository.addUser(new User("manager", "m@n@ger", "Manager", Role.MANAGER));
-     Repository.addUser(new User("admin", "@dm1n", "Admin", Role.ADMIN));
+     Repository.addUser(new User("User","user123", "12345",  Role.USER));
+     Repository.addUser(new User("Manager","manager", "m@n@ger",  Role.MANAGER));
+     Repository.addUser(new User("Admin","admin", "@dm1n",  Role.ADMIN));
  }
 //------------------------------------ADD/REMOVE STUDENT
 
