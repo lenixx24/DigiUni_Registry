@@ -4,21 +4,40 @@ import java.time.LocalDate;
 public class Student extends Person {
     private String studentId;
     private int course;
-    private String group;
     private final int entryYear;
     private String studyForm;
     private String status;
+    private Department department;
+    private Group group;
 
-    public Student(int id, String lastName, String firstName, String middleName, LocalDate birthDate, String email, String phone, String studentId, int course, String group, int entryYear, String studyForm, String status) {
+    public void setDepartment(Department department) {
+        this.department = department;
+        if (department != null) {
+            department.addStudent(this);
+        }
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+
+    public Student(int id, String lastName, String firstName, String middleName, LocalDate birthDate, String email, String phone, String studentId, int course,Group group, int entryYear, String studyForm, String status) {
         super(id, lastName, firstName, middleName, birthDate, email, phone);
         this.studentId = studentId;
         this.course = course;
         this.group = group;
+        group.addStudent(this);
         this.entryYear = entryYear;
         this.studyForm = studyForm;
         this.status = status;
     }
+    public Group getGroupObject() { return group; }
+    public String getGroupName() { return group.getName(); }
 
+    public Faculty getFaculty() {
+        return group.getDepartment().getFaculty();
+    }
     public void changeCourse(int newCourse) {
         if (newCourse < 1 || newCourse > 6) {
             throw new IllegalArgumentException("Course must be between 1 and 6");
@@ -29,11 +48,20 @@ public class Student extends Person {
         return course;
     }
 
-    public void changeGroup(String newGroup) {
-        if (newGroup == null || newGroup.isEmpty()) {
-            throw new IllegalArgumentException("Group must not be empty");
+    public void changeGroup(Group newGroup) {
+        if (newGroup == null) {
+            throw new IllegalArgumentException("Group must not be null");
         }
         this.group = newGroup;
+    }
+    public Group getGroup() {
+        return group;
+    }
+    public int getEntryYear() {
+        return entryYear;
+    }
+    public String getStudyForm() {
+        return studyForm;
     }
     public void changeStatus(String newStatus) {
         if (newStatus == null || newStatus.isEmpty()) {

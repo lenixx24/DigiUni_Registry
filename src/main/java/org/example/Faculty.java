@@ -12,6 +12,8 @@ public class Faculty {
     private String phoneNumber;
     private String emailAddress;
     private List<Department> departments=new ArrayList<>();
+    private List<Student> students=new ArrayList<>();
+    private List<Teacher> teachers=new ArrayList<>();
     private int numberOfDepartments;
 
     public Faculty(University university, int id, String fullName, String shortName, Teacher dean, String phoneNumber, String emailAddress) {
@@ -49,11 +51,20 @@ public class Faculty {
     public List<Department> getDepartments() {
         return departments;
     }
+    public List<Student> getStudents() {
+        return students;
+    }
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
     public int getID() {
         return id;
     }
     public String getShortName(){
         return shortName;
+    }
+    public String getFullName(){
+        return fullName;
     }
 
     public void changeDean(Teacher newDean){

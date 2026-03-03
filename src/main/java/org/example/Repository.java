@@ -27,7 +27,14 @@ public class Repository {
     }
 
     public static void removeStudent(Student student) {
-        if(student==null) return;
+        if (student == null) return;
+        if (student.getGroupObject() != null) {
+            student.getGroupObject().getStudents().remove(student);
+        }
+        if (student.getDepartment() != null) {
+            student.getDepartment().getStudents().remove(student);
+        }
+
         students.remove(student);
         studentCount--;
     }
@@ -161,6 +168,15 @@ public class Repository {
         }
         return Optional.empty();
     }
+    public static Optional<Faculty> findFacultyByFullName(String name) {
+        for(Faculty faculty: faculties){
+            if(faculty == null) return Optional.empty();
+            if (faculty.getFullName().equals(name)){
+                return Optional.of(faculty);
+            }
+        }
+        return Optional.empty();
+    }
 
     public static Optional<Department> findDeparmentByName(String name) {
         for(Department department: departments){
@@ -171,4 +187,19 @@ public class Repository {
         }
         return Optional.empty();
     }
+
+    private static List<Group> groups = new ArrayList<>();
+
+    public static void addGroup(Group group) {
+        groups.add(group);
+    }
+    public static void removeGroup(Group group) {
+        groups.remove(group);
+    }
+    public static Optional<Group> findGroupByName(String name) {
+        return groups.stream()
+                .filter(g -> g.getName().equalsIgnoreCase(name))
+                .findFirst();
+    }
+
 }

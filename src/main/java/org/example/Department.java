@@ -29,9 +29,11 @@ public class Department {
         this.office = office;
         faculty.addDepartment(this);
     }
-    public void addTeacher(Teacher teacher){
-        if (teachers.add(teacher)) {
+    public void addTeacher(Teacher teacher) {
+        if (teacher != null && !teachers.contains(teacher)) {
+            teachers.add(teacher);
             numberOfTeachers++;
+            teacher.addDepartment(this);
         }
     }
     public void addStudent(Student student){
@@ -92,5 +94,11 @@ public class Department {
 
     public Faculty getFaculty() {
         return this.faculty;
+    }
+    public Set<Student> getStudents() {
+        return students;
+    }
+    public Set<Teacher> getTeachers() {
+        return teachers;
     }
 }

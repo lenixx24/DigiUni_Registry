@@ -15,7 +15,7 @@ public class DepartmentService implements ConsoleService{
         }
         Department newDepartment = new Department(
                 Validator.getCorrectDepartmentID("ID"),
-                Validator.getCorrectString("name"),
+                Validator.getUniqueDepartmentName("name"),
                 Validator.getCorrectFaculty("faculty ID"),
                 Validator.getCorrectString("office"));
         Repository.addDepartment(newDepartment);

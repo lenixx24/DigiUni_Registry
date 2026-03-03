@@ -10,7 +10,7 @@ public class FacultyService implements ConsoleService {
     public void createMenu() {
         Faculty newFaculty = new Faculty(Repository.Naukma,
                 Validator.getCorrectFacultyID("ID"),
-                Validator.getCorrectString("full name"),
+                Validator.getUniqueFacultyName("full name"),
                 Validator.getCorrectString("short name"),
                 Validator.getCorrectPhoneNumber("phone number"),
                 Validator.getCorrectEmail("email address"));

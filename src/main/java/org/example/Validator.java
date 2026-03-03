@@ -4,12 +4,58 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Validator {
     private static Scanner sc=new Scanner(System.in);
     private static final Logger log = LogManager.getLogger(Validator.class);
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    public static Department getCorrectDepartment(String txt) {
+        while (true) {
+            int id = getCorrectInt(txt);
+            Optional<Department> dep = Repository.findDepartmentById(id);
+            if (dep.isPresent()) {
+                return dep.get();
+            } else {
+                log.warn("Department with ID {} not found", id);
+            }
+        }
+    }
+    public static void checkGroupBelongsToDepartment(String groupName, Department targetDept) {
+        for (Student s : Repository.getStudents()) {
+            if (s.getGroup().equals(groupName)) {
+                if (s.getDepartment().getId() != targetDept.getId()) {
+                    throw new IllegalArgumentException("Group " + groupName +
+                            " already in department " + s.getDepartment().getName());
+                }
+            }
+        }
+    }
+
+    public static String getUniqueFacultyName(String txt) {
+        while (true) {
+            String name = getCorrectString(txt);
+            if (Repository.findFacultyByFullName(name).isEmpty()) {
+                return name;
+            } else {
+                log.warn("Faculty '{}' already exists!", name);
+            }
+        }
+    }
+
+    public static String getUniqueDepartmentName(String txt) {
+        while (true) {
+            String name = getCorrectString(txt);
+            if (Repository.findDeparmentByName(name).isEmpty()) {
+                return name;
+            } else {
+                log.warn("Department '{}' already exists!", name);
+            }
+        }
+    }
+
 
     public static LocalDate getCorrectDate(String txt) {
         while (true) {
@@ -27,6 +73,23 @@ public class Validator {
                     } else {
                         return date;
                     }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Type format day.month.year (ex: 15.05.2000)");
+                }
+            }
+        }}
+
+    public static LocalDate getCorrectHDate(String txt) {
+        while (true) {
+            System.out.println("Type " + txt + " (format dd.MM.yyyy): ");
+            String input = sc.nextLine();
+
+            if (input == null || input.isEmpty()) {
+                System.out.println("Input cannot be empty");
+            } else {
+                try {
+                    LocalDate date = LocalDate.parse(input, formatter);
+
                 } catch (DateTimeParseException e) {
                     System.out.println("Type format day.month.year (ex: 15.05.2000)");
                 }

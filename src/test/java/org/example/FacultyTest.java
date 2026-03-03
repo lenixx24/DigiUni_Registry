@@ -12,11 +12,11 @@ public class FacultyTest {
     void changeDean() {
         Teacher t1 = new Teacher(1, "Glybovets", "Andriy", "Mykolayovich",
                 LocalDate("25.10.1980"), "a.glybovets@ukma.edu.ua", "0444636985",
-                "Dean", "Doctor of Technical Sciences", "Docent", "30.05.2019", 30);
+                "Dean", "Doctor of Technical Sciences", "Docent", LocalDate("30.05.2019"), 30);
 
         Teacher t2 = new Teacher(2, "Mazin", "Dmitro", "Mykhaylovich",
                 LocalDate("01.01.1980"), "mazindm@ukma.edu.ua", "0444251420",
-                "Dean", "Candidate of Philological Sciences", "Docent", "01.01.2009", 30);
+                "Dean", "Candidate of Philological Sciences", "Docent", LocalDate("01.01.2009"), 30);
 
         Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
                 "FI", t1, "0444256064", "fin@ukma.edu.ua");
@@ -35,13 +35,13 @@ public class FacultyTest {
     void DepartmentAndFacultyTest() {
         Teacher t1 = new Teacher(1, "Glybovets", "Andriy", "Mykolayovich",
                 LocalDate("25.10.1980"), "a.glybovets@ukma.edu.ua", "0444636985",
-                "Dean", "Doctor of Technical Sciences", "Docent", "30.05.2019", 30);
+                "Dean", "Doctor of Technical Sciences", "Docent", LocalDate("30.05.2019"), 30);
         Teacher t2 = new Teacher(2, "Mazin", "Dmitro", "Mykhaylovich",
                 LocalDate("01.01.1980"), "mazindm@ukma.edu.ua", "0444251420",
-                "Dean", "Candidate of Philological Sciences", "Docent", "01.01.2009", 30);
+                "Dean", "Candidate of Philological Sciences", "Docent", LocalDate("01.01.2009"), 30);
         Teacher t4 = new Teacher(4, "Chornei", "Ruslan", "Konstyantynovych",
                 LocalDate("01.01.1980"), "r.chornei@ukma.edu.ua", "0681982970",
-                "Head", "Candidate of Physical and Mathematical Sciences", "Docent", "01.01.2009", 30);
+                "Head", "Candidate of Physical and Mathematical Sciences", "Docent", LocalDate("01.01.2009"), 30);
 
         Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
                 "FI", t1, "0444256064", "fin@ukma.edu.ua");

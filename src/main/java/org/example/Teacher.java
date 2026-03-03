@@ -1,14 +1,38 @@
 package org.example;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Teacher extends Person{
     private String job;
     private String degree;
     private String academicStatus;
-    private final String hireDate;
+    private final LocalDate hireDate;
     private double workload;
+    private Set<Department> departments = new HashSet<>();
 
-    public Teacher(int id, String lastName, String firstName, String middleName, LocalDate birthDate, String email, String phone, String job, String degree, String academicStatus, String hireDate, double workload) {
+    public void addDepartment(Department department) {
+        if (department != null && !this.departments.contains(department)) {
+            this.departments.add(department);
+            department.addTeacher(this);
+        }
+    }
+    public void removeDepartment(Department department) {
+        if (this.departments.size() <= 1) {
+            throw new IllegalStateException("Teacher must have at least one department!");
+        }
+        if (this.departments.remove(department)) {
+            department.removeTeacher(this);
+        }
+    }
+
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    public Teacher(int id, String lastName, String firstName, String middleName, LocalDate birthDate, String email, String phone, String job, String degree, String academicStatus, LocalDate hireDate, double workload) {
         super(id, lastName, firstName, middleName, birthDate, email, phone);
         this.job = job;
         this.degree = degree;
