@@ -128,9 +128,8 @@ public class FacultyService implements ConsoleService {
     private void reportAll() {
         System.out.println("\nFaculties:\n");
         int index = 1;
-        for (Faculty f : Repository.getFaculties()) {
-            if (f != null)  System.out.println(index++ + ". " + f);
+       for (Faculty f : Repository.getFaculties().values())
+           if (f != null)  System.out.println(index++ + ". " + f);
 
-        }
     }
 }

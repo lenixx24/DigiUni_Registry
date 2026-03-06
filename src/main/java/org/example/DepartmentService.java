@@ -100,7 +100,7 @@ public class DepartmentService implements ConsoleService{
                 break;
             case 2:
                 String name =Validator.getCorrectString("department name");
-                Repository.findDeparmentByName(name).ifPresentOrElse(
+                Repository.findDepartmentByName(name).ifPresentOrElse(
                         System.out::println, () -> log.warn("No department with name {}", name));
                 break;
             case 3:
@@ -120,7 +120,7 @@ public class DepartmentService implements ConsoleService{
     private void reportAll(){
         System.out.println("\nDepartments:\n");
         int index=1;
-        for (Department d: Repository.getDepartments()) {
+        for (Department d: Repository.getDepartments().values()) {
             if (d!= null) System.out.println( (index++)+". "+d);
         }
     }
