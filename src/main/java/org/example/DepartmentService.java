@@ -120,7 +120,7 @@ public class DepartmentService implements ConsoleService{
     private void reportAll(){
         System.out.println("\nDepartments:\n");
         int index=1;
-        for (Department d: Repository.getDepartments()) {
+        for (Department d: Repository.getDepartments().values()) {
             if (d!= null) System.out.println( (index++)+". "+d);
         }
     }
