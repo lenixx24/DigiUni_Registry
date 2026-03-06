@@ -102,6 +102,6 @@ public class Faculty {
         } else {
             dep = departments.toString();
         }
-        return toStart + ", \nDepartments: " + dep;
+        return toStart + ", \n\u001B[1mDepartments:\u001B[0m\n" + dep;
     }
 }
