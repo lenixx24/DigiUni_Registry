@@ -5,10 +5,10 @@ import java.util.*;
 public class Repository {
     public static University Naukma= new University("National University of Kyiv-Mohyla Academy",
             "NaUKMA", "Kyiv", "Hryhoriya Skovorody St, 2");
-    private static List<Student> students = new ArrayList<>(300);
+    private static Map<Integer, Student> students = new HashMap<>();
     private static int studentCount = 0;
 
-    private static List<Teacher> teachers = new ArrayList<>(100);
+    private static Map<Integer, Teacher> teachers = new HashMap<>();
     private static int teacherCount = 0;
 
    private static Map<Integer, Department> departments = new HashMap<>();
@@ -25,7 +25,7 @@ public class Repository {
 //------------------------------------ADD/REMOVE STUDENT
 
     public static void addStudent(Student student) {
-        students.add(student);
+        students.put(student.getId(), student);
         studentCount++;
     }
 
@@ -38,20 +38,20 @@ public class Repository {
             student.getDepartment().getStudents().remove(student);
         }
 
-        students.remove(student);
+        students.remove(student.getId());
         studentCount--;
     }
 
 //------------------------------------ADD/REMOVE TEACHER
 
     public static void addTeacher(Teacher teacher) {
-        teachers.add(teacher);
+        teachers.put(teacher.getId(), teacher);
         teacherCount++;
     }
 
     public static void removeTeacher(Teacher teacher) {
         if(teacher==null) return;
-        teachers.remove(teacher);
+        teachers.remove(teacher.getId());
         teacherCount--;
     }
 
@@ -82,14 +82,10 @@ public class Repository {
 
 //------------------------------------GETTERS
     public static List<Student> getStudents() {
-    List<Student> result = new ArrayList<>(studentCount);
-    for (int i = 0; i < studentCount; i++) result.add(students.get(i));
-    return result;
+        return students.values().stream().toList();
     }
     public static List<Teacher> getTeachers() {
-        List<Teacher> result = new ArrayList<>(teacherCount);
-        for (int i = 0; i < teacherCount; i++) result.add(teachers.get(i));
-        return result;
+        return teachers.values().stream().toList();
     }
     public static List<Department> getDepartments() {
         return departments.values().stream().toList();
@@ -114,26 +110,16 @@ public class Repository {
         return Optional.empty();
     }
     public static Optional<Student> findStudentById(int id){
-        for(Student stud: students){
-            if(stud==null) return Optional.empty();
-            if (stud.getId()==id){
-                return Optional.of(stud);
-            }
-        }
+        if(students.containsKey(id)) return Optional.of(students.get(id));
         return Optional.empty();
     }
     public static Optional<Teacher> findTeacherById(int id){
-            for(Teacher teach: teachers){
-                if(teach==null) return Optional.empty();
-                if (teach.getId()==id){
-                    return Optional.of(teach);
-                }
-            }
-            return Optional.empty();
+        if(teachers.containsKey(id)) return Optional.of(teachers.get(id));
+        return Optional.empty();
     }
 
     public static Optional<Student> findStudentByFullName(String name){
-        for(Student stud: students){
+        for(Student stud: students.values()){
             if(stud == null) return Optional.empty();
             if (stud.getFullName().equals(name)){
                 return Optional.of(stud);
@@ -143,7 +129,7 @@ public class Repository {
     }
 
     public static Optional<Teacher> findTeacherByFullName(String name){
-        for(Teacher teach: teachers){
+        for(Teacher teach: teachers.values()){
             if(teach == null) return Optional.empty();
             if (teach.getFullName().equals(name)){
                 return Optional.of(teach);

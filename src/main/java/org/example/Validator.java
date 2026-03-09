@@ -89,7 +89,7 @@ public class Validator {
             } else {
                 try {
                     LocalDate date = LocalDate.parse(input, formatter);
-
+                      return date;
                 } catch (DateTimeParseException e) {
                     System.out.println("Type format day.month.year (ex: 15.05.2000)");
                 }
