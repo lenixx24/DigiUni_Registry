@@ -11,7 +11,7 @@ public class Repository {
     private static List<Teacher> teachers = new ArrayList<>(100);
     private static int teacherCount = 0;
 
-    private static List<Department> departments = new ArrayList<>(50);
+   private static Map<Integer, Department> departments = new HashMap<>();
     private static int departmentCount = 0;
     private static Map<Integer, Faculty> faculties = new HashMap<>();
     private static int facultyCount = 0;
@@ -58,12 +58,12 @@ public class Repository {
 //------------------------------------ADD/REMOVE DEPARTMENT
 
     public static void addDepartment(Department department) {
-        departments.add(department);
+        departments.put(department.getId(), department);
         departmentCount++;
     }
     public static void removeDepartment(Department department) {
         if(department==null) return;
-        departments.remove(department);
+        departments.remove(department.getId());
         departmentCount--;
     }
 
@@ -92,9 +92,7 @@ public class Repository {
         return result;
     }
     public static List<Department> getDepartments() {
-        List<Department> result = new ArrayList<>(departmentCount);
-        for (int i = 0; i < departmentCount; i++) result.add(departments.get(i));
-        return result;
+        return departments.values().stream().toList();
     }
     public static List<Faculty> getFaculties() {
         return faculties.values().stream().toList();
@@ -111,12 +109,8 @@ public class Repository {
         return Optional.empty();
     }
     public static Optional<Department> findDepartmentById(int id){
-        for(Department dep: departments){
-            if(dep==null) return Optional.empty();
-            if (dep.getId()==id){
-                return Optional.of(dep);
-            }
-        }
+            if (departments.containsKey(id))
+                return Optional.of(departments.get(id));
         return Optional.empty();
     }
     public static Optional<Student> findStudentById(int id){
@@ -179,7 +173,7 @@ public class Repository {
     }
 
     public static Optional<Department> findDepartmentByName(String name) {
-        for(Department department: departments){
+        for(Department department: departments.values()){
             if(department == null) return Optional.empty();
             if (department.getName().equals(name)){
                 return Optional.of(department);
