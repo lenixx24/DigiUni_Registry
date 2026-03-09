@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Repository {
     public static University Naukma= new University("National University of Kyiv-Mohyla Academy",
@@ -15,8 +13,7 @@ public class Repository {
 
     private static List<Department> departments = new ArrayList<>(50);
     private static int departmentCount = 0;
-
-    private static List<Faculty> faculties = new ArrayList<>(10);
+    private static Map<Integer, Faculty> faculties = new HashMap<>();
     private static int facultyCount = 0;
     private static List<User> users = new ArrayList<>(5);
     private static int userCount=0;
@@ -73,13 +70,13 @@ public class Repository {
 //------------------------------------ADD/REMOVE FACULTY
 
     public static void addFaculty(Faculty faculty) {
-        faculties.add(faculty);
+        faculties.put(faculty.getID(), faculty);
         facultyCount++;
     }
 
     public static void removeFaculty(Faculty faculty) {
         if(faculty==null) return;
-       faculties.remove(faculty);
+       faculties.remove(faculty.getID());
        facultyCount--;
     }
 
@@ -100,9 +97,7 @@ public class Repository {
         return result;
     }
     public static List<Faculty> getFaculties() {
-        List<Faculty>  result = new ArrayList<>(facultyCount);
-        for (int i = 0; i < facultyCount; i++) result.add(faculties.get(i));
-        return result;
+        return faculties.values().stream().toList();
     }
     public static List<User> getUsers() {
         List<User>  result = new ArrayList<>(userCount);
@@ -112,13 +107,7 @@ public class Repository {
 
 //-------------------------------------FIND-BY-ID METHODS
     public static Optional<Faculty> findFacultyById(int id){
-
-        for(Faculty fac: faculties){
-            if(fac==null) return Optional.empty();
-            if (fac.getID()==id){
-                return Optional.of(fac);
-            }
-        }
+        if(faculties.containsKey(id)) return Optional.of(faculties.get(id));
         return Optional.empty();
     }
     public static Optional<Department> findDepartmentById(int id){
@@ -171,7 +160,7 @@ public class Repository {
 
 
     public static Optional<Faculty> findFacultyByShortName(String name) {
-        for(Faculty faculty: faculties){
+        for(Faculty faculty: faculties.values()){
             if(faculty == null) return Optional.empty();
             if (faculty.getShortName().equals(name)){
                 return Optional.of(faculty);
@@ -180,7 +169,7 @@ public class Repository {
         return Optional.empty();
     }
     public static Optional<Faculty> findFacultyByFullName(String name) {
-        for(Faculty faculty: faculties){
+        for(Faculty faculty: faculties.values()){
             if(faculty == null) return Optional.empty();
             if (faculty.getFullName().equals(name)){
                 return Optional.of(faculty);
@@ -189,7 +178,7 @@ public class Repository {
         return Optional.empty();
     }
 
-    public static Optional<Department> findDeparmentByName(String name) {
+    public static Optional<Department> findDepartmentByName(String name) {
         for(Department department: departments){
             if(department == null) return Optional.empty();
             if (department.getName().equals(name)){
