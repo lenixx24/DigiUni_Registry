@@ -1,5 +1,6 @@
 package org.example;
 
+import exceptions.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.example.Main.LocalDate;
@@ -27,7 +28,7 @@ public class FacultyTest {
         assertEquals(2, fi.getDean().getId());
         assertFalse(t1.equals(fi.getDean()));
 
-        assertThrows(IllegalArgumentException.class, () -> fi.changeDean(null));
+        assertThrows(ValidationException.class, () -> fi.changeDean(null));
     }
 
     @Test

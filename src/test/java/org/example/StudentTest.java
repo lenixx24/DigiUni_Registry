@@ -1,5 +1,6 @@
 package org.example;
 
+import exceptions.ValidationException;
 import org.junit.jupiter.api.*;
 import static org.example.Main.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +27,7 @@ public class StudentTest {
         );
         student.changeCourse(6);
         assertEquals(6, student.getCourse());
-        assertThrows(IllegalArgumentException.class, () -> student.changeCourse(7));
+        assertThrows(ValidationException.class, () -> student.changeCourse(7));
 
     }
 
