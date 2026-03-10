@@ -1,4 +1,6 @@
 package org.example;
+import exceptions.ValidationException;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -41,7 +43,7 @@ public class Student extends Person {
     }
     public void changeCourse(int newCourse) {
         if (newCourse < 1 || newCourse > 6) {
-            throw new IllegalArgumentException("Course must be between 1 and 6");
+            throw new ValidationException("Course must be between 1 and 6");
         }
         this.course = newCourse;
     }
@@ -51,7 +53,7 @@ public class Student extends Person {
 
     public void changeGroup(Group newGroup) {
         if (newGroup == null) {
-            throw new IllegalArgumentException("Group must not be null");
+            throw new ValidationException("Group must not be null");
         }
         this.group = newGroup;
     }
@@ -66,7 +68,7 @@ public class Student extends Person {
     }
     public void changeStatus(String newStatus) {
         if (newStatus == null || newStatus.isEmpty()) {
-            throw new IllegalArgumentException("Status must not be empty");
+            throw new ValidationException("Status must not be empty");
         }
         this.status = newStatus;
     }
@@ -78,7 +80,7 @@ public class Student extends Person {
     }
     public String changeStudentId(String newStudentId) {
         if (newStudentId == null || newStudentId.isEmpty()) {
-            throw new IllegalArgumentException("Student ID must not be empty");
+            throw new ValidationException("Student ID must not be empty");
         }
         return this.studentId = newStudentId;
     }

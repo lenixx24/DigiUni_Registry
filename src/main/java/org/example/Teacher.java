@@ -1,4 +1,7 @@
 package org.example;
+import exceptions.DenialException;
+import exceptions.ValidationException;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -18,7 +21,7 @@ public class Teacher extends Person{
     }
     public void removeDepartment(Department department) {
         if (this.departments.size() <= 1) {
-            throw new IllegalStateException("Teacher must have at least one department!");
+            throw new DenialException("Teacher must have at least one department!");
         }
         if (this.departments.remove(department)) {
             department.removeTeacher(this);
@@ -63,7 +66,7 @@ public class Teacher extends Person{
     }
     public void changeWorkload(double newWorkload){
         if(newWorkload<=0||Double.isNaN(newWorkload)){
-            throw new IllegalArgumentException("Workload must be positive");
+            throw new ValidationException("Workload must be positive");
         }
         this.workload=newWorkload;
     }

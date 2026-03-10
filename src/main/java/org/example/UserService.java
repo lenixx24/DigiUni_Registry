@@ -1,5 +1,6 @@
 package org.example;
 
+import exceptions.DenialException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,7 +64,9 @@ public class UserService {
             remove();
         }
         if (userForRemove != null) {
-            if(Menu.getUser().equals(userForRemove)) log.warn("You can not remove yourself");
+            if (Menu.getUser().equals(userForRemove)) {
+                throw new DenialException("You can not remove yourself");
+            }
             else{
             Repository.removeUser(userForRemove);
             log.info("User {} removed successfully", userForRemove.getUserName());
@@ -97,7 +100,9 @@ public class UserService {
             changeRole();
         }
         if (userForChange != null) {
-            if(Menu.getUser().equals(userForChange)) log.warn("You can not edit your own role");
+            if (Menu.getUser().equals(userForChange)) {
+                throw new DenialException("You can not edit your own role");
+            }
             else {
                 Role role = Validator.getCorrectRole("role (user, manager, admin, blocked)");
                 userForChange.setRole(role);

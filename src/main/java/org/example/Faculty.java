@@ -1,5 +1,7 @@
 package org.example;
 
+import exceptions.ValidationException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -80,19 +82,19 @@ public class Faculty {
 
     public void changeDean(Teacher newDean){
         if(newDean==null){
-            throw new IllegalArgumentException("Dean must not be null");
+            throw new ValidationException("Dean must not be null");
         }
         this.dean=newDean;
     }
     public void changePhoneNumber(String newPhoneNumber){
         if(newPhoneNumber==null||newPhoneNumber.isEmpty()){
-            throw new IllegalArgumentException("Phone number must not be empty");
+            throw new ValidationException("Phone number must not be empty");
         }
         this.phoneNumber=newPhoneNumber;
     }
     public void changeEmailAddress(String newEmailAddress){
         if(newEmailAddress==null||newEmailAddress.isEmpty()){
-            throw new IllegalArgumentException("Email address must not be empty");
+            throw new ValidationException("Email address must not be empty");
         }
         this.emailAddress=newEmailAddress;
     }
