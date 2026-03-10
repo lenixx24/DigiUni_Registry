@@ -178,7 +178,7 @@ public class TeacherService implements ConsoleService{
         System.out.println("5. Back");
 
         int choice = Validator.checkedUserChoice(1, 5);
-        if (choice == 3) return;
+        if (choice == 5) return;
 
         switch (choice) {
             case 1:

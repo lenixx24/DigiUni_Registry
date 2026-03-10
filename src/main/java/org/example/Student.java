@@ -1,5 +1,8 @@
 package org.example;
+import exceptions.ValidationException;
+
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Student extends Person {
     private String studentId;
@@ -40,7 +43,7 @@ public class Student extends Person {
     }
     public void changeCourse(int newCourse) {
         if (newCourse < 1 || newCourse > 6) {
-            throw new IllegalArgumentException("Course must be between 1 and 6");
+            throw new ValidationException("Course must be between 1 and 6");
         }
         this.course = newCourse;
     }
@@ -50,7 +53,7 @@ public class Student extends Person {
 
     public void changeGroup(Group newGroup) {
         if (newGroup == null) {
-            throw new IllegalArgumentException("Group must not be null");
+            throw new ValidationException("Group must not be null");
         }
         this.group = newGroup;
     }
@@ -65,7 +68,7 @@ public class Student extends Person {
     }
     public void changeStatus(String newStatus) {
         if (newStatus == null || newStatus.isEmpty()) {
-            throw new IllegalArgumentException("Status must not be empty");
+            throw new ValidationException("Status must not be empty");
         }
         this.status = newStatus;
     }
@@ -77,7 +80,7 @@ public class Student extends Person {
     }
     public String changeStudentId(String newStudentId) {
         if (newStudentId == null || newStudentId.isEmpty()) {
-            throw new IllegalArgumentException("Student ID must not be empty");
+            throw new ValidationException("Student ID must not be empty");
         }
         return this.studentId = newStudentId;
     }
@@ -85,6 +88,18 @@ public class Student extends Person {
     @Override
     public String toString() {
         return super.toString() + ", StudentId: " + studentId + ", Course: " + course + ", Group: " + group + ", Entry year: " + entryYear + ", Study form: " + studyForm + ", Status: " + status;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        if (!super.equals(o)) return false;
+        Student student = (Student) o;
+        return Objects.equals(studentId, student.studentId);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), studentId);
     }
 
 }

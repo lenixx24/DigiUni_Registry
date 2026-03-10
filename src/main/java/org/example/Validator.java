@@ -1,4 +1,5 @@
 package org.example;
+import exceptions.DenialException;
 import org.apache.logging.log4j.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +28,7 @@ public class Validator {
         for (Student s : Repository.getStudents()) {
             if (s.getGroup().equals(groupName)) {
                 if (s.getDepartment().getId() != targetDept.getId()) {
-                    throw new IllegalArgumentException("Group " + groupName +
+                    throw new DenialException("Group " + groupName +
                             " already in department " + s.getDepartment().getName());
                 }
             }

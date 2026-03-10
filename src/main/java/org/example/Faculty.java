@@ -1,7 +1,10 @@
 package org.example;
 
+import exceptions.ValidationException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Faculty {
     private final University university;
@@ -42,6 +45,16 @@ public class Faculty {
        Repository.removeDepartment(department);
        numberOfDepartments--;
     }
+    public void addTeacher(Teacher teacher) {
+        if (teacher != null && !teachers.contains(teacher)) {
+            teachers.add(teacher);
+        }
+    }
+    public void addStudent(Student student) {
+        if (student != null && !students.contains(student)) {
+            students.add(student);
+        }
+    }
     public int getNumberOfDepartments() {
         return numberOfDepartments;
     }
@@ -69,19 +82,19 @@ public class Faculty {
 
     public void changeDean(Teacher newDean){
         if(newDean==null){
-            throw new IllegalArgumentException("Dean must not be null");
+            throw new ValidationException("Dean must not be null");
         }
         this.dean=newDean;
     }
     public void changePhoneNumber(String newPhoneNumber){
         if(newPhoneNumber==null||newPhoneNumber.isEmpty()){
-            throw new IllegalArgumentException("Phone number must not be empty");
+            throw new ValidationException("Phone number must not be empty");
         }
         this.phoneNumber=newPhoneNumber;
     }
     public void changeEmailAddress(String newEmailAddress){
         if(newEmailAddress==null||newEmailAddress.isEmpty()){
-            throw new IllegalArgumentException("Email address must not be empty");
+            throw new ValidationException("Email address must not be empty");
         }
         this.emailAddress=newEmailAddress;
     }
@@ -103,5 +116,16 @@ public class Faculty {
             dep = departments.toString();
         }
         return toStart + ", \n\u001B[1mDepartments:\u001B[0m\n" + dep;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Faculty)) return false;
+        Faculty faculty = (Faculty) o;
+        return Objects.equals(id, faculty.id) && Objects.equals(shortName, faculty.shortName);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, shortName);
     }
 }

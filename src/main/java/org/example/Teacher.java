@@ -1,9 +1,9 @@
 package org.example;
+import exceptions.DenialException;
+import exceptions.ValidationException;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Teacher extends Person{
     private String job;
@@ -21,7 +21,7 @@ public class Teacher extends Person{
     }
     public void removeDepartment(Department department) {
         if (this.departments.size() <= 1) {
-            throw new IllegalStateException("Teacher must have at least one department!");
+            throw new DenialException("Teacher must have at least one department!");
         }
         if (this.departments.remove(department)) {
             department.removeTeacher(this);
@@ -66,7 +66,7 @@ public class Teacher extends Person{
     }
     public void changeWorkload(double newWorkload){
         if(newWorkload<=0||Double.isNaN(newWorkload)){
-            throw new IllegalArgumentException("Workload must be positive");
+            throw new ValidationException("Workload must be positive");
         }
         this.workload=newWorkload;
     }
@@ -76,5 +76,15 @@ public class Teacher extends Person{
         return super.toString()+", Job: "+job+", Degree: "+degree+", Academic status: "+academicStatus+", Hired on: "+hireDate+", Workload: "+workload;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Teacher)) return false;
+        return super.equals(o);
+    }
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
 }

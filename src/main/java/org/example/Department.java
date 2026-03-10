@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Department {
     private final int id;
@@ -35,11 +32,13 @@ public class Department {
             teachers.add(teacher);
             numberOfTeachers++;
             teacher.addDepartment(this);
+            this.faculty.addTeacher(teacher);
         }
     }
     public void addStudent(Student student){
         if (students.add(student)) {
             numberOfStudents++;
+            this.faculty.addStudent(student);
         }
     }
     public void removeStudent(Student student){
@@ -101,5 +100,17 @@ public class Department {
     }
     public Set<Teacher> getTeachers() {
         return teachers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department)) return false;
+        Department dep = (Department) o;
+        return Objects.equals(id,dep.id)&&Objects.equals(name, dep.name);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

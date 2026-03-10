@@ -1,6 +1,7 @@
 package org.example;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 public class Person {
     private final int id;
@@ -46,5 +47,17 @@ public class Person {
 
      public String getFullName() {
         return lastName + " " + firstName + " " + middleName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

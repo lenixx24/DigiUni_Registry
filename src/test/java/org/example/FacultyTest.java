@@ -52,9 +52,7 @@ public class FacultyTest {
         // When the department is created, it should be automatically added to the faculty list
         int initialCount = fi.getNumberOfDepartments();
         Department d1 = new Department(1, "Department of Mathematics", fi, t4, "10-7");
-        fi.addDepartment(d1);
-
-        assertEquals(initialCount + 1, fi.getNumberOfDepartments(),"Test1");
+        assertEquals(initialCount+1, fi.getNumberOfDepartments(),"Test1");
         assertTrue(fi.toString().contains("Department of Mathematics"), "Test2");
 
 
