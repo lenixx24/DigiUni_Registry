@@ -1,4 +1,5 @@
 package org.example;
+import exceptions.DenialException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -91,6 +92,7 @@ public class TeacherService implements ConsoleService{
                             if (teacher.getDepartments().size() <= 1) {
                                 log.error("Teacher must have at least one department!");
                             } else {
+                                try{
                                 System.out.println("Current departments:");
                                 teacher.getDepartments().forEach(d -> System.out.println(d.getId() + ": " + d.getName()));
                                 int depId = Validator.getCorrectInt("department ID to remove");
@@ -105,6 +107,10 @@ public class TeacherService implements ConsoleService{
                                                 },
                                                 () -> log.warn("Teacher isn't in department with ID {}", depId)
                                         );
+                                }
+                                catch(DenialException e) {
+                                    log.warn(e.getMessage());
+                                }
                             }break;
                         case 7 : default: return;
                     }

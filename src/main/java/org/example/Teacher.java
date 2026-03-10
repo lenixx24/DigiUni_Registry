@@ -20,6 +20,7 @@ public class Teacher extends Person{
         }
     }
     public void removeDepartment(Department department) {
+
         if (this.departments.size() <= 1) {
             throw new DenialException("Teacher must have at least one department!");
         }

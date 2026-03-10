@@ -1,4 +1,5 @@
 package org.example;
+import exceptions.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -73,7 +74,13 @@ public class StudentService implements ConsoleService{
                     int choice = Validator.checkedUserChoice(1, 6);
                     switch (choice) {
                         case 1: student.changeStudentId(Validator.getCorrectString("student id")); break;
-                        case 2 : student.changeCourse(Validator.getCorrectInt("course")); break;
+                        case 2 : try{
+                            student.changeCourse(Validator.getCorrectInt("course"));
+                            break;
+                        }
+                        catch(ValidationException e){
+                            log.warn("Course must be between 1 and 6");
+                        }
                         case 3:
                             String groupName = Validator.getCorrectString("new group name");
                             Optional<Group> existingGroup = Repository.findGroupByName(groupName);

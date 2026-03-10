@@ -63,6 +63,7 @@ public class UserService {
             log.warn("No user with this login");
             remove();
         }
+        try{
         if (userForRemove != null) {
             if (Menu.getUser().equals(userForRemove)) {
                 throw new DenialException("You can not remove yourself");
@@ -71,6 +72,9 @@ public class UserService {
             Repository.removeUser(userForRemove);
             log.info("User {} removed successfully", userForRemove.getUserName());
             }
+        }}
+        catch(DenialException e){
+            log.warn(e.getMessage());
         }
     }
 
@@ -99,15 +103,19 @@ public class UserService {
             log.warn("No user with this login");
             changeRole();
         }
-        if (userForChange != null) {
-            if (Menu.getUser().equals(userForChange)) {
-                throw new DenialException("You can not edit your own role");
+        try {
+            if (userForChange != null) {
+                if (Menu.getUser().equals(userForChange)) {
+                    throw new DenialException("You can not edit your own role");
+                } else {
+                    Role role = Validator.getCorrectRole("role (user, manager, admin, blocked)");
+                    userForChange.setRole(role);
+                    log.info("{} {} changed successfully", userForChange.getRole(), userForChange.getUserName());
+                }
             }
-            else {
-                Role role = Validator.getCorrectRole("role (user, manager, admin, blocked)");
-                userForChange.setRole(role);
-                log.info("{} {} changed successfully", userForChange.getRole(), userForChange.getUserName());
-            }
+        }
+        catch(DenialException e){
+            log.warn(e.getMessage());
         }
     }
 }
