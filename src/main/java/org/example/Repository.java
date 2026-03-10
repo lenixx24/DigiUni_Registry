@@ -1,22 +1,19 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Repository {
     public static University Naukma= new University("National University of Kyiv-Mohyla Academy",
             "NaUKMA", "Kyiv", "Hryhoriya Skovorody St, 2");
-    private static List<Student> students = new ArrayList<>(300);
+    private static Map<Integer, Student> students = new HashMap<>();
     private static int studentCount = 0;
 
-    private static List<Teacher> teachers = new ArrayList<>(100);
+    private static Map<Integer, Teacher> teachers = new HashMap<>();
     private static int teacherCount = 0;
 
-    private static List<Department> departments = new ArrayList<>(50);
+   private static Map<Integer, Department> departments = new HashMap<>();
     private static int departmentCount = 0;
-
-    private static List<Faculty> faculties = new ArrayList<>(10);
+    private static Map<Integer, Faculty> faculties = new HashMap<>();
     private static int facultyCount = 0;
     private static List<User> users = new ArrayList<>(5);
     private static int userCount=0;
@@ -28,7 +25,7 @@ public class Repository {
 //------------------------------------ADD/REMOVE STUDENT
 
     public static void addStudent(Student student) {
-        students.add(student);
+        students.put(student.getId(), student);
         studentCount++;
     }
 
@@ -41,68 +38,60 @@ public class Repository {
             student.getDepartment().getStudents().remove(student);
         }
 
-        students.remove(student);
+        students.remove(student.getId());
         studentCount--;
     }
 
 //------------------------------------ADD/REMOVE TEACHER
 
     public static void addTeacher(Teacher teacher) {
-        teachers.add(teacher);
+        teachers.put(teacher.getId(), teacher);
         teacherCount++;
     }
 
     public static void removeTeacher(Teacher teacher) {
         if(teacher==null) return;
-        teachers.remove(teacher);
+        teachers.remove(teacher.getId());
         teacherCount--;
     }
 
 //------------------------------------ADD/REMOVE DEPARTMENT
 
     public static void addDepartment(Department department) {
-        departments.add(department);
+        departments.put(department.getId(), department);
         departmentCount++;
     }
     public static void removeDepartment(Department department) {
         if(department==null) return;
-        departments.remove(department);
+        departments.remove(department.getId());
         departmentCount--;
     }
 
 //------------------------------------ADD/REMOVE FACULTY
 
     public static void addFaculty(Faculty faculty) {
-        faculties.add(faculty);
+        faculties.put(faculty.getID(), faculty);
         facultyCount++;
     }
 
     public static void removeFaculty(Faculty faculty) {
         if(faculty==null) return;
-       faculties.remove(faculty);
+       faculties.remove(faculty.getID());
        facultyCount--;
     }
 
 //------------------------------------GETTERS
     public static List<Student> getStudents() {
-    List<Student> result = new ArrayList<>(studentCount);
-    for (int i = 0; i < studentCount; i++) result.add(students.get(i));
-    return result;
+        return students.values().stream().toList();
     }
     public static List<Teacher> getTeachers() {
-        List<Teacher> result = new ArrayList<>(teacherCount);
-        for (int i = 0; i < teacherCount; i++) result.add(teachers.get(i));
-        return result;
+        return teachers.values().stream().toList();
     }
     public static List<Department> getDepartments() {
-        List<Department> result = new ArrayList<>(departmentCount);
-        for (int i = 0; i < departmentCount; i++) result.add(departments.get(i));
-        return result;
+        return departments.values().stream().toList();
     }
     public static List<Faculty> getFaculties() {
-        List<Faculty>  result = new ArrayList<>(facultyCount);
-        for (int i = 0; i < facultyCount; i++) result.add(faculties.get(i));
-        return result;
+        return faculties.values().stream().toList();
     }
     public static List<User> getUsers() {
         List<User>  result = new ArrayList<>(userCount);
@@ -112,45 +101,25 @@ public class Repository {
 
 //-------------------------------------FIND-BY-ID METHODS
     public static Optional<Faculty> findFacultyById(int id){
-
-        for(Faculty fac: faculties){
-            if(fac==null) return Optional.empty();
-            if (fac.getID()==id){
-                return Optional.of(fac);
-            }
-        }
+        if(faculties.containsKey(id)) return Optional.of(faculties.get(id));
         return Optional.empty();
     }
     public static Optional<Department> findDepartmentById(int id){
-        for(Department dep: departments){
-            if(dep==null) return Optional.empty();
-            if (dep.getId()==id){
-                return Optional.of(dep);
-            }
-        }
+            if (departments.containsKey(id))
+                return Optional.of(departments.get(id));
         return Optional.empty();
     }
     public static Optional<Student> findStudentById(int id){
-        for(Student stud: students){
-            if(stud==null) return Optional.empty();
-            if (stud.getId()==id){
-                return Optional.of(stud);
-            }
-        }
+        if(students.containsKey(id)) return Optional.of(students.get(id));
         return Optional.empty();
     }
     public static Optional<Teacher> findTeacherById(int id){
-            for(Teacher teach: teachers){
-                if(teach==null) return Optional.empty();
-                if (teach.getId()==id){
-                    return Optional.of(teach);
-                }
-            }
-            return Optional.empty();
+        if(teachers.containsKey(id)) return Optional.of(teachers.get(id));
+        return Optional.empty();
     }
 
     public static Optional<Student> findStudentByFullName(String name){
-        for(Student stud: students){
+        for(Student stud: students.values()){
             if(stud == null) return Optional.empty();
             if (stud.getFullName().equals(name)){
                 return Optional.of(stud);
@@ -160,7 +129,7 @@ public class Repository {
     }
 
     public static Optional<Teacher> findTeacherByFullName(String name){
-        for(Teacher teach: teachers){
+        for(Teacher teach: teachers.values()){
             if(teach == null) return Optional.empty();
             if (teach.getFullName().equals(name)){
                 return Optional.of(teach);
@@ -171,7 +140,7 @@ public class Repository {
 
 
     public static Optional<Faculty> findFacultyByShortName(String name) {
-        for(Faculty faculty: faculties){
+        for(Faculty faculty: faculties.values()){
             if(faculty == null) return Optional.empty();
             if (faculty.getShortName().equals(name)){
                 return Optional.of(faculty);
@@ -180,7 +149,7 @@ public class Repository {
         return Optional.empty();
     }
     public static Optional<Faculty> findFacultyByFullName(String name) {
-        for(Faculty faculty: faculties){
+        for(Faculty faculty: faculties.values()){
             if(faculty == null) return Optional.empty();
             if (faculty.getFullName().equals(name)){
                 return Optional.of(faculty);
@@ -189,8 +158,8 @@ public class Repository {
         return Optional.empty();
     }
 
-    public static Optional<Department> findDeparmentByName(String name) {
-        for(Department department: departments){
+    public static Optional<Department> findDepartmentByName(String name) {
+        for(Department department: departments.values()){
             if(department == null) return Optional.empty();
             if (department.getName().equals(name)){
                 return Optional.of(department);

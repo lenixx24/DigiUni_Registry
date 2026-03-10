@@ -21,6 +21,7 @@ public class Department {
         this.faculty = faculty;
         this.head = head;
         this.office = office;
+        faculty.addDepartment(this);
     }
     public Department(int id, String name, Faculty faculty, String office) {
         this.id = id;

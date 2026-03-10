@@ -48,7 +48,7 @@ public class Validator {
     public static String getUniqueDepartmentName(String txt) {
         while (true) {
             String name = getCorrectString(txt);
-            if (Repository.findDeparmentByName(name).isEmpty()) {
+            if (Repository.findDepartmentByName(name).isEmpty()) {
                 return name;
             } else {
                 log.warn("Department '{}' already exists!", name);
@@ -89,7 +89,7 @@ public class Validator {
             } else {
                 try {
                     LocalDate date = LocalDate.parse(input, formatter);
-
+                      return date;
                 } catch (DateTimeParseException e) {
                     System.out.println("Type format day.month.year (ex: 15.05.2000)");
                 }
