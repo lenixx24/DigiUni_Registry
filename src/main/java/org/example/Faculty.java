@@ -43,6 +43,16 @@ public class Faculty {
        Repository.removeDepartment(department);
        numberOfDepartments--;
     }
+    public void addTeacher(Teacher teacher) {
+        if (teacher != null && !teachers.contains(teacher)) {
+            teachers.add(teacher);
+        }
+    }
+    public void addStudent(Student student) {
+        if (student != null && !students.contains(student)) {
+            students.add(student);
+        }
+    }
     public int getNumberOfDepartments() {
         return numberOfDepartments;
     }

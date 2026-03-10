@@ -32,11 +32,13 @@ public class Department {
             teachers.add(teacher);
             numberOfTeachers++;
             teacher.addDepartment(this);
+            this.faculty.addTeacher(teacher);
         }
     }
     public void addStudent(Student student){
         if (students.add(student)) {
             numberOfStudents++;
+            this.faculty.addStudent(student);
         }
     }
     public void removeStudent(Student student){
