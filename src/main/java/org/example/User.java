@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Objects;
+
 public class User{
     private final String login;
     private Password password;
@@ -85,12 +87,17 @@ public class User{
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) return true;
         if(!(obj instanceof User)) return false;
         User cmpUser = (User) obj;
         if(!userName.equals(cmpUser.getUserName())) return false;
         if(!cmpUser.hasLogin(login)) return false;
-        return true;
+        return Objects.equals(login, cmpUser.login)&&Objects.equals(userName, cmpUser.userName);
 
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, userName);
     }
 }
 class Password {

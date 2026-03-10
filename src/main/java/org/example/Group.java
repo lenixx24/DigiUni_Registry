@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Group {
     private final String name;
@@ -26,5 +27,17 @@ public class Group {
     @Override
     public String toString() {
         return name + " (Department: " + department.getName() + ")";
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Group)) return false;
+        Group group = (Group) o;
+        return Objects.equals(name, group.name) && Objects.equals(department, group.department);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, department);
     }
 }

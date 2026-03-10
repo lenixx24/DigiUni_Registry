@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Faculty {
     private final University university;
@@ -103,5 +104,16 @@ public class Faculty {
             dep = departments.toString();
         }
         return toStart + ", \n\u001B[1mDepartments:\u001B[0m\n" + dep;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Faculty)) return false;
+        Faculty faculty = (Faculty) o;
+        return Objects.equals(id, faculty.id) && Objects.equals(shortName, faculty.shortName);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, shortName);
     }
 }
