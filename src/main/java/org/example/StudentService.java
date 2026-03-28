@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class StudentService implements ConsoleService{
+public final class StudentService implements ConsoleService{
     private Scanner scanner;
     private static final Logger log = LogManager.getLogger(StudentService.class);
     @Override

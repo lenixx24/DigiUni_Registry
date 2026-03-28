@@ -1,6 +1,7 @@
 package org.example;
 
-public interface ConsoleService {
+public sealed interface ConsoleService permits StudentService, TeacherService,
+FacultyService, DepartmentService{
     public void createMenu();
     public void updateMenu();
     public void removeMenu();

@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class DepartmentService implements ConsoleService{
+public final class DepartmentService implements ConsoleService{
 
     private static final Logger log = LogManager.getLogger(DepartmentService.class);
     @Override

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TeacherService implements ConsoleService{
+public final class TeacherService implements ConsoleService{
     private Scanner scanner;
     private static final Logger log = LogManager.getLogger(TeacherService.class);
     @Override

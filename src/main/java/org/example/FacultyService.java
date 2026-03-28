@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class FacultyService implements ConsoleService {
+public final class FacultyService implements ConsoleService {
     private static final Logger log = LogManager.getLogger(FacultyService.class);
     @Override
     public void createMenu() {
