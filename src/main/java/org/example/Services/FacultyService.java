@@ -1,7 +1,12 @@
-package org.example;
+package org.example.Services;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.Faculty;
+import org.example.Repository;
+import org.example.Validator;
+
+import java.util.Comparator;
 
 
 public final class FacultyService implements ConsoleService {

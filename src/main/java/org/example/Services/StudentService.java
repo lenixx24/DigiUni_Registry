@@ -1,14 +1,15 @@
-package org.example;
+package org.example.Services;
 import exceptions.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.*;
 
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public final class StudentService implements ConsoleService{
+public final class StudentService implements ConsoleService {
     private Scanner scanner;
     private static final Logger log = LogManager.getLogger(StudentService.class);
     @Override

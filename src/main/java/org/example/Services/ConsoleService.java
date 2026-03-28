@@ -1,7 +1,7 @@
-package org.example;
+package org.example.Services;
 
 public sealed interface ConsoleService permits StudentService, TeacherService,
-FacultyService, DepartmentService{
+        FacultyService, DepartmentService {
     public void createMenu();
     public void updateMenu();
     public void removeMenu();

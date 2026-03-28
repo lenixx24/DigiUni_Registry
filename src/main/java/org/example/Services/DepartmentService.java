@@ -1,10 +1,13 @@
-package org.example;
+package org.example.Services;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.Department;
+import org.example.Repository;
+import org.example.Validator;
 
 
-public final class DepartmentService implements ConsoleService{
+public final class DepartmentService implements ConsoleService {
 
     private static final Logger log = LogManager.getLogger(DepartmentService.class);
     @Override
