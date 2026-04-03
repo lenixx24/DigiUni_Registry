@@ -13,6 +13,7 @@ public class Menu {
     private static final Logger log = LogManager.getLogger(Menu.class);
     private static User user;
     public static void authorizationMenu(){
+        StudentFileService.loadAll();
         System.out.println("\n \u001B[1;97mWelcome to DigiUni! \u001B[0m");
         while(true) {
             System.out.println("1. \u001B[32mLog in\u001B[0m ");
@@ -26,6 +27,7 @@ public class Menu {
                     break;
                 case 2:
                 default:
+                    StudentFileService.saveAll();
                     System.out.println("Goodbye! ");
                     System.exit(0);
             }
@@ -64,6 +66,7 @@ public class Menu {
                 break;
             case 7: return;
             default:
+                StudentFileService.saveAll();
                 System.out.println("Goodbye! ");
                 System.exit(0);
         }

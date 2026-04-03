@@ -8,9 +8,9 @@ public class Person {
     private final String lastName;
     private final String firstName;
     private final String middleName;
-    private final LocalDate birthDate;
-    private String email;
-    private String phone;
+    public final LocalDate birthDate;
+    public String email;
+    public String phone;
 
     public Person(int id, String lastName, String firstName, String middleName, LocalDate birthDate, String email, String phone) {
         this.id = id;

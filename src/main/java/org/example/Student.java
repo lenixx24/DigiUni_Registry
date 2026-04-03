@@ -30,7 +30,14 @@ public class Student extends Person {
         this.studentId = studentId;
         this.course = course;
         this.group = group;
+        this.department = group.getDepartment();
         group.addStudent(this);
+        if (this.department != null) {
+            this.department.addStudent(this);
+        }
+        if (group != null) {
+            this.department = group.getDepartment();
+        }
         this.entryYear = entryYear;
         this.studyForm = studyForm;
         this.status = status;
@@ -65,6 +72,21 @@ public class Student extends Person {
     }
     public String getStudyForm() {
         return studyForm;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public String getStudentId() {
+        return studentId;
+    }
+    public String getBirthDate(){
+        return birthDate.toString();
+    }
+    public String getEmail(){
+        return email;
+    }
+    public String getPhone(){
+        return phone;
     }
     public void changeStatus(String newStatus) {
         if (newStatus == null || newStatus.isEmpty()) {

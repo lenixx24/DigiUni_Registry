@@ -1,0 +1,7 @@
+ID   ;LAST NAME ;FIRST NAME     ;MIDDLE NAME    ;BIRTH DATE  ;EMAIL                    ;PHONE          ;STUDENT ID  ;COURSE         ;GROUP     ;ENTRY YEAR      ;STUDY FORM     ;STATUS         
+1    ;Smith     ;John           ;Edward         ;2006-05-15  ;john.smith@ukma.edu.ua   ;0501112233     ;KM100101    ;1              ;CS-1      ;2025            ;budget         ;studying       
+2    ;Johnson   ;Emily          ;Rose           ;2004-11-20  ;e.johnson@ukma.edu.ua    ;0672223344     ;KM100305    ;3              ;SE-3      ;2023            ;contract       ;studying       
+3    ;Williams  ;Michael        ;James          ;2005-03-10  ;m.williams@ukma.edu.ua   ;0633334455     ;KM100222    ;2              ;LB-2      ;2024            ;budget         ;academic leave 
+4    ;Brown     ;Sarah          ;Elizabeth      ;2003-07-25  ;sarah.brown@ukma.edu.ua  ;0984445566     ;KM100410    ;4              ;EC4       ;2022            ;contract       ;expelled       
+5    ;Jones     ;David          ;Allen          ;2002-01-30  ;d.jones@ukma.edu.ua      ;0935556677     ;KM100555    ;5              ;SC-5      ;2021            ;budget         ;studying       
+6    ;Garcia    ;Maria          ;Ann            ;2001-09-12  ;m.garcia@ukma.edu.ua     ;0506667788     ;KM100601    ;6              ;BW-6      ;2020            ;contract       ;studying       

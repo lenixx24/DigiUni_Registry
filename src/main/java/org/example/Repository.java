@@ -189,7 +189,9 @@ public class Repository {
     private static List<Group> groups = new ArrayList<>();
 
     public static void addGroup(Group group) {
-        groups.add(group);
+        if (!groups.contains(group)) {
+            groups.add(group);
+        }
     }
     public static void removeGroup(Group group) {
         groups.remove(group);
