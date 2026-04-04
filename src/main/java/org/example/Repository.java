@@ -17,11 +17,11 @@ public class Repository {
     private static int facultyCount = 0;
     private static List<User> users = new ArrayList<>(5);
     private static int userCount=0;
- static{
+/* static{
      Repository.addUser(new User("User","user123", "12345",  Role.USER));
      Repository.addUser(new User("Manager","manager", "m@n@ger",  Role.MANAGER));
      Repository.addUser(new User("Admin","admin", "@dm1n",  Role.ADMIN));
- }
+ }*/
 //------------------------------------ADD/REMOVE STUDENT
 
     public static void addStudent(Student student) {
@@ -169,17 +169,28 @@ public class Repository {
     }
     //------------------------------------USER METHODS
    public static Optional<User> findUserByLogin(String login){
-       for(User user: users){
-           if(user == null) return Optional.empty();
-           if (user.hasLogin(login)){
-               return Optional.of(user);
-           }
-       }
-       return Optional.empty();
-   }
+        for(User user: users){
+            if(user == null) return Optional.empty();
+            if (user.hasLogin(login)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+    public static Optional<User> findUserByUsername(String name){
+        for(User user: users){
+            if(user == null) return Optional.empty();
+            if (user.getUserName().equals(name)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
    public static void addUser(User user){
+        if(user!=null){
         users.add(user);
-        userCount++;
+        userCount++; user.setAbilities();
+        }
    }
     public static void removeUser(User user){
         if(user == null) return;

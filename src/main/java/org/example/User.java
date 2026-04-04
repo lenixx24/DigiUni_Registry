@@ -1,30 +1,39 @@
 package org.example;
 
+import org.example.Annotations.Encrypted;
+import org.example.Annotations.UserJsonField;
+
 import java.util.Objects;
 
 public class User{
-    private final String login;
-    private Password password;
+    @UserJsonField
+    private String login;
+    @Encrypted
+    @UserJsonField
+    private String password;
+    @UserJsonField
     private String userName;
+    @UserJsonField
     private Role role;
     private boolean canViewAndSearch;
     private boolean canEditRegistryEntities;
     private boolean canManageUsers;
+    public User(){}
     public User (String userName, String login, String password, Role role){
         this.login=login;
-        this.password=new Password(password);
+        this.password=password;
         this.userName=userName;
         this.role=role;
         this.setAbilities();
     }
     public User (String login, String password, String userName){
         this.login=login;
-        this.password=new Password(password);
+        this.password=password;
         this.userName=userName;
         this.role=Role.USER;
         this.setAbilities();
     }
-    private void setAbilities(){
+    public void setAbilities(){
         switch(this.role){
             case USER -> {
                 canViewAndSearch =true;
@@ -98,17 +107,5 @@ public class User{
     @Override
     public int hashCode() {
         return Objects.hash(login, userName);
-    }
-}
-class Password {
-    private String password;
-    private final int key;
-    Password (String password){
-        this.password=password;
-        key= Math.toIntExact(Math.round(Math.random() * 1000));
-    }
-
-    public boolean equals(String password) {
-        return this.password.equals(password);
     }
 }

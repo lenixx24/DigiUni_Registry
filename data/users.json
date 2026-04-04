@@ -1,0 +1,6 @@
+[
+  {"login": "user123", "password": "Y1dSWGY=", "userName": "User", "role": "USER"},
+  {"login": "manager", "password": "PyUPLDQAEQ==", "userName": "Manager", "role": "MANAGER"},
+  {"login": "admin", "password": "EgEMXT0=", "userName": "Admin", "role": "ADMIN"},
+  {"login": "coolguy", "password": "MwcCXWFW", "userName": "CoolGuy", "role": "MANAGER"}
+]

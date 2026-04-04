@@ -12,7 +12,9 @@ public class Menu {
     private static ConsoleService consoleService;
     private static final Logger log = LogManager.getLogger(Menu.class);
     private static User user;
+    public static final UserFileService userFileService=new UserFileService("data/users.json");
     public static void authorizationMenu(){
+        userFileService.loadUsersFromFile();
         StudentFileService.loadAll();
         System.out.println("\n \u001B[1;97mWelcome to DigiUni! \u001B[0m");
         while(true) {
@@ -28,6 +30,7 @@ public class Menu {
                 case 2:
                 default:
                     StudentFileService.saveAll();
+                    userFileService.saveUsersToFile(Repository.getUsers());
                     System.out.println("Goodbye! ");
                     System.exit(0);
             }
@@ -67,6 +70,7 @@ public class Menu {
             case 7: return;
             default:
                 StudentFileService.saveAll();
+                userFileService.saveUsersToFile(Repository.getUsers());
                 System.out.println("Goodbye! ");
                 System.exit(0);
         }
@@ -81,7 +85,7 @@ public class Menu {
         System.out.println("\u001B[36mManage users\u001B[0m");
         System.out.println("1. Create user");
         System.out.println("2. Remove user");
-        System.out.println("3. Block user");
+        System.out.println("3. Change user rights");
         System.out.println("4. Back");
         userChoice = Validator.checkedUserChoice(1,4);
         UserService userService= new UserService();

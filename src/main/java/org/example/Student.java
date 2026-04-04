@@ -30,20 +30,21 @@ public class Student extends Person {
         this.studentId = studentId;
         this.course = course;
         this.group = group;
-        this.department = group.getDepartment();
-        group.addStudent(this);
+        if(group!=null){
+             this.department = group.getDepartment();
+                group.addStudent(this);
+        }
         if (this.department != null) {
             this.department.addStudent(this);
-        }
-        if (group != null) {
-            this.department = group.getDepartment();
         }
         this.entryYear = entryYear;
         this.studyForm = studyForm;
         this.status = status;
     }
     public Group getGroupObject() { return group; }
-    public String getGroupName() { return group.getName(); }
+    public String getGroupName() {
+        if(group==null) return "";
+        return group.getName(); }
 
     public Faculty getFaculty() {
         return group.getDepartment().getFaculty();

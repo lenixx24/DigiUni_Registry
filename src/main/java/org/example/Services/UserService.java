@@ -1,8 +1,9 @@
-package org.example;
+package org.example.Services;
 
 import exceptions.DenialException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.*;
 
 public class UserService {
     private static final Logger log = LogManager.getLogger(UserService.class);
@@ -38,7 +39,7 @@ public class UserService {
 
     public void create() {
         User user;
-        user = new User(Validator.getCorrectString("username"),
+        user = new User(Validator.getCorrectUsername("username"),
                 Validator.getCorrectLogin("login"),
                 Validator.getCorrectString("password"),
                 Validator.getCorrectRole("role (user, manager, admin)"));
@@ -52,15 +53,15 @@ public class UserService {
             return;
         }
         reportAll();
-        String login;
+        String name;
         User userForRemove=null;
         try {
-            login=Validator.getCorrectString(" user login");
-            userForRemove = Repository.findUserByLogin(login).orElseThrow(
+            name=Validator.getCorrectString(" username");
+            userForRemove = Repository.findUserByUsername(name).orElseThrow(
                     () -> new IllegalArgumentException("Can not find user")
             );
         } catch (IllegalArgumentException e) {
-            log.warn("No user with this login");
+            log.warn("No user with this username");
             remove();
         }
         try{
@@ -92,15 +93,15 @@ public class UserService {
             return;
         }
         reportAll();
-        String login;
+        String name=null;
         User userForChange =null;
         try {
-            login=Validator.getCorrectString(" user login");
-            userForChange = Repository.findUserByLogin(login).orElseThrow(
+            name=Validator.getCorrectString(" username");
+            userForChange = Repository.findUserByUsername(name).orElseThrow(
                     () -> new IllegalArgumentException("Can not find user")
             );
         } catch (IllegalArgumentException e) {
-            log.warn("No user with this login");
+            log.warn("No user with {} username", name);
             changeRole();
         }
         try {

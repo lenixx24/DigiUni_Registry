@@ -26,8 +26,8 @@ public class Validator {
     }
     public static void checkGroupBelongsToDepartment(String groupName, Department targetDept) {
         for (Student s : Repository.getStudents()) {
-            if (s.getGroup().equals(groupName)) {
-                if (s.getDepartment().getId() != targetDept.getId()) {
+            if (s.getGroupName()!=null&&s.getGroupName().equals(groupName)) {
+                if (s.getDepartment()!=null&&s.getDepartment().getId() != targetDept.getId()) {
                     throw new DenialException("Group " + groupName +
                             " already in department " + s.getDepartment().getName());
                 }
@@ -102,7 +102,8 @@ public class Validator {
         while(true){
             System.out.println("Enter "+txt+": ");
            res= sc.nextLine();
-           if(res!=null&&!res.equals("")) return res;
+           if(res.matches(".*[\",:;}{].*")) log.warn("{} contains forbidden symbols", res);
+           else if(!res.isEmpty()) return res;
         }
 
 
@@ -115,7 +116,8 @@ public class Validator {
             try{
                 res= sc.nextInt();
                 sc.nextLine();
-                return res;
+                if(res<=0) log.warn("Input must be positive");
+                else return res;
             }
             catch (InputMismatchException e){
                 log.warn("Input must be an integer");
@@ -199,8 +201,9 @@ public class Validator {
         while (true){
             System.out.println("Enter "+txt+": ");
             res=sc.nextLine();
-            if(res.contains("@")) return res;
-            else log.warn("Email must contain @");
+            if(!res.contains("@")) log.warn("Email must contain @");
+            else if(res.matches(".*[\",:;}{].*")) log.warn("{} contains forbidden symbols", res);
+            else return res;
         }
     }
     public static int checkedUserChoice(int min, int max){
@@ -240,6 +243,14 @@ public class Validator {
         while(true){
             res= Validator.getCorrectString(txt);
             if(Repository.findUserByLogin(res).isPresent()) log.warn("User with this login already exists");
+            else return res;
+        }
+    }
+    public static String getCorrectUsername(String txt) {
+        String res;
+        while(true){
+            res= Validator.getCorrectString(txt);
+            if(Repository.findUserByUsername(res).isPresent()) log.warn("User with this username already exists");
             else return res;
         }
     }
