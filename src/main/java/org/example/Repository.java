@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Entities.*;
+
 import java.util.*;
 
 public class Repository {

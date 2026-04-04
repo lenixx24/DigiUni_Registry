@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Entities;
 
 import org.example.Annotations.Encrypted;
 import org.example.Annotations.UserJsonField;

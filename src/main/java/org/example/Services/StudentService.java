@@ -3,6 +3,10 @@ import exceptions.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.*;
+import org.example.Entities.Department;
+import org.example.Entities.Faculty;
+import org.example.Entities.Group;
+import org.example.Entities.Student;
 
 import java.util.Optional;
 import java.util.ArrayList;

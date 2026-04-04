@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Entities.*;
 import org.junit.jupiter.api.Test;
 
 import static org.example.Main.LocalDate;

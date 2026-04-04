@@ -4,6 +4,8 @@ import exceptions.DenialException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.*;
+import org.example.Entities.Role;
+import org.example.Entities.User;
 
 public class UserService {
     private static final Logger log = LogManager.getLogger(UserService.class);

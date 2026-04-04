@@ -1,6 +1,8 @@
 package org.example;
 import exceptions.DenialException;
 import org.apache.logging.log4j.*;
+import org.example.Entities.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

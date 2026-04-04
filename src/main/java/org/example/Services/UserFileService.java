@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.example.*;
 import org.example.Annotations.Encrypted;
 import org.example.Annotations.UserJsonField;
+import org.example.Entities.User;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

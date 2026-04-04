@@ -1,6 +1,7 @@
 package org.example;
 
 import exceptions.ValidationException;
+import org.example.Entities.*;
 import org.junit.jupiter.api.*;
 import static org.example.Main.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,6 +1,7 @@
 package org.example;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.Entities.User;
 import org.example.Services.*;
 
 import java.util.InputMismatchException;

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Entities;
 import exceptions.DenialException;
 import exceptions.ValidationException;
 
