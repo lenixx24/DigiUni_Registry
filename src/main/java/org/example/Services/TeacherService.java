@@ -1,15 +1,9 @@
 package org.example.Services;
-import exceptions.DenialException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import exceptions.*;
+import org.apache.logging.log4j.*;
 import org.example.*;
-import org.example.Entities.Department;
-import org.example.Entities.Faculty;
-import org.example.Entities.Teacher;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import org.example.Entities.*;
+import java.util.*;
 
 public final class TeacherService implements ConsoleService {
     private Scanner scanner;
@@ -230,33 +224,22 @@ public final class TeacherService implements ConsoleService {
 
         }
     }
-
     private void sortByAlphabet(List<Teacher> list) {
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                if (list.get(i).getLastName().compareToIgnoreCase(list.get(j).getLastName()) > 0) {
-                    Teacher temp = list.get(i);
-                    list.set(i, list.get(j));
-                    list.set(j, temp);
-                }
-            }
-        }
+        list.sort((teacher1, teacher2) ->
+                teacher1.getLastName().compareToIgnoreCase(teacher2.getLastName()));
     }
 
     private void searchByDepartment(Department targetDep) {
         System.out.println("\nTeachers in department: " + targetDep.getName());
-        boolean found = false;
-
-        for (Teacher t : Repository.getTeachers()) {
-            if (t.getDepartments().contains(targetDep)) {
-                System.out.println(t);
-                found = true;
-            }
-        }
-
-        if (!found) {
+        List<Teacher> foundTeachers = Repository.getTeachers().stream()
+                .filter(t -> t.getDepartments().contains(targetDep))
+                .toList();
+        if (foundTeachers.isEmpty()) {
             System.out.println("No teachers in department");
+        } else {
+            foundTeachers.forEach(System.out::println);
         }
     }
+
 
 }

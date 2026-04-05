@@ -300,14 +300,14 @@ public final class StudentService implements ConsoleService {
     }
 
     private void searchByGroup(String groupName) {
-        boolean found = false;
-        System.out.println("\nStudents in group " + groupName + ":");
-        for (Student s : Repository.getStudents()) {
-            if (s.getGroupName().equalsIgnoreCase(groupName)) {
-                System.out.println(s);
-                found = true;
-            }
+        List<Student> found = Repository.getStudents().stream()
+                .filter(s -> Objects.equals(s.getGroupName(), groupName))
+                .toList();
+        if (found.isEmpty()) {
+            System.out.println("No students found in group");
+        } else {
+            System.out.println("\nStudents in group " + groupName + ":");
+            found.forEach(System.out::println);
         }
-        if (!found) System.out.println("No students found in group " + groupName);
     }
 }
