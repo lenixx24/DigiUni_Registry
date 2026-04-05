@@ -1,17 +1,9 @@
 package org.example.Services;
-import exceptions.ValidationException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import exceptions.*;
+import org.apache.logging.log4j.*;
 import org.example.*;
-import org.example.Entities.Department;
-import org.example.Entities.Faculty;
-import org.example.Entities.Group;
-import org.example.Entities.Student;
-
-import java.util.Optional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import org.example.Entities.*;
+import java.util.*;
 
 public final class StudentService implements ConsoleService {
     private Scanner scanner;
@@ -268,60 +260,43 @@ public final class StudentService implements ConsoleService {
         }
     }
     private void sortByAlphabet(List<Student> list) {
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                if (list.get(i).getLastName().compareToIgnoreCase(list.get(j).getLastName()) > 0) {
-                    Student temp = list.get(i);
-                    list.set(i, list.get(j));
-                    list.set(j, temp);
-                }
-            }
-        }
+        list.sort((student1, student2) ->
+                student1.getLastName().compareToIgnoreCase(student2.getLastName()));
     }
 
     private void sortByCourse(List<Student> list) {
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                if (list.get(i).getCourse() > list.get(j).getCourse()) {
-                    Student temp = list.get(i);
-                    list.set(i, list.get(j));
-                    list.set(j, temp);
-                }
-            }
-        }
+        list.sort(Comparator.comparingInt(Student::getCourse));
     }
 
     private void reportDeptCourseStudents(Department dep, int course) {
-        List<Student> filteredStudents = new ArrayList<>();
-        for (Student s : dep.getStudents()) {
-            if (s.getCourse() == course) {
-                filteredStudents.add(s);
-            }
-        }
-
+        List<Student> filteredStudents = dep.getStudents().stream()
+                .filter(s -> s.getCourse() == course)
+                .toList();
         if (filteredStudents.isEmpty()) {
             System.out.println("No students found on " + dep.getName() + " for course " + course);
             return;
         }
-
         System.out.println("\nRegular list (Course " + course + ", " + dep.getName() + ")");
         printList(filteredStudents);
 
-        sortByAlphabet(filteredStudents);
+        List<Student> sortedByAlphabet = filteredStudents.stream()
+                .sorted((student1, student2) ->
+                        student1.getLastName().compareToIgnoreCase(student2.getLastName()))
+                .toList();
         System.out.println("\nAbc list (Course " + course + ", " + dep.getName() + ")");
-        printList(filteredStudents);
+        printList(sortedByAlphabet);
     }
 
     private void searchByCourse(int course) {
-        boolean found = false;
-        System.out.println("\nStudents on course " + course + ":");
-        for (Student s : Repository.getStudents()) {
-            if (s.getCourse() == course) {
-                System.out.println(s);
-                found = true;
-            }
+        List<Student> found = Repository.getStudents().stream()
+                .filter(s -> s.getCourse() == course)
+                .toList();
+        if (found.isEmpty()) {
+            System.out.println("No students found on this course");
+        } else {
+            System.out.println("\nStudents on course " + course + ":");
+            found.forEach(System.out::println);
         }
-        if (!found) System.out.println("No students found on this course");
     }
 
     private void searchByGroup(String groupName) {
