@@ -1,6 +1,7 @@
 package org.example;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.Entities.Role;
 import org.example.Entities.User;
 import org.example.Services.*;
 
@@ -79,7 +80,7 @@ public class Menu {
     }
 
     private static void manageUsersMenu() {
-        if(!user.canManageUsers()){
+        if(!user.hasPermission(Role.MANAGE_USERS)){
             log.warn("{} {} can not manage users", user.getRole(), user.getUserName());
             return;
         }
@@ -100,7 +101,7 @@ public class Menu {
     }
 
     private static void removeMenu() {
-        if(!user.canEditRegistryEntities()){
+        if(!user.hasPermission(Role.DELETE)){
             log.warn("{} {} can not remove entities", user.getRole(), user.getUserName());
             return;
         }
@@ -126,7 +127,7 @@ public class Menu {
         removeMenu();
     }
     private static void updateMenu() {
-        if(!user.canEditRegistryEntities()){
+        if(!user.hasPermission(Role.UPDATE)){
             log.warn("{} {} can not update entities", user.getRole(), user.getUserName());
             return;
         }
@@ -154,7 +155,7 @@ public class Menu {
     }
 
     private static void searchMenu() {
-        if(!user.canViewAndSearch()){
+        if(!user.hasPermission(Role.READ)){
             log.warn("{} {} can not search entities", user.getRole(), user.getUserName());
             return;
         }
@@ -181,7 +182,7 @@ public class Menu {
     }
 
     private static void reportMenu() {
-        if(!user.canViewAndSearch()){
+        if(!user.hasPermission(Role.READ)){
             log.warn("{} {} can not view repository", user.getRole(), user.getUserName());
             return;
         }
@@ -209,7 +210,7 @@ public class Menu {
 
 
     private static void createMenu() {
-        if(!user.canEditRegistryEntities()){
+        if(!user.hasPermission(Role.UPDATE)){
             log.warn("{} {} can not create entities", user.getRole(), user.getUserName());
             return;
         }

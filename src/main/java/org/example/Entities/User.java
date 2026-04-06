@@ -15,47 +15,48 @@ public class User{
     private String userName;
     @UserJsonField
     private Role role;
-    private boolean canViewAndSearch;
-    private boolean canEditRegistryEntities;
-    private boolean canManageUsers;
+    private int permissions;
+
     public User(){}
     public User (String userName, String login, String password, Role role){
         this.login=login;
         this.password=password;
         this.userName=userName;
         this.role=role;
-        this.setAbilities();
+        this.setPermissions();
     }
     public User (String login, String password, String userName){
         this.login=login;
         this.password=password;
         this.userName=userName;
         this.role=Role.USER;
-        this.setAbilities();
+        this.setPermissions();
     }
-    public void setAbilities(){
+    public void setPermissions() {
         switch(this.role){
-            case USER -> {
-                canViewAndSearch =true;
-                canEditRegistryEntities =false;
-                canManageUsers=false;
-            }
-            case MANAGER -> {
-                canViewAndSearch =true;
-                canEditRegistryEntities =true;
-                canManageUsers=false;
-            }
-            case ADMIN ->{
-                canManageUsers=true;
-                canEditRegistryEntities =true;
-                canViewAndSearch =true;
-            }
-            case BLOCKED -> {
-                canEditRegistryEntities =false;
-                canManageUsers=false;
-                canViewAndSearch =false;
-            }
+            case USER:
+                addPermission(Role.READ); break;
+            case MANAGER:
+                addPermission(Role.READ);
+                addPermission(Role.UPDATE);
+                addPermission(Role.DELETE);
+            break;
+            case ADMIN:
+                addPermission(Role.ALL); break;
+            case BLOCKED:
+                removePermission(Role.ALL); break;
+
         }
+    }
+    public void addPermission(int p){
+        this.permissions|=p;
+    }
+    public void removePermission(int p) {
+        this.permissions &= ~p;
+    }
+
+    public boolean hasPermission(int p) {
+        return (this.permissions & p) == p;
     }
     public String getUserName() {
         return userName;
@@ -66,27 +67,15 @@ public class User{
     }
    public void setRole(Role role){
         this.role=role;
+        setPermissions();
    }
-    public boolean canEditRegistryEntities() {
-        return canEditRegistryEntities;
-    }
-
-    public boolean canManageUsers() {
-        return canManageUsers;
-    }
-
-    public boolean canViewAndSearch() {
-        return canViewAndSearch;
-    }
 
     public boolean hasPassword(String password){
-        if(this.password.equals(password))return true;
-        return false;
+        return this.password.equals(password);
     }
 
     public boolean hasLogin(String login) {
-        if(this.login.equals(login)) return true;
-        else return false;
+        return this.login.equals(login);
     }
 
     @Override
@@ -97,8 +86,7 @@ public class User{
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if(!(obj instanceof User)) return false;
-        User cmpUser = (User) obj;
+        if(!(obj instanceof User cmpUser)) return false;
         if(!userName.equals(cmpUser.getUserName())) return false;
         if(!cmpUser.hasLogin(login)) return false;
         return Objects.equals(login, cmpUser.login)&&Objects.equals(userName, cmpUser.userName);

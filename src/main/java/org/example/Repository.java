@@ -8,15 +8,11 @@ public class Repository {
     public static University Naukma= new University("National University of Kyiv-Mohyla Academy",
             "NaUKMA", "Kyiv", "Hryhoriya Skovorody St, 2");
     private static Map<Integer, Student> students = new HashMap<>();
-    private static int studentCount = 0;
 
     private static Map<Integer, Teacher> teachers = new HashMap<>();
-    private static int teacherCount = 0;
 
    private static Map<Integer, Department> departments = new HashMap<>();
-    private static int departmentCount = 0;
     private static Map<Integer, Faculty> faculties = new HashMap<>();
-    private static int facultyCount = 0;
     private static List<User> users = new ArrayList<>(5);
     private static int userCount=0;
 /* static{
@@ -28,7 +24,6 @@ public class Repository {
 
     public static void addStudent(Student student) {
         students.put(student.getId(), student);
-        studentCount++;
     }
 
     public static void removeStudent(Student student) {
@@ -41,45 +36,38 @@ public class Repository {
         }
 
         students.remove(student.getId());
-        studentCount--;
     }
 
 //------------------------------------ADD/REMOVE TEACHER
 
     public static void addTeacher(Teacher teacher) {
         teachers.put(teacher.getId(), teacher);
-        teacherCount++;
     }
 
     public static void removeTeacher(Teacher teacher) {
         if(teacher==null) return;
         teachers.remove(teacher.getId());
-        teacherCount--;
     }
 
 //------------------------------------ADD/REMOVE DEPARTMENT
 
     public static void addDepartment(Department department) {
         departments.put(department.getId(), department);
-        departmentCount++;
     }
     public static void removeDepartment(Department department) {
         if(department==null) return;
         departments.remove(department.getId());
-        departmentCount--;
     }
 
 //------------------------------------ADD/REMOVE FACULTY
 
     public static void addFaculty(Faculty faculty) {
         faculties.put(faculty.getID(), faculty);
-        facultyCount++;
     }
 
     public static void removeFaculty(Faculty faculty) {
         if(faculty==null) return;
        faculties.remove(faculty.getID());
-       facultyCount--;
     }
 
 //------------------------------------GETTERS
@@ -191,7 +179,8 @@ public class Repository {
    public static void addUser(User user){
         if(user!=null){
         users.add(user);
-        userCount++; user.setAbilities();
+        user.setPermissions();
+        userCount++;
         }
    }
     public static void removeUser(User user){
