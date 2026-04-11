@@ -111,7 +111,7 @@ public class Repository {
     public static Optional<Student> findStudentByFullName(String name){
         for(Student stud: students.values()){
             if(stud == null) return Optional.empty();
-            if (stud.getFullName().equals(name)){
+            if (stud.getFullName().equalsIgnoreCase(name)){
                 return Optional.of(stud);
             }
         }
@@ -121,7 +121,7 @@ public class Repository {
     public static Optional<Teacher> findTeacherByFullName(String name){
         for(Teacher teach: teachers.values()){
             if(teach == null) return Optional.empty();
-            if (teach.getFullName().equals(name)){
+            if (teach.getFullName().equalsIgnoreCase(name)){
                 return Optional.of(teach);
             }
         }
@@ -132,7 +132,7 @@ public class Repository {
     public static Optional<Faculty> findFacultyByShortName(String name) {
         for(Faculty faculty: faculties.values()){
             if(faculty == null) return Optional.empty();
-            if (faculty.getShortName().equals(name)){
+            if (faculty.getShortName().equalsIgnoreCase(name)){
                 return Optional.of(faculty);
             }
         }
@@ -141,7 +141,7 @@ public class Repository {
     public static Optional<Faculty> findFacultyByFullName(String name) {
         for(Faculty faculty: faculties.values()){
             if(faculty == null) return Optional.empty();
-            if (faculty.getFullName().equals(name)){
+            if (faculty.getFullName().equalsIgnoreCase(name)){
                 return Optional.of(faculty);
             }
         }
@@ -151,7 +151,7 @@ public class Repository {
     public static Optional<Department> findDepartmentByName(String name) {
         for(Department department: departments.values()){
             if(department == null) return Optional.empty();
-            if (department.getName().equals(name)){
+            if (department.getName().equalsIgnoreCase(name)){
                 return Optional.of(department);
             }
         }
@@ -170,7 +170,7 @@ public class Repository {
     public static Optional<User> findUserByUsername(String name){
         for(User user: users){
             if(user == null) return Optional.empty();
-            if (user.getUserName().equals(name)){
+            if (user.getUserName().equalsIgnoreCase(name)){
                 return Optional.of(user);
             }
         }

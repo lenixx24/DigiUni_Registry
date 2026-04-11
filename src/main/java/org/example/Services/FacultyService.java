@@ -14,7 +14,6 @@ public final class FacultyService implements ConsoleService {
         Faculty newFaculty = new Faculty(Repository.Naukma,
                 Validator.getCorrectFacultyID("ID"),
                 Validator.getUniqueFacultyName("full name"),
-                Validator.getCorrectString("short name"),
                 Validator.getCorrectPhoneNumber("phone number"),
                 Validator.getCorrectEmail("email address"));
         Repository.addFaculty(newFaculty);
@@ -35,29 +34,31 @@ public final class FacultyService implements ConsoleService {
                     System.out.println("\nFaculty found:");
                     System.out.println(faculty);
                     System.out.println("\nUpdate faculty:");
-                    System.out.println("1. Dean");
-                    System.out.println("2. Phone number");
-                    System.out.println("3. Email address");
-                    System.out.println("4. Back");
+                    System.out.println("1. Name");
+                    System.out.println("2. Dean");
+                    System.out.println("3. Phone number");
+                    System.out.println("4. Email address");
+                    System.out.println("5. Back");
 
-                    int choice = Validator.checkedUserChoice(1, 4);
+                    int choice = Validator.checkedUserChoice(1, 5);
                     switch (choice) {
                         case 1:
+                        faculty.changeFullName(Validator.getCorrectString("full name"));
+                        break;
+                        case 2:
                             if(Repository.getTeachers().isEmpty()) {
                                 log.warn("No teachers found");
                                 break;
                             }
                             faculty.changeDean(Validator.getCorrectTeacher("teacher ID"));
                             break;
-                        case 2:
+                        case 3:
                             faculty.changePhoneNumber(Validator.getCorrectPhoneNumber("phone number"));
                             break;
-                        case 3:
+                        case 4:
                             faculty.changeEmailAddress(Validator.getCorrectEmail("email address"));
                             break;
-                        case 4:
-                        default:
-                            return;
+                        case 5: default: return;
                     }
                     log.info("Faculty with ID {} updated successfully", id);
                     System.out.println(faculty);

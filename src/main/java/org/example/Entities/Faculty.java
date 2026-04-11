@@ -4,14 +4,15 @@ import exceptions.ValidationException;
 import org.example.Repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class Faculty {
     private final University university;
     private final int id;
-    private final String fullName;
-    private final String shortName;
+    private String fullName;
+    private String shortName;
     private Teacher dean;
     private String phoneNumber;
     private String emailAddress;
@@ -20,20 +21,20 @@ public class Faculty {
     private List<Teacher> teachers=new ArrayList<>();
     private int numberOfDepartments;
 
-    public Faculty(University university, int id, String fullName, String shortName, Teacher dean, String phoneNumber, String emailAddress) {
+    public Faculty(University university, int id, String fullName, Teacher dean, String phoneNumber, String emailAddress) {
         this.university=university;
         this.id = id;
         this.fullName = fullName;
-        this.shortName = shortName;
+        setShortName();
         this.dean = dean;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
     }
-    public Faculty(University university, int id, String fullName, String shortName, String phoneNumber, String emailAddress) {
+    public Faculty(University university, int id, String fullName, String phoneNumber, String emailAddress) {
         this.university=university;
         this.id = id;
         this.fullName = fullName;
-        this.shortName = shortName;
+        setShortName();
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
     }
@@ -128,5 +129,23 @@ public class Faculty {
     @Override
     public int hashCode() {
         return Objects.hash(id, shortName);
+    }
+
+    public void setShortName() {
+        String[] words = fullName.split(" ");
+        this.shortName="";
+        for(String w: words){
+            if(w.equalsIgnoreCase("of")) continue;
+            this.shortName +=w.charAt(0);
+        }
+        this.shortName=this.shortName.toUpperCase();
+    }
+
+    public void changeFullName(String fullName) {
+        if(fullName==null||fullName.isEmpty()){
+            throw new ValidationException("Name must not be empty");
+        }
+        this.fullName=fullName;
+        setShortName();
     }
 }

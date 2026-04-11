@@ -17,21 +17,21 @@ public class Main {
                 "Dean", "Doctor of Technical Sciences", "Docent", LocalDate("30.05.2019"), 30);
         Repository.addTeacher(t1);
         Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
-                "FI", t1, "0444256064", "fin@ukma.edu.ua");
+                t1, "0444256064", "fin@ukma.edu.ua");
         Repository.addFaculty(fi);
         Teacher t2 = new Teacher(2, "Mazin", "Dmitro", "Mykhaylovich",
                 LocalDate("01.01.1980"), "mazindm@ukma.edu.ua", "0444251420",
                 "Dean", "Candidate of Philological Sciences", "Docent", LocalDate("01.01.2009"), 30);
         Repository.addTeacher(t2);
         Faculty fhn = new Faculty(Repository.Naukma, 2, "Faculty of Humanities",
-                "FHN", t2, "0444251420", "mazindm@ukma.edu.ua");
+                 t2, "0444251420", "mazindm@ukma.edu.ua");
         Repository.addFaculty(fhn);
         Teacher t3 = new Teacher(3, "Glushcenko", "Svitlana", "Vasylivna",
                 LocalDate("01.01.1980"), "gluschenkosv@ukma.edu.ua", "0444256042",
                 "Dean", "Candidate of Economic Sciences", "Docent", LocalDate("01.01.2009"), 30);
         Repository.addTeacher(t3);
         Faculty fen = new Faculty(Repository.Naukma, 3, "Faculty of Economic Sciences",
-                "FEN", t3, "0444251420", "gluschenkosv@ukma.edu.ua");
+                 t3, "0444251420", "gluschenkosv@ukma.edu.ua");
         Repository.addFaculty(fen);
         Teacher t4 = new Teacher(4, "Chornei", "Ruslan", "Konstyantynovych",
                 LocalDate("01.01.1980"), "r.chornei@ukma.edu.ua", "0681982970",

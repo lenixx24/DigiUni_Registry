@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Department {
     private final int id;
-    private final String name;
+    private String name;
     private Faculty faculty;
     private Teacher head;
     private String office;
@@ -85,6 +85,12 @@ public class Department {
             throw new IllegalArgumentException("Office must not be empty");
         }
         this.office=newOffice;
+    }
+    public void changeName(String newName){
+        if(newName==null||newName.isEmpty()){
+            throw new IllegalArgumentException("Name must not be empty");
+        }
+        this.name=newName;
     }
 
     @Override

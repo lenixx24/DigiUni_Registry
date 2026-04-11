@@ -38,21 +38,28 @@ public final class DepartmentService implements ConsoleService {
                     System.out.println("\nDepartment found:");
                     System.out.println(department);
                     System.out.println("\nUpdate department:");
-                    System.out.println("1. Faculty");
-                    System.out.println("2. Head");
-                    System.out.println("3. Office");
-                    System.out.println("4. Back");
+                    System.out.println("1. Name");
+                    System.out.println("2. Faculty");
+                    System.out.println("3. Head");
+                    System.out.println("4. Office");
+                    System.out.println("5. Back");
 
-                    int choice = Validator.checkedUserChoice(1, 4);
+                    int choice = Validator.checkedUserChoice(1, 5);
                     switch (choice) {
-                        case 1: department.changeFaculty(Validator.getCorrectFaculty("faculty ID"));break;
-                        case 2 : if(Repository.getTeachers().isEmpty()) {
+                        case 1: department.changeName(Validator.getCorrectString(" name"));break;
+                        case 2:
+                           if(Repository.getFaculties().isEmpty())  {
+                               log.warn("No faculties found");
+                               return;
+                           }
+                            department.changeFaculty(Validator.getCorrectFaculty("faculty ID"));break;
+                        case 3 : if(Repository.getTeachers().isEmpty()) {
                             log.warn("No teachers found");
                             return;
                         }
                             department.changeHead(Validator.getCorrectTeacher("teacher ID")); break;
-                        case 3 : department.changeOffice(Validator.getCorrectString("office")); break;
-                        case 4 : default: return;
+                        case 4 : department.changeOffice(Validator.getCorrectString("office")); break;
+                        case 5 : default: return;
                     }
                    log.info("Department with ID {} updated successfully", id);
                     System.out.println(department);
