@@ -3,7 +3,6 @@ package org.example.Services;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import exceptions.RegistryException;
-import org.example.*;
 import org.example.Entities.Group;
 import org.example.Entities.Student;
 import org.example.Main.Repository;

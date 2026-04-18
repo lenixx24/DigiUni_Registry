@@ -14,6 +14,7 @@ public class Department {
     private int numberOfTeachers;
     private Set<Student> students = new HashSet<>();
     private int numberOfStudents;
+
     public Department(int id, String name, Faculty faculty, Teacher head, String office) {
         this.id = id;
         this.name = name;
@@ -108,6 +109,10 @@ public class Department {
     }
     public Set<Teacher> getTeachers() {
         return teachers;
+    }
+
+    public String dep() {
+        return name;
     }
 
     @Override

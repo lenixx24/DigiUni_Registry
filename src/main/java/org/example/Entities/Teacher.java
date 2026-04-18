@@ -74,7 +74,13 @@ public class Teacher extends Person{
 
     @Override
     public String toString() {
-        return super.toString()+", Job: "+job+", Degree: "+degree+", Academic status: "+academicStatus+", Hired on: "+hireDate+", Workload: "+workload;
+        return super.toString()+", Job: "+job+", Degree: "+degree+", Academic status: "+academicStatus+", Department(s): "+dep()+", Hired on: "+hireDate+", Workload: "+workload;
+    }
+
+    private String dep() {
+        return departments.stream()
+                .map(Department::dep)
+                .reduce((a, b) -> a + ", " + b).orElse("");
     }
 
     @Override

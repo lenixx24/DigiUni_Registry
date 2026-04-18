@@ -89,6 +89,9 @@ public class Student extends Person {
     public String getPhone(){
         return phone;
     }
+    public String getFacultyName(){
+        return getFaculty().getShortName();
+    }
     public void changeStatus(String newStatus) {
         if (newStatus == null || newStatus.isEmpty()) {
             throw new ValidationException("Status must not be empty");
@@ -110,7 +113,8 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + ", StudentId: " + studentId + ", Course: " + course + ", Group: " + group + ", Entry year: " + entryYear + ", Study form: " + studyForm + ", Status: " + status;
+        String faculty = getFacultyName();
+        return super.toString() + ", StudentId: " + studentId + ", Course: " + course + ", Group: " + group + ", Faculty: " + faculty + ", Entry year: " + entryYear + ", Study form: " + studyForm + ", Status: " + status;
     }
     @Override
     public boolean equals(Object o) {
