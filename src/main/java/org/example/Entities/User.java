@@ -33,20 +33,7 @@ public class User{
         this.setPermissions();
     }
     public void setPermissions() {
-        switch(this.role){
-            case USER:
-                addPermission(Role.READ); break;
-            case MANAGER:
-                addPermission(Role.READ);
-                addPermission(Role.UPDATE);
-                addPermission(Role.DELETE);
-            break;
-            case ADMIN:
-                addPermission(Role.ALL); break;
-            case BLOCKED:
-                removePermission(Role.ALL); break;
-
-        }
+        this.permissions=this.role.getDefaultPermission();
     }
     public void addPermission(int p){
         this.permissions|=p;
@@ -58,6 +45,11 @@ public class User{
     public boolean hasPermission(int p) {
         return (this.permissions & p) == p;
     }
+
+    public int getPermissions() {
+        return permissions;
+    }
+
     public String getUserName() {
         return userName;
     }

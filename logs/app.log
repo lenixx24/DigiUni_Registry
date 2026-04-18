@@ -10,3 +10,49 @@
 18:45:49, 06.04.2026 WARN  [main] org.example.Services.UserService - No user with login user 
 18:46:04, 06.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, USER User!
 18:46:08, 06.04.2026 WARN  [main] org.example.Menu - USER User can not remove entities
+15:14:44, 18.04.2026 WARN  [main] org.example.Services.UserService - No user with login ів 
+15:14:50, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN Admin!
+15:15:07, 18.04.2026 WARN  [main] org.example.Validator - Input must be positive
+15:15:11, 18.04.2026 WARN  [main] org.example.Validator - Input must be an integer
+15:15:34, 18.04.2026 WARN  [main] org.example.Validator - Email must contain @
+15:15:36, 18.04.2026 WARN  [main] org.example.Validator - Email must contain @
+15:15:43, 18.04.2026 WARN  [main] org.example.Validator - @ is not a phone number. Number must be in format +xxxxxxxxxxxx
+15:15:52, 18.04.2026 WARN  [main] org.example.Validator - gkjhjl; contains forbidden symbols
+15:16:22, 18.04.2026 INFO  [main] org.example.Services.StudentService - Student A B C created, Age: 22 years, Group:sdlm@ (Department: Department of cultural studies) , Faculty: FH
+15:17:52, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN Admin!
+15:22:21, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN Admin!
+15:22:33, 18.04.2026 WARN  [main] org.example.Services.UserService - No user with 4 username
+15:22:49, 18.04.2026 INFO  [main] org.example.Services.UserService - MANAGER CoolGuy changed successfully
+15:23:15, 18.04.2026 INFO  [main] org.example.Services.UserService - BLOCKED CoolGuy changed successfully
+15:23:45, 18.04.2026 WARN  [main] org.example.Services.UserService - No user with login CoolGuy 
+15:24:16, 18.04.2026 WARN  [main] org.example.Services.UserService - Incorrect password. 2 tries left
+15:24:27, 18.04.2026 WARN  [main] org.example.Services.UserService - Incorrect password. 1 tries left
+15:24:29, 18.04.2026 WARN  [main] org.example.Services.UserService - To much tries! Access is blocked
+15:25:07, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN Admin!
+15:25:27, 18.04.2026 INFO  [main] org.example.Services.UserService - BLOCKED 123 created successfully
+15:25:48, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, BLOCKED 123!
+15:25:50, 18.04.2026 WARN  [main] org.example.Menu - BLOCKED 123 can not manage users
+15:26:55, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN Admin!
+15:27:10, 18.04.2026 INFO  [main] org.example.Services.UserService - ADMIN 1 created successfully
+15:27:45, 18.04.2026 WARN  [main] org.example.Services.StudentService - Course must be between 1 and 6
+15:33:21, 18.04.2026 WARN  [main] org.example.Services.UserService - No user with login 1 
+15:33:29, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN Admin!
+15:33:47, 18.04.2026 WARN  [main] org.example.Validator - Input must be an integer
+15:33:49, 18.04.2026 WARN  [main] org.example.Services.StudentService - Course must be between 1 and 6
+15:33:52, 18.04.2026 WARN  [main] org.example.Validator - Input must be positive
+15:33:54, 18.04.2026 INFO  [main] org.example.Services.StudentService - Student with ID 9 updated successfully
+15:34:43, 18.04.2026 WARN  [main] org.example.Validator - Input must be an integer
+15:34:45, 18.04.2026 WARN  [main] org.example.Validator - Department with ID 4 not found
+15:34:48, 18.04.2026 WARN  [main] org.example.Services.TeacherService - Teacher is already added to this department!
+15:34:48, 18.04.2026 INFO  [main] org.example.Services.TeacherService - Teacher with ID 6 updated successfully
+15:56:32, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, MANAGER Manager!
+15:56:34, 18.04.2026 WARN  [main] org.example.Menu - MANAGER Manager can not manage users
+15:56:39, 18.04.2026 WARN  [main] org.example.Menu - MANAGER Manager can not remove entities
+15:56:51, 18.04.2026 WARN  [main] org.example.Menu - MANAGER Manager can not create entities
+15:58:00, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, MANAGER Manager!
+15:58:04, 18.04.2026 WARN  [main] org.example.Menu - MANAGER Manager can not remove entities
+16:00:54, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN Admin!
+16:01:30, 18.04.2026 WARN  [main] org.example.Services.UserService - Incorrect password. 2 tries left
+16:01:38, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, MANAGER Manager!
+16:01:41, 18.04.2026 WARN  [main] org.example.Menu - MANAGER Manager can not manage users
+16:02:40, 18.04.2026 INFO  [main] org.example.Services.UserService - You logged in successfully. Welcome, ADMIN 1!

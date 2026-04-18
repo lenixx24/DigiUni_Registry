@@ -16,8 +16,7 @@ public class StudentTest {
                 "Dean", "Doctor of Technical Sciences", "Docent", LocalDate("30.05.2019"), 30);
 
 
-        Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
-                "FI", t1, "0444256064", "fin@ukma.edu.ua");
+        Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics", t1, "0444256064", "fin@ukma.edu.ua");
 
         Department d1 = new Department(1, "Department of Mathematics", fi, t1, "10-7");
         Group SC5 = new Group("SC-5", d1);
@@ -41,7 +40,7 @@ public class StudentTest {
 
 
         Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
-                "FI", t1, "0444256064", "fin@ukma.edu.ua");
+                 t1, "0444256064", "fin@ukma.edu.ua");
 
         Department d1 = new Department(1, "Department of Mathematics", fi, t1, "10-7");
 

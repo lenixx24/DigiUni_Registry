@@ -18,7 +18,7 @@ public class DepartmentTest {
 
 
         Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
-                "FI", t1, "0444256064", "fin@ukma.edu.ua");
+                 t1, "0444256064", "fin@ukma.edu.ua");
 
 
         Department d1 = new Department(1, "Department of Mathematics", fi, t1, "10-7");

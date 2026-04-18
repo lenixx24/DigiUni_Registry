@@ -71,13 +71,14 @@ public final class StudentService implements ConsoleService {
                     int choice = Validator.checkedUserChoice(1, 6);
                     switch (choice) {
                         case 1: student.changeStudentId(Validator.getCorrectString("student id")); break;
-                        case 2 : try{
+                        case 2 : while(true){ try{
                             student.changeCourse(Validator.getCorrectInt("course"));
                             break;
                         }
                         catch(ValidationException e){
                             log.warn("Course must be between 1 and 6");
-                        }
+                        }}
+                         break;
                         case 3:
                             String groupName = Validator.getCorrectString("new group name");
                             Optional<Group> existingGroup = Repository.findGroupByName(groupName);

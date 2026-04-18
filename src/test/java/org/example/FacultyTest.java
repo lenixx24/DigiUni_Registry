@@ -23,7 +23,7 @@ public class FacultyTest {
                 "Dean", "Candidate of Philological Sciences", "Docent", LocalDate("01.01.2009"), 30);
 
         Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
-                "FI", t1, "0444256064", "fin@ukma.edu.ua");
+                 t1, "0444256064", "fin@ukma.edu.ua");
 
         assertEquals(t1, fi.getDean());
 
@@ -48,9 +48,9 @@ public class FacultyTest {
                 "Head", "Candidate of Physical and Mathematical Sciences", "Docent", LocalDate("01.01.2009"), 30);
 
         Faculty fi = new Faculty(Repository.Naukma, 1, "Faculty of Informatics",
-                "FI", t1, "0444256064", "fin@ukma.edu.ua");
+                 t1, "0444256064", "fin@ukma.edu.ua");
         Faculty fhn = new Faculty(Repository.Naukma, 2, "Faculty of Humanities",
-                "FHN", t2, "0444251420", "mazindm@ukma.edu.ua");
+                 t2, "0444251420", "mazindm@ukma.edu.ua");
 
 
         // When the department is created, it should be automatically added to the faculty list
