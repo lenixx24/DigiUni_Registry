@@ -2,7 +2,7 @@ package org.example;
 
 import org.example.Entities.Teacher;
 import org.junit.jupiter.api.*;
-import static org.example.Main.LocalDate;
+import static org.example.Main.Main.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TeacherTest {

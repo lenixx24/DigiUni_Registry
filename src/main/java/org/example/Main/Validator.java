@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Main;
 import exceptions.DenialException;
 import org.apache.logging.log4j.*;
 import org.example.Entities.*;

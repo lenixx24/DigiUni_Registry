@@ -6,6 +6,9 @@ import org.apache.logging.log4j.Logger;
 import org.example.*;
 import org.example.Entities.Role;
 import org.example.Entities.User;
+import org.example.Main.Repository;
+import org.example.Main.Validator;
+import org.example.Main.Menu;
 
 public class UserService {
     private static final Logger log = LogManager.getLogger(UserService.class);

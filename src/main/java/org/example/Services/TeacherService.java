@@ -4,6 +4,8 @@ import org.apache.logging.log4j.*;
 import org.example.*;
 import org.example.Entities.*;
 import java.util.*;
+import org.example.Main.Repository;
+import org.example.Main.Validator;
 
 public final class TeacherService implements ConsoleService {
     private Scanner scanner;

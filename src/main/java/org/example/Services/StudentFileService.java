@@ -6,6 +6,7 @@ import exceptions.RegistryException;
 import org.example.*;
 import org.example.Entities.Group;
 import org.example.Entities.Student;
+import org.example.Main.Repository;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

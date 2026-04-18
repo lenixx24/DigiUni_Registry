@@ -1,7 +1,7 @@
 package org.example.Entities;
 
 import exceptions.ValidationException;
-import org.example.Repository;
+import org.example.Main.Repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;

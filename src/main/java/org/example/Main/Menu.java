@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.Entities.Role;

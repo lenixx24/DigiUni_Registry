@@ -3,8 +3,8 @@ package org.example.Services;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.Entities.Faculty;
-import org.example.Repository;
-import org.example.Validator;
+import org.example.Main.Repository;
+import org.example.Main.Validator;
 
 
 public final class FacultyService implements ConsoleService {

@@ -1,6 +1,6 @@
 package org.example.Entities;
 
-import org.example.Repository;
+import org.example.Main.Repository;
 
 import java.util.ArrayList;
 import java.util.List;

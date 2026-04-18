@@ -3,7 +3,8 @@ package org.example;
 import org.example.Entities.*;
 import org.junit.jupiter.api.Test;
 
-import static org.example.Main.LocalDate;
+import static org.example.Main.Main.LocalDate;
+import org.example.Main.Repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
