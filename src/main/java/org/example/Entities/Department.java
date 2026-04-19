@@ -21,14 +21,16 @@ public class Department {
         this.faculty = faculty;
         this.head = head;
         this.office = office;
-        faculty.addDepartment(this);
+        if(faculty!=null)
+            faculty.addDepartment(this);
     }
     public Department(int id, String name, Faculty faculty, String office) {
         this.id = id;
         this.name = name;
         this.faculty = faculty;
         this.office = office;
-        faculty.addDepartment(this);
+        if(faculty!=null)
+            faculty.addDepartment(this);
     }
     public void addTeacher(Teacher teacher) {
         if (teacher != null && !teachers.contains(teacher)) {
@@ -46,13 +48,11 @@ public class Department {
     }
     public void removeStudent(Student student){
         if (students.remove(student)) {
-            Repository.removeStudent(student);
             numberOfStudents--;
         }
     }
     public void removeTeacher(Teacher teacher){
         if (teachers.remove(teacher)) {
-            Repository.removeTeacher(teacher);
             numberOfTeachers--;
         }
     }
@@ -93,7 +93,9 @@ public class Department {
         }
         this.name=newName;
     }
-
+ public void removeHead(){
+        this.head=null;
+ }
     @Override
     public String toString() {
         if(head==null) return "ID: "+id+", "+name+" ("+ faculty.getShortName()+"),\n Head: -, Office: "+office;
@@ -120,10 +122,18 @@ public class Department {
         if (this == o) return true;
         if (!(o instanceof Department)) return false;
         Department dep = (Department) o;
-        return Objects.equals(id,dep.id)&&Objects.equals(name, dep.name);
+        return dep.getId()==this.id &&this.name.equals(dep.getName());
     }
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public Teacher getHead() {
+        return head;
+    }
+
+    public void removeFaculty() {
+        this.faculty=null;
     }
 }

@@ -22,7 +22,7 @@ public class Teacher extends Person{
     public void removeDepartment(Department department) {
 
         if (this.departments.size() <= 1) {
-            throw new DenialException("Teacher must have at least one department!");
+            //throw new DenialException("Teacher must have at least one department!");
         }
         if (this.departments.remove(department)) {
             department.removeTeacher(this);
@@ -80,7 +80,7 @@ public class Teacher extends Person{
     private String dep() {
         return departments.stream()
                 .map(Department::dep)
-                .reduce((a, b) -> a + ", " + b).orElse("");
+                .reduce((a, b) -> a + ", " + b).orElse("none");
     }
 
     @Override

@@ -43,9 +43,9 @@ public class Faculty {
         numberOfDepartments++;
     }
     public void removeDepartment(Department department){
-       departments.remove(department);
-       Repository.removeDepartment(department);
-       numberOfDepartments--;
+     if(department==null) return;
+       if(departments.remove(department))
+            numberOfDepartments--;
     }
     public void addTeacher(Teacher teacher) {
         if (teacher != null && !teachers.contains(teacher)) {

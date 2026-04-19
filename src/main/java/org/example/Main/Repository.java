@@ -28,13 +28,14 @@ public class Repository {
 
     public static void removeStudent(Student student) {
         if (student == null) return;
-        if (student.getGroupObject() != null) {
-            student.getGroupObject().getStudents().remove(student);
-        }
         if (student.getDepartment() != null) {
             student.getDepartment().getStudents().remove(student);
         }
-
+        if (student.getGroupObject() != null) {
+            student.getGroupObject().getStudents().remove(student);
+        }
+        if(student.getFaculty()!=null)
+            student.getFaculty().getStudents().remove(student);
         students.remove(student.getId());
     }
 
@@ -46,6 +47,16 @@ public class Repository {
 
     public static void removeTeacher(Teacher teacher) {
         if(teacher==null) return;
+        if(!teacher.getDepartments().isEmpty()){
+            for(Department d: teacher.getDepartments()){
+                if(d==null) continue;
+                if(teacher.equals(d.getHead())) d.removeHead();
+                if(d.getFaculty()!=null)
+                    d.getFaculty().getTeachers().remove(teacher);
+                d.removeTeacher(teacher);
+
+            }
+        }
         teachers.remove(teacher.getId());
     }
 
@@ -56,6 +67,22 @@ public class Repository {
     }
     public static void removeDepartment(Department department) {
         if(department==null) return;
+        List<Group> groupsToRemove=new ArrayList<>();
+        for(Group g: groups) {
+            if(g==null) continue;
+           if( department.equals(g.getDepartment()))
+               groupsToRemove.add(g);}
+        for(Group g: groupsToRemove) Repository.removeGroup(g);
+        if(department.getFaculty()!=null)
+            department.getFaculty().removeDepartment(department);
+        if(!department.getTeachers().isEmpty()){
+            List<Teacher> teachersForRemove= new ArrayList<>();
+            for(Teacher t: department.getTeachers())
+                if(t!=null) teachersForRemove.add(t);
+            for(Teacher t: teachersForRemove)
+                t.removeDepartment(department);
+        }
+
         departments.remove(department.getId());
     }
 
@@ -67,6 +94,11 @@ public class Repository {
 
     public static void removeFaculty(Faculty faculty) {
         if(faculty==null) return;
+        if(!faculty.getDepartments().isEmpty()){
+            for(Department d: faculty.getDepartments()){
+                if(d!=null) d.removeFaculty();
+            }
+        }
        faculties.remove(faculty.getID());
     }
 
@@ -196,6 +228,10 @@ public class Repository {
         }
     }
     public static void removeGroup(Group group) {
+        if(!group.getStudents().isEmpty()){
+            for(Student s: group.getStudents()) s.removeGroup();
+        }
+        group.getStudents().clear();
         groups.remove(group);
     }
     public static Optional<Group> findGroupByName(String name) {

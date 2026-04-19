@@ -19,7 +19,6 @@ public class Group {
             students.add(student);
         }
     }
-
     public String getName() { return name; }
     public Department getDepartment() { return department; }
     public List<Student> getStudents() { return students; }
@@ -31,9 +30,8 @@ public class Group {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Group)) return false;
-        Group group = (Group) o;
-        return Objects.equals(name, group.name) && Objects.equals(department, group.department);
+        if (!(o instanceof Group group)) return false;
+        return name.equals(group.name) && department.equals(group.department);
     }
 
     @Override

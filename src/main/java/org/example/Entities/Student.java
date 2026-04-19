@@ -47,7 +47,9 @@ public class Student extends Person {
         return group.getName(); }
 
     public Faculty getFaculty() {
-        return group.getDepartment().getFaculty();
+        if(group!=null&&group.getDepartment()!=null)
+            return group.getDepartment().getFaculty();
+        return null;
     }
     public void changeCourse(int newCourse) {
         if (newCourse < 1 || newCourse > 6) {
@@ -90,7 +92,9 @@ public class Student extends Person {
         return phone;
     }
     public String getFacultyName(){
-        return getFaculty().getShortName();
+        if(getFaculty()!=null)
+            return getFaculty().getShortName();
+        return "none";
     }
     public void changeStatus(String newStatus) {
         if (newStatus == null || newStatus.isEmpty()) {
@@ -129,4 +133,7 @@ public class Student extends Person {
         return Objects.hash(super.hashCode(), studentId);
     }
 
+    public void removeGroup() {
+        this.group=null;
+    }
 }
